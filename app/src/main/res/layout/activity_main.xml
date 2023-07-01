@@ -1,18 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    android:padding="20dp">
 
-    <TextView
-        android:layout_width="wrap_content"
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:weight="1"
+        android:weightSum="10">
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/main_logo_1" />
+    </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:weight="1"
+        android:weightSum="10">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="270dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="16dp"
+            android:boxBackgroundColor="#A6AFFF">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ed_id"
+                android:layout_width="270dp"
+                android:layout_height="60dp"
+                android:hint="id"
+                android:background="@drawable/round"
+                android:textColorHint="#616161"
+                android:textSize="6pt">
+            </com.google.android.material.textfield.TextInputEditText>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="270dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:hint="password"
+            android:layout_marginBottom="20dp"
+            android:boxBackgroundColor="#A6AFFF">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ed_pw"
+                android:background="@drawable/round"
+                android:layout_width="270dp"
+                android:layout_height="60dp"
+                android:textColorHint="#616161"
+                android:inputType="textPassword"
+                android:textSize="6pt">
+
+            </com.google.android.material.textfield.TextInputEditText>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/button_회원가입"
+            android:layout_width="170dp"
+            android:layout_height="60dp"
+            android:text="회원가입"
+            android:layout_margin="10dp"
+            android:layout_gravity="center"
+            android:textSize="17sp"
+            android:background="@drawable/round"
+            app:backgroundTint="#A6AFFF" />
+
+        <Button
+            android:id="@+id/button_로그인"
+            android:layout_width="170dp"
+            android:layout_height="60dp"
+            android:background="@drawable/round"
+            android:layout_margin="10dp"
+            android:layout_gravity="center"
+            android:text="로그인"
+            android:textSize="17sp"
+            app:backgroundTint="#A6AFFF" />
+    </LinearLayout>
+
+
+</LinearLayout>
