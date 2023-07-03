@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BookDarak_1">
         <activity
-            android:name=".SplashActivity"
+            android:name=".NaviActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
@@ -19,7 +19,7 @@
             android:name=".activity_singup"
             android:exported="false" />
         <activity
-            android:name=".NaviActivity"
+            android:name=".SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
