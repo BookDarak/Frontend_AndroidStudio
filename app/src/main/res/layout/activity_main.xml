@@ -15,7 +15,7 @@
         android:orientation="horizontal"
         android:gravity="center"
         android:layout_marginTop="20dp"
-        android:weight="1"
+        android:layout_weight="1"
         android:weightSum="10">
         <ImageView
             android:id="@+id/imageView"
@@ -32,7 +32,7 @@
         android:orientation="vertical"
         android:gravity="center"
         android:layout_marginTop="20dp"
-        android:weight="1"
+        android:layout_weight="1"
         android:weightSum="10">
 
         <com.google.android.material.textfield.TextInputLayout
@@ -40,7 +40,7 @@
             android:layout_height="60dp"
             android:layout_gravity="center"
             android:layout_marginBottom="16dp"
-            android:boxBackgroundColor="#A6AFFF">
+            android:background="#A6AFFF">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ed_id"
@@ -59,7 +59,7 @@
             android:layout_gravity="center"
             android:hint="password"
             android:layout_marginBottom="20dp"
-            android:boxBackgroundColor="#A6AFFF">
+            android:background="#A6AFFF">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ed_pw"
                 android:background="@drawable/round"
