@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BookDarak_1">
         <activity
+            android:name=".activity_bookinfo"
+            android:exported="false" />
+        <activity
             android:name=".NaviActivity"
             android:exported="false" />
         <activity

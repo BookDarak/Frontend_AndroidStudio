@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:gravity="top"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1"
+        android:gravity="top"
+        android:orientation="vertical"
+        android:weightSum="10">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/book_sample" />
+
+        <TextView
+            android:id="@+id/bookname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:text="2045 인공지능 미래보고서"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/writer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:text="저자 "
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/publisher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:text="출판사 "
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/publishdate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:text="발행일 "
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:text="판매가 "
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/bookinfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:text="책소개"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/content"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:ellipsize="end"
+            android:maxLines="5"
+            android:text="
+AI를 사용하는 사람이 될 것인가,아니면 AI에 대체되는 사람이 될 것인가AI 시대를 준비하는 가장 강력한 보고서!미래학자 레이 커즈와일은 2045년에는 AI가 인간의 능력과 지성을 따라잡을 것으로 예측했다. 이미 시작된 AI의 시대에 인간과 기업, 국가의 미래는 어떻게 될까. AI와 로봇이 인간의 직업 절반을 대체하게 될까. 인간은 AI와 어떻게 공존해나가야 하는 것일까?"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+
+            android:background="#ffffff">
+            <ImageView
+                android:id="@+id/boxview"
+                android:layout_width="400dp"
+                android:layout_height="181dp"
+                android:layout_centerInParent="true"
+                app:srcCompat="@drawable/box" />
+
+            <TextView
+                android:id="@+id/bowview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+
+                android:layout_alignBottom="@+id/boxview"
+                android:layout_alignLeft="@+id/boxview"
+                android:layout_alignRight="@+id/boxview"
+                android:layout_alignTop="@+id/boxview"
+                android:gravity="center"
+                android:paddingLeft="20dp"
+                android:text="서평"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="normal"
+                android:letterSpacing="0.04"
+                android:typeface="sans" />
+
+
+        </RelativeLayout>
+        <Button
+            android:id="@+id/button_record"
+            android:textStyle="bold"
+            android:layout_width="130dp"
+            android:layout_height="50dp"
+            android:text="기록하기"
+            android:layout_gravity="center"
+            android:textSize="17sp"
+            android:background="@drawable/round"
+            app:backgroundTint="#A6AFFF" />
+    </LinearLayout>
+
+</LinearLayout>
+
+
+
