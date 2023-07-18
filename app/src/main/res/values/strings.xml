@@ -2,4 +2,7 @@
     <string name="app_name">BookDarak_1</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="back_button">Back</string>
+    <string name="bookmark_button">Bookmark</string>
+    <string name="content">미래학자 레이 커즈와일은 2045년에는 AI가 인간의 능력과 지성을 따라잡을 것으로 예측했다. 이미 시작된 AI의 시대에 인간과 기업, 국가의 미래는 어떻게 될까. AI와 로봇이 인간의 직업 절반을 대체하게 될까. 인간은 AI와 어떻게 공존해나가야 하는 것일까? 이 책은 일본경제신문사에서 1년여 동안 심혈을 기울여 진행한 기획 기사 ‘AI와 세계’를 정리해서 엮은 것이다. 40명이 넘는 기자가 참여한 대규모 기획물로, AI 세상의 개척자들을 직접 만나 앞으로 AI가 미칠 영향력에 대해 인터뷰하고 분석했다. </string>
 </resources>

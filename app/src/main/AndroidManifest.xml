@@ -13,13 +13,16 @@
             android:name=".NaviActivity"
             android:exported="false" />
         <activity
+            android:name=".SplashActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="false" />
         <activity
             android:name=".activity_singup"
             android:exported="false" />
         <activity
-            android:name=".SplashActivity"
+            android:name=".BookinfoActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
