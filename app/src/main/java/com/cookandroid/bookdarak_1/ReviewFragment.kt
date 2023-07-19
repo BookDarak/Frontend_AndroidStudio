@@ -22,8 +22,8 @@ class ReviewFragment : Fragment() {
 
         // Prepare reviews
         val reviews = listOf(
-            Review("제목 1", "내용 1"),
-            Review("제목 2", "내용 2"),
+            Review("책먹는 여우", "내용 1"),
+            Review("하마랑 책읽기", "내용 2"),
             Review("제목 3", "내용 3")
         )
 
