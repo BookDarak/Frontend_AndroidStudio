@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AlertDialog
+import kotlinx.android.synthetic.main.activity_main.*
 
 class activity_main : AppCompatActivity() {
 
@@ -44,7 +45,7 @@ class activity_main : AppCompatActivity() {
 
         // 회원가입 버튼
         button_register.setOnClickListener {
-            val intent = Intent(this, Register::class.java)
+            val intent = Intent(this, activity_singup::class.java)
             startActivity(intent)
         }
 

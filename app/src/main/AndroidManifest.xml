@@ -10,22 +10,25 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BookDarak_1">
         <activity
+            android:name=".RecommendActivity"
+            android:exported="false" />
+        <activity
+            android:name=".BookinfoActivity"
+            android:exported="false" />
+        <activity
             android:name=".MyPage"
             android:exported="false" />
         <activity
             android:name=".writingreview"
             android:exported="false" />
         <activity
-            android:name=".activity_bookinfo"
-            android:exported="false" />
-        <activity
             android:name=".NaviActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activity_singup"
             android:exported="false" />
         <activity
-            android:name=".activity_singup"
+            android:name=".MainActivity"
             android:exported="false" />
         <activity
             android:name=".SplashActivity"
