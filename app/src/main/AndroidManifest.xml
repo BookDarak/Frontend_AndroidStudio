@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BookDarak_1">
         <activity
+            android:name=".searchbook"
+            android:exported="false" />
+        <activity
+            android:name=".Userpage"
+            android:exported="false" />
+        <activity
             android:name=".RecommendActivity"
             android:exported="false" />
         <activity
