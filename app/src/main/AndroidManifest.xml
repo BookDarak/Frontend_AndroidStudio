@@ -34,7 +34,7 @@
             android:name=".activity_singup"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activity_main"
             android:exported="false" />
         <activity
             android:name=".SplashActivity"
