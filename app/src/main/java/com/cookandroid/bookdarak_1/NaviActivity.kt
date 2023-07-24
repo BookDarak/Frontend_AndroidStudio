@@ -23,8 +23,10 @@ class NaviActivity : AppCompatActivity() {
         binding = ActivityNaviBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
+        // Set initial fragment
         setFragment(TAG_HOME, HomeFragment())
+        // Set initial selected item in the navigation bar
+        binding.navigationView.selectedItemId = R.id.homeFragment
 
         binding.navigationView.setOnItemSelectedListener { item ->
             when(item.itemId) {
@@ -37,6 +39,8 @@ class NaviActivity : AppCompatActivity() {
             true
         }
     }
+
+
 
     private fun setFragment(tag: String, fragment: Fragment) {
         val manager: FragmentManager = supportFragmentManager
