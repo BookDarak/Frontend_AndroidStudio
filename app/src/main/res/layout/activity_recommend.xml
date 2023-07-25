@@ -92,7 +92,6 @@
             android:id="@+id/image_rec1_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:weight="1"
             android:padding="10dp"
             android:src="@drawable/book_sample" />
 
@@ -100,7 +99,6 @@
             android:id="@+id/image_rec1_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:weight="1"
             android:padding="10dp"
             android:src="@drawable/book_sample" />
 
@@ -108,7 +106,6 @@
             android:id="@+id/image_rec1_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:weight="1"
             android:padding="10dp"
             android:src="@drawable/book_sample" />
 
@@ -151,7 +148,6 @@
                 android:id="@+id/image_rec2_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:weight="1"
                 android:padding="10dp"
                 android:src="@drawable/book_sample" />
 
@@ -159,7 +155,6 @@
                 android:id="@+id/image_rec2_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:weight="1"
                 android:padding="10dp"
                 android:src="@drawable/book_sample" />
 
@@ -167,7 +162,6 @@
                 android:id="@+id/image_rec2_3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:weight="1"
                 android:padding="10dp"
                 android:src="@drawable/book_sample" />
 
@@ -210,7 +204,6 @@
                 android:id="@+id/image_rec3_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:weight="1"
                 android:padding="10dp"
                 android:src="@drawable/book_sample" />
 
@@ -218,7 +211,6 @@
                 android:id="@+id/image_rec3_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:weight="1"
                 android:padding="10dp"
                 android:src="@drawable/book_sample" />
 
@@ -226,7 +218,6 @@
                 android:id="@+id/image_rec3_3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:weight="1"
                 android:padding="10dp"
                 android:src="@drawable/book_sample" />
 
