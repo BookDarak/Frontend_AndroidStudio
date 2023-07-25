@@ -15,7 +15,7 @@
             android:id="@+id/backButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/backbutton"
+            android:src="@drawable/back_button"
             android:background="@android:color/transparent"
             android:contentDescription="@string/back_button" />
 
