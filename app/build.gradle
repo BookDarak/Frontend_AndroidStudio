@@ -60,5 +60,6 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:2.4.0")
     implementation("androidx.navigation:navigation-ui-ktx:2.4.0")
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
+    implementation 'com.github.sundeepk:compact-calendar-view:3.0.0'
 
 }
