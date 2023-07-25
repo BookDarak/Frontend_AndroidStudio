@@ -23,20 +23,24 @@ class NaviActivity : AppCompatActivity() {
         binding = ActivityNaviBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
+        // Set initial fragment
         setFragment(TAG_HOME, HomeFragment())
+        // Set initial selected item in the navigation bar
+        binding.navigationView.selectedItemId = R.id.homeFragment
 
         binding.navigationView.setOnItemSelectedListener { item ->
             when(item.itemId) {
                 R.id.calenderFragment -> setFragment(TAG_CALENDER, CalendarFragment())
                 R.id.homeFragment -> setFragment(TAG_HOME, HomeFragment())
                 R.id.myPageFragment-> setFragment(TAG_MY_PAGE, MyPageFragment())
-                R.id.reviewFragment -> setFragment(TAG_REVIEW, ReviewFragment())
+                //R.id.reviewFragment -> setFragment(TAG_REVIEW, ReviewFragment())
                 R.id.findFragment -> setFragment(TAG_FIND, FindFragment())
             }
             true
         }
     }
+
+
 
     private fun setFragment(tag: String, fragment: Fragment) {
         val manager: FragmentManager = supportFragmentManager
