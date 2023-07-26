@@ -15,9 +15,13 @@
             android:exported="false" />
 
         <activity
-            android:name=".BookmarkActivity"
-            android:exported="false">
+            android:name=".NaviActivity"
+            android:exported="true">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
 
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
         </activity>
 
         <activity
@@ -25,12 +29,7 @@
             android:exported="false" />
         <activity
             android:name=".BookinfoActivity"
-            android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:exported="false" >
 
         </activity>
 
@@ -44,7 +43,7 @@
             android:name=".SplashActivity"
             android:exported="false" />
         <activity
-            android:name=".NaviActivity"
+            android:name=".BookmarkActivity"
             android:exported="false">
 
         </activity>
