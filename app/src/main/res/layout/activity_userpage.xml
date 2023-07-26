@@ -204,7 +204,6 @@
                     android:id="@+id/image_user_library1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:weight="1"
                     android:padding="10dp"
                     android:src="@drawable/book_sample" />
 
@@ -212,7 +211,6 @@
                     android:id="@+id/image_user_library2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:weight="1"
                     android:padding="10dp"
                     android:src="@drawable/book_sample" />
 
@@ -220,7 +218,6 @@
                     android:id="@+id/image_user_library3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:weight="1"
                     android:padding="10dp"
                     android:src="@drawable/book_sample" />
 
