@@ -15,7 +15,7 @@
             android:exported="false" />
 
         <activity
-            android:name=".BookmarkActivity"
+            android:name=".NaviActivity"
             android:exported="true">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
@@ -43,7 +43,7 @@
             android:name=".SplashActivity"
             android:exported="false" />
         <activity
-            android:name=".NaviActivity"
+            android:name=".BookmarkActivity"
             android:exported="false">
 
         </activity>
