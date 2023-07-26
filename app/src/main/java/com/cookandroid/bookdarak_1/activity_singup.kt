@@ -19,7 +19,7 @@ class activity_singup : AppCompatActivity() {
         setContentView(R.layout.activity_singup)
 
         btn_join.setOnClickListener {
-            val intent = Intent(this, RecommendActivity::class.java)
+            val intent = Intent(this, HomeFragment::class.java)
             startActivity(intent)
         }
 
