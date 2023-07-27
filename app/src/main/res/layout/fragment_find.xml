@@ -53,18 +53,29 @@
                 android:orientation="vertical"
                 >
 
-                <SearchView
+                <EditText
                     android:id="@+id/edit_find"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="검색어 입력"
-                    android:iconifiedByDeFault="false" />
+                    android:lines="2"
+                    android:inputType="text"
+                     />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerView"
+                    android:id="@+id/recyclerView_booklist"
                     android:layout_width="match_parent"
-                    android:layout_height="627dp" />
+                    android:layout_height="wrap_content"
+                    tools:listitem="@layout/findbook_item"
+
+                    />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView_booklist_history"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:background="FFFFFFF"
+                     />
             </LinearLayout>
 
 

@@ -1,0 +1,44 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#FCFCFF"
+    android:orientation="horizontal"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/image_bookcover"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/book_sample" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/text_booktitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="책 제목"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/text_bookauthor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16dp"
+            android:text="저자" />
+
+        <TextView
+            android:id="@+id/text_bookdescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14dp"
+            android:text="책 설명" />
+
+    </LinearLayout>
+
+</LinearLayout>
+
