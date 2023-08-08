@@ -1,13 +1,14 @@
 package com.cookandroid.bookdarak_1
 
-import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import kotlinx.android.synthetic.main.activity_main.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class activity_main : AppCompatActivity() {
 
@@ -17,30 +18,34 @@ class activity_main : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
-        // 로그인 버튼
-
         button_login.setOnClickListener {
+            val id = edit_id.text.toString()
+            val pw = edit_pw.text.toString()
 
-            //editText로부터 입력된 값을 받아온다
+            val loginRequest = LoginRequest(id, pw)
 
-            var id = edit_id.text.toString()
-            var pw = edit_pw.text.toString()
+            ApiClient.service.login(loginRequest).enqueue(object: Callback<LoginResponse> {
+                override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
+                    if (response.isSuccessful && response.body()?.isSuccess == true) {
+                        val userId = response.body()?.result?.userId ?: -1
+                        Log.d(TAG, "Logged in user ID: $userId")
 
-            // 쉐어드로부터 저장된 id, pw 가져오기
-            val sharedPreference = getSharedPreferences("file name", Context.MODE_PRIVATE)
-            val savedId = sharedPreference.getString("id", "")
-            val savedPw = sharedPreference.getString("pw", "")
+                        // 로그인 성공시 NaviActivity로 이동
+                        val intent = Intent(this@activity_main, NaviActivity::class.java)
+                        startActivity(intent)
+                    } else {
+                        when(response.body()?.code) {
+                            2014, 2015 -> dialog("이메일 오류")
+                            2016, 2027 -> dialog("비밀번호 오류")
+                            else -> dialog("fail")
+                        }
+                    }
+                }
 
-            // 유저가 입력한 id, pw값과 쉐어드로 불러온 id, pw값 비교
-            if(id == savedId && pw == savedPw){
-                // 로그인 성공 다이얼로그 보여주기
-                dialog("success")
-            }
-            else{
-                // 로그인 실패 다이얼로그 보여주기
-                dialog("fail")
-            }
+                override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                    dialog("서버 연결 실패")
+                }
+            })
         }
 
         // 회원가입 버튼
@@ -48,32 +53,37 @@ class activity_main : AppCompatActivity() {
             val intent = Intent(this, activity_singup::class.java)
             startActivity(intent)
         }
-
     }
-
 
     fun dialog(type: String){
         var dialog = AlertDialog.Builder(this)
 
-        if(type.equals("success")){
-            dialog.setTitle("로그인 성공")
-            dialog.setMessage("로그인 성공!")
-        }
-        else if(type.equals("fail")){
-            dialog.setTitle("로그인 실패")
-            dialog.setMessage("아이디와 비밀번호를 확인해주세요")
-        }
-
-        var dialog_listener = object: DialogInterface.OnClickListener{
-            override fun onClick(dialog: DialogInterface?, which: Int) {
-                when(which){
-                    DialogInterface.BUTTON_POSITIVE ->
-                        Log.d(TAG, "")
-                }
+        when(type) {
+            "success" -> {
+                dialog.setTitle("로그인 성공")
+                dialog.setMessage("로그인 성공!")
+            }
+            "fail" -> {
+                dialog.setTitle("로그인 실패")
+                dialog.setMessage("아이디와 비밀번호를 확인해주세요")
+            }
+            "이메일 오류" -> {
+                dialog.setTitle("로그인 실패")
+                dialog.setMessage("이메일 주소가 올바르지 않습니다.")
+            }
+            "비밀번호 오류" -> {
+                dialog.setTitle("로그인 실패")
+                dialog.setMessage("비밀번호가 올바르지 않습니다.")
+            }
+            "서버 연결 실패" -> {
+                dialog.setTitle("로그인 실패")
+                dialog.setMessage("서버와 연결할 수 없습니다. 다시 시도해주세요.")
             }
         }
 
-        dialog.setPositiveButton("확인",dialog_listener)
+        dialog.setPositiveButton("확인") { _, _ ->
+            Log.d(TAG, "User acknowledged the dialog")
+        }
         dialog.show()
     }
 }
