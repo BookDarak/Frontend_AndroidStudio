@@ -61,7 +61,8 @@ dependencies {
     implementation 'com.github.sundeepk:compact-calendar-view:3.0.0'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0' // Retrofit 라이브러리
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0' // Gson 컨버터
-
+    implementation 'com.google.code.gson:gson:2.9.0'
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
 
 
 }
