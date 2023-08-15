@@ -7,10 +7,10 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
     data class FindBookListDTO(
-        @SerializedName("Title") val title : String = "",
-        @SerializedName("Author") val author : String = "",
-        @SerializedName("description") val description:String= "",
-        @SerializedName("coverurl") val coverurl:String= "",
+        @SerializedName("title") val title : String = "",
+        @SerializedName("authors") val authors:Array<String>,
+        @SerializedName("contents") val contents:String= "",
+        @SerializedName("thumbnail") val thumbnail:String= "",
 
 
 

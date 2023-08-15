@@ -3,21 +3,21 @@ package com.cookandroid.bookdarak_1
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.bumptech.glide.Glide
-import com.cookandroid.bookdarak_1.databinding.ActivityDetailBinding
-import com.cookandroid.bookdarak_1.model.Book
-import com.cookandroid.bookdarak_1.model.Review
+import com.cookandroid.bookdarak_1.databinding.ActivityWritingreviewBinding
+import model.FindBookListDTO
+import model.FindBook_reviewmodel
 
 class writingreview : AppCompatActivity() {
 
-    private lateinit var binding: ActivityDetailBinding
+    private lateinit var binding: ActivityWritingreviewBinding
 
-    private lateinit var db: AppDatabase
+    private lateinit var db: FindBook_datamigration
 
-    private var model: Book? = null
+    private var model: FindBookListDTO? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityDetailBinding.inflate(layoutInflater)
+        binding = ActivityWritingreviewBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         db = getAppDatabase(this)
@@ -30,12 +30,12 @@ class writingreview : AppCompatActivity() {
     }
 
     private fun initSaveButton() {
-        binding.saveButton.setOnClickListener {
+        binding.buttonRecord.setOnClickListener {
             Thread {
                 db.reviewDao().saveReview(
-                    Review(
-                        model?.id?.toInt() ?: 0,
-                        binding.reviewEditText.text.toString()
+                    FindBook_reviewmodel(
+                        model?.toString()?: 0,
+                        binding.editReview.text.toString()
                     )
                 )
             }.start()
@@ -44,21 +44,20 @@ class writingreview : AppCompatActivity() {
 
     private fun renderView() {
 
-        binding.titleTextView.text = model?.title.orEmpty()
+        binding.textWritingreviewBooktitle.text = model?.title.orEmpty()
 
-        binding.descriptionTextView.text = model?.description.orEmpty()
 
-        Glide.with(binding.coverImageView.context)
-            .load(model?.coverLargeUrl.orEmpty())
-            .into(binding.coverImageView)
+        Glide.with(binding.imageWritingreviewBookcover.context)
+            .load(model?.thumbnail.orEmpty())
+            .into(binding.imageWritingreviewBookcover)
 
 
         // 저장된 리뷰 데이터 가져오기;
         Thread {
-            val review = db.reviewDao().getOneReview(model?.id?.toInt() ?: 0)
+            val review = db.reviewDao().getOneReview(model?.title?.toString() ?: title)//findbooklistdto에 id있어야오류해결
             review?.let {
                 runOnUiThread {
-                    binding.reviewEditText.setText(it.review)
+                    binding.editReview.setText(it.review)
                 }
             }
         }.start()

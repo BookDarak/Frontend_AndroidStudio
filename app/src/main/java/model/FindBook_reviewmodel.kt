@@ -6,6 +6,6 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class FindBook_reviewmodel (
-    @PrimaryKey val id : Int?,
+    @PrimaryKey val title: String?,
     @ColumnInfo(name="review") val review: String?
 )

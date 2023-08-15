@@ -2,18 +2,17 @@ package com.cookandroid.bookdarak_1
 
 import API.FindbookAPI
 import adapter.BookFindAdapter
+import adapter.BookFind_historyAdapter
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
-import androidx.databinding.DataBindingUtil.setContentView
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.cookandroid.bookdarak_1.databinding.ActivityMainBinding
-import model.Book
-import model.FindBookDTO
+import model.FindBookListDTO
+import model.FindBook_historymodel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -43,9 +42,9 @@ class FindFragment : Fragment() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var bookRecyclerViewAdapter: BookFindAdapter
     private lateinit var bookService: FindbookAPI
-    private lateinit var historyAdapter: HistoryAdapter
+    private lateinit var historyAdapter: BookFind_historyAdapter
 
-    private val db: AppDatabase by lazy {
+    private val db: FindBook_datamigration by lazy {
         getAppDatabase(this)
     }
 
@@ -56,7 +55,7 @@ class FindFragment : Fragment() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         //setContentView(binding.root)
 
-        initBookService()
+        initFindbookAPI()
 
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
@@ -64,21 +63,21 @@ class FindFragment : Fragment() {
         }
     }
 
-    private fun initBookService() {
+    private fun initFindbookAPI() {//api호출하기
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://book.interpark.com/") // 인터파크 베이스 주소;
+            .baseUrl("https://dapi.kakao.com/v3/search/book") // 인터파크 베이스 주소;
             .addConverterFactory(GsonConverterFactory.create()) // Gson 변환기 사용;
             .build()
 
-        bookService = retrofit.create(BookService::class.java)
+        bookService = retrofit.create(FindbookAPI::class.java)
     }
 
     private fun initBookRecyclerView() {
-        bookRecyclerViewAdapter = BookAdapter(itemClickedListener = {
-            val intent = Intent(this, DetailActivity::class.java)
+        bookRecyclerViewAdapter = BookFindAdapter(itemClickedListener = {
+            val intent = Intent(this, writingreview::class.java)
 
             // 직렬화 해서 넘길 것.
-            intent.putExtra("bookModel", it)
+            intent.putExtra("bookModel", it)//북모델바꿔야되나
             startActivity(intent)
         })
 
@@ -87,7 +86,7 @@ class FindFragment : Fragment() {
     }
 
     private fun initHistoryRecyclerView() {
-        historyAdapter = HistoryAdapter(historyDeleteClickListener = {
+        historyAdapter = BookFind_historyAdapter(historyDeleteClickListener = {
             deleteSearchKeyword(it)
         }, this)
 
@@ -100,13 +99,13 @@ class FindFragment : Fragment() {
 
     fun bookServiceSearchBook(keyword: String) {
 
-        bookService.getBooksByName(getString(R.string.interparkAPIKey), keyword)
-            .enqueue(object : Callback<SearchBookDto> {
+        bookService.Bookname(getString(R.string.interparkAPIKey), keyword)
+            .enqueue(object : Callback<FindBookListDTO> {
                 // 성공.
 
                 override fun onResponse(
-                    call: Call<SearchBookDto>,
-                    response: Response<SearchBookDto>
+                    call: Call<FindBookListDTO>,
+                    response: Response<FindBookListDTO>
                 ) {
                     hideHistoryView()
                     saveSearchKeyword(keyword)
@@ -119,7 +118,7 @@ class FindFragment : Fragment() {
                 }
 
                 // 실패.
-                override fun onFailure(call: Call<SearchBookDto>, t: Throwable) {
+                override fun onFailure(call: Call<FindBookListDTO>, t: Throwable) {
                     hideHistoryView()
                     Log.e(M_TAG, t.toString())
                 }
@@ -128,7 +127,7 @@ class FindFragment : Fragment() {
 
     private fun saveSearchKeyword(keyword: String) {
         Thread {
-            db.historyDao().insertHistory(History(null, keyword))
+            db.historyDao().insertHistory(FindBook_historymodel(null, keyword))
         }.start()
     }
 
@@ -175,8 +174,7 @@ class FindFragment : Fragment() {
         }
     }
 
-    companion object {
-        private const val M_TAG = "MainActiv
+
 
 
         override fun onCreateView(
@@ -208,5 +206,5 @@ class FindFragment : Fragment() {
                     }
                 }
         }
-    }
+
 }

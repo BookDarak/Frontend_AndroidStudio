@@ -19,8 +19,8 @@ class BookFind_historyAdapter(val historyDeleteClickListener: (String) -> Unit, 
             RecyclerView.ViewHolder(binding.root) {
 
             fun bind(historyModel: FindBook_historymodel) {
-                binding.text_FindBook_searchhistory.text = historyModel.keyword
-                binding.button_FindBook_searchhistory_delet.setOnClickListener {
+                binding.textFindBookSearchhistory.text = historyModel.keyword
+                binding.buttonFindBookSearchhistoryDelet.setOnClickListener {
                     historyDeleteClickListener(historyModel.keyword.orEmpty())
                 }
 

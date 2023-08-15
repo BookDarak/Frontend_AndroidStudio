@@ -1,18 +1,19 @@
 package API
 
 
-import model.FindBookDTO
+import model.FindBookListDTO
 import retrofit2.http.GET
 import retrofit2.http.Query
 import retrofit2.Call
+import retrofit2.http.Headers
 
 
 interface FindbookAPI {
-
-        @GET("https://dapi.kakao.com/v3/search/book?output=json")
+        @Headers("Authorization: KakaoAK $API_KEY")
+        @GET("v3/search/book")
         fun Bookname(
-            @Query("key") apiKey:String,
+            //@Query("key") apiKey:String,>요청파라미터에 key는 없음
             @Query("query") keyword:String
 
-        ): Call<FindBookDTO>
+        ): Call<FindBookListDTO>
     }

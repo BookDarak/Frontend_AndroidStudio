@@ -12,7 +12,7 @@ import dao.FindBook_reviewDAO
 import model.FindBook_historymodel
 import model.FindBook_reviewmodel
 
-@Database(entities = [FindBook_historymodel::class, FindBook_reviewmodel::class], version = 2)
+@Database(entities = [FindBook_historymodel::class, FindBook_reviewmodel::class], version = 1)
 abstract class FindBook_datamigration : RoomDatabase(){
     abstract fun historyDao(): FindBook_historyDAO
     abstract fun reviewDao(): FindBook_reviewDAO

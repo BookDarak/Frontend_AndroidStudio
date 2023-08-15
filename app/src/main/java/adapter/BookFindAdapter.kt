@@ -20,8 +20,9 @@ class BookFindAdapter(private val itemClickedListener: (FindBookListDTO)->Unit) 
     inner class BookItemViewHolder(private val binding: FindbookItemBinding): RecyclerView.ViewHolder(binding.root){
 
         fun bind(bookModel: FindBookListDTO){
-            binding.textBooktitle.text = bookModel.title
-            binding.textBookdescription.text = bookModel.description
+            binding.textBooktitle.text = bookModel.title//findbookitem에 잇는 id를 언더바제거하고 작성
+            binding.textBookcontents.text = bookModel.contents
+
 
             binding.root.setOnClickListener {
                 itemClickedListener(bookModel)
@@ -30,7 +31,7 @@ class BookFindAdapter(private val itemClickedListener: (FindBookListDTO)->Unit) 
             // Glide 사용 하기
             Glide
                 .with(binding.imageBookcover.context)
-                .load(bookModel.coverurl)
+                .load(bookModel.thumbnail)
                 .into(binding.imageBookcover)
         }
     }
