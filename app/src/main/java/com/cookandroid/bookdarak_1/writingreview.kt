@@ -1,15 +1,10 @@
 package com.cookandroid.bookdarak_1
 
 import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import com.bumptech.glide.Glide
-import com.cookandroid.bookdarak_1.databinding.ActivityWritingreviewBinding
-import model.FindBookListDTO
-import model.FindBook_reviewmodel
 
 class writingreview : AppCompatActivity() {
 
-    private lateinit var binding: ActivityWritingreviewBinding
+    /*private lateinit var binding: ActivityWritingreviewBinding
 
     private lateinit var db: FindBook_datamigration
 
@@ -27,9 +22,9 @@ class writingreview : AppCompatActivity() {
         renderView()
 
         initSaveButton()
-    }
+    }*/
 
-    private fun initSaveButton() {
+    /*private fun initSaveButton() {
         binding.buttonRecord.setOnClickListener {
             Thread {
                 db.reviewDao().saveReview(
@@ -40,9 +35,9 @@ class writingreview : AppCompatActivity() {
                 )
             }.start()
         }
-    }
+    }*/
 
-    private fun renderView() {
+    /*private fun renderView() {
 
         binding.textWritingreviewBooktitle.text = model?.title.orEmpty()
 
@@ -61,6 +56,6 @@ class writingreview : AppCompatActivity() {
                 }
             }
         }.start()
-    }
+    }*/
 }
 

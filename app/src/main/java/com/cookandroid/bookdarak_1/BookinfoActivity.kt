@@ -6,19 +6,18 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_bookinfo.*
 
-class BookinfoActivity: AppCompatActivity() {
+class BookinfoActivity : AppCompatActivity() {
     private var bookmarked = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bookinfo)
 
-        writebutton.setOnClickListener({
+        findViewById<ImageButton>(R.id.writebutton).setOnClickListener {
             val intent = Intent(this, writingreview::class.java)
             startActivity(intent)
-        })
+        }
 
         val backButton = findViewById<ImageButton>(R.id.backButton)
         val bookmarkButton = findViewById<ImageButton>(R.id.bookmarkButton)
@@ -34,7 +33,7 @@ class BookinfoActivity: AppCompatActivity() {
         var isBookmarked = false
         bookmarkButton.setOnClickListener {
             isBookmarked = !isBookmarked
-            if(isBookmarked){
+            if (isBookmarked) {
                 bookmarkButton.setImageResource(R.drawable.bookmarks_icon_colored)
             } else {
                 bookmarkButton.setImageResource(R.drawable.bookmarks_icon)
@@ -44,14 +43,12 @@ class BookinfoActivity: AppCompatActivity() {
         // Expand/Collapse button click event
         expandButton.setOnClickListener {
             if (content.maxLines == 5) {
-                content.maxLines = Integer.MAX_VALUE  // 전체 텍스트 표시
-                expandButton.text = "접기"  // 버튼 텍스트 변경
+                content.maxLines = Integer.MAX_VALUE // Display the full text
+                expandButton.text = "접기" // Change button text
             } else {
-                content.maxLines = 5  // 텍스트를 5줄까지만 표시
-                expandButton.text = "자세히 보기"  // 버튼 텍스트 변경
+                content.maxLines = 5 // Display up to 5 lines of text
+                expandButton.text = "자세히 보기" // Change button text
             }
-
         }
     }
-
 }

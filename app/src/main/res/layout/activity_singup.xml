@@ -96,7 +96,7 @@
 
 
         <EditText
-            android:id="@+id/editText_passWord"
+            android:id="@+id/editText_password_re"
             android:layout_width="310dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"

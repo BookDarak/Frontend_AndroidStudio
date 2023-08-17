@@ -3,7 +3,12 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'kotlin-android'
-    id 'kotlin-android-extensions'
+    id 'kotlin-parcelize'
+    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
+    id 'dagger.hilt.android.plugin'
+    id 'androidx.navigation.safeargs.kotlin'
+
+
 }
 
 android {
@@ -66,6 +71,89 @@ dependencies {
     kapt 'androidx.room:room-compiler:2.5.2'
     implementation 'androidx.room:room-runtime:2.5.2'
     kapt "com.android.databinding:compiler:3.1.4"
+
+
+
+    // Test
+    testImplementation(Testing.junit4)
+    testImplementation(Testing.textExtTruth)
+    testImplementation(Testing.textRunner)
+    testImplementation(Testing.roboletric)
+    testImplementation(Testing.testExtJunit)
+    testImplementation(Testing.testCore)
+    testImplementation(Testing.coroutineTest)
+
+    androidTestImplementation(Testing.testExtJunit)
+    androidTestImplementation(Testing.espressoCore)
+    androidTestImplementation(Testing.espressoContrib)
+    androidTestImplementation(Testing.hamcrest)
+    androidTestImplementation(Testing.testCore)
+    androidTestImplementation(Testing.textExtTruth)
+    androidTestImplementation(Testing.textRunner)
+    androidTestImplementation(Testing.coroutineTest)
+    androidTestImplementation(Testing.hiltAndroidTesting)
+    kaptAndroidTest(Testing.hiltAndroidCompiler)
+
+    // Retrofit
+    implementation(Dependencies.retrofit)
+    implementation(Dependencies.retrofitConverterMoshi)
+
+    // Moshi
+    implementation(Dependencies.moshi)
+    kapt(Dependencies.moshiKapt)
+
+    // Okhttp
+    implementation(Dependencies.okhttp)
+    implementation(Dependencies.okhttpLoggingInterceptor)
+
+    // Lifecycle
+    implementation(Dependencies.lifecycleViewmodelKtx)
+    implementation(Dependencies.lifecycleRuntimeKtx)
+    implementation(Dependencies.lifecycleViewmodelSavedstate)
+
+    // Coroutine
+    implementation(Dependencies.coroutinesCore)
+    implementation(Dependencies.coroutinesAndroid)
+
+    // Coil
+    implementation(Dependencies.coil)
+
+    // Recyclerview
+    implementation(Dependencies.recyclerview)
+
+    // Navigation
+    implementation(Dependencies.navigationFragementKtx)
+    implementation(Dependencies.navigationUiKtx)
+
+    // Room
+    implementation(Dependencies.roomRuntime)
+    implementation(Dependencies.roomKtx)
+    kapt(Dependencies.roomKapt)
+    implementation(Dependencies.roomPaging)
+
+    // Kotlin serialization
+    implementation(Dependencies.kotlinSerialization)
+
+    // DataStore
+    implementation(Dependencies.preferencesDatastore)
+
+    // Paging
+    implementation(Dependencies.paging)
+
+    // WorkManager
+    implementation(Dependencies.workmanager)
+
+    // Hilt
+    implementation(Dependencies.daggerHilt)
+    kapt(Dependencies.daggerHiltKapt)
+
+    // ViewModel delegate
+    implementation(Dependencies.activityKtx)
+    implementation(Dependencies.fragmentKtx)
+
+    // Hilt extension
+    implementation(Dependencies.hiltExtensionWork)
+    kapt(Dependencies.hitlExtensionKapt)
 
 
 

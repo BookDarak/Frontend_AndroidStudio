@@ -1,23 +1,9 @@
 package com.cookandroid.bookdarak_1
 
-import API.FindbookAPI
-import adapter.BookFindAdapter
-import adapter.BookFind_historyAdapter
-import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.cookandroid.bookdarak_1.databinding.ActivityMainBinding
-import model.FindBookListDTO
-import model.FindBook_historymodel
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -40,7 +26,7 @@ class FindFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var binding: ActivityMainBinding
-    private lateinit var bookRecyclerViewAdapter: BookFindAdapter
+   /* private lateinit var bookRecyclerViewAdapter: BookFindAdapter
     private lateinit var bookService: FindbookAPI
     private lateinit var historyAdapter: BookFind_historyAdapter
 
@@ -183,7 +169,7 @@ class FindFragment : Fragment() {
         ): View? {
             // Inflate the layout for this fragment
             return inflater.inflate(R.layout.fragment_find, container, false)
-        }
+        }*/
 
         companion object {
             /**

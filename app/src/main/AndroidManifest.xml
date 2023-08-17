@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.cookandroid.bookdarak_1">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -13,6 +14,30 @@
         android:usesCleartextTraffic="true"
         android:theme="@style/Theme.BookDarak_1">
 
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            android:exported="false"
+            tools:node="merge">
+            <!-- If you are using androidx.startup to initialize other components -->
+            <meta-data
+                android:name="androidx.work.WorkManagerInitializer"
+                android:value="androidx.startup"
+                tools:node="remove" />
+        </provider>
+
+        <activity
+            android:name=".ui.view.MajorActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+
+
         <activity
             android:name=".Userpage"
             android:exported="false" />
@@ -20,11 +45,7 @@
         <activity
             android:name=".SplashActivity"
             android:exported="true">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
         </activity>
 
         <activity
@@ -37,10 +58,10 @@
         </activity>
 
         <activity
-            android:name=".activity_singup"
+            android:name=".SingupActivity"
             android:exported="false" />
         <activity
-            android:name=".activity_main"
+            android:name=".MainActivity"
             android:exported="false" />
         <activity
             android:name=".NaviActivity"

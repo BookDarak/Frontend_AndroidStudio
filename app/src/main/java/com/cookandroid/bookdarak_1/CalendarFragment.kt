@@ -2,21 +2,19 @@ package com.cookandroid.bookdarak_1
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.sundeepk.compactcalendarview.CompactCalendarView
 import com.github.sundeepk.compactcalendarview.domain.Event
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
-import adapter.BookAdapter
-import android.util.Log
 import model.Book
-import androidx.fragment.app.Fragment
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class CalendarFragment : Fragment() {
@@ -69,7 +67,7 @@ class CalendarFragment : Fragment() {
 
         bookRecyclerView.layoutManager = LinearLayoutManager(context)
         Log.d("CalendarFragment", "Books: $books")
-        bookRecyclerView.adapter = BookAdapter(books)
+        bookRecyclerView.adapter = BookmarkActivity.BookAdapter(books)
 
         return view
     }
