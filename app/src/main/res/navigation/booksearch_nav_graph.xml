@@ -43,6 +43,6 @@
         tools:layout="@layout/fragment_book">
         <argument
             android:name="fbook"
-            app:argType="com.cookandroid.bookdarak_1.data.model.Book" />
+            app:argType="com.cookandroid.bookdarak_1.data.model.FBook" />
     </fragment>
 </navigation>

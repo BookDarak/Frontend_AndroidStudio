@@ -134,11 +134,11 @@ class FavoriteFragment: Fragment(){
                 //페이징 쓸 때
                 val position = viewHolder.bindingAdapterPosition
                 val pagedBook = bookSearchAdapter.peek(position)
-                pagedBook?.let { fBook ->
-                    favoriteViewModel.deleteBook(fBook)
+                pagedBook?.let { fbook ->
+                    favoriteViewModel.deleteBook(fbook)
                     Snackbar.make(view, "Book has deleted", Snackbar.LENGTH_SHORT).apply {
                         setAction("Undo") {
-                            favoriteViewModel.saveBook(fBook)
+                            favoriteViewModel.saveBook(fbook)
                         }
                     }.show()
                 }

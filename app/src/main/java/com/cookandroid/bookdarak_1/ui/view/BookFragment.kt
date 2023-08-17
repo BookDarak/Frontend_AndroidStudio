@@ -39,17 +39,17 @@ class BookFragment : Fragment(){
         //bookSearchViewModel = (activity as MainActivity).bookSearchViewModel
 
         //책 받아오고
-        val fBook = args.fbook
+        val FBook = args.fbook
         //웹뷰에 적용하기
         binding.webview.apply {
             webViewClient = WebViewClient()
             settings.javaScriptEnabled = true
-            loadUrl(fBook.url)
+            loadUrl(FBook.url)
         }
 
         //fab 클릭 리스너
         binding.fabFavor.setOnClickListener {
-            bookViewModel.saveBook(fBook)
+            bookViewModel.saveBook(FBook)
             Snackbar.make(view, "Book has saved", Snackbar.LENGTH_SHORT).show()
         }
     }

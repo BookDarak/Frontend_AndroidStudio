@@ -16,7 +16,6 @@ import model.Book
 import java.text.SimpleDateFormat
 import java.util.*
 
-
 class CalendarFragment : Fragment() {
 
     lateinit var compactcalendar_view: CompactCalendarView

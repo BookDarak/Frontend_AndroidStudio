@@ -1,4 +1,5 @@
 package com.cookandroid.bookdarak_1
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,7 +20,7 @@ class BookmarkActivity : AppCompatActivity() {
         val bookTitle: TextView = view.findViewById(R.id.book_title)
     }
 
-    class BookAdapter(private val books: List<Book>) : RecyclerView.Adapter<BookViewHolder>() {
+    class BookAdapter(private val books: List<model.Book>) : RecyclerView.Adapter<BookViewHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {
             val view = LayoutInflater.from(parent.context).inflate(R.layout.book_item, parent, false)
@@ -28,7 +29,7 @@ class BookmarkActivity : AppCompatActivity() {
 
         override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
             val book = books[position]
-            holder.bookImage.setImageResource(book.image)
+            //holder.bookImage.setImageResource(book.image)
             holder.bookTitle.text = book.title
         }
 
@@ -49,6 +50,6 @@ class BookmarkActivity : AppCompatActivity() {
         // Set up RecyclerView
         val recyclerView = findViewById<RecyclerView>(R.id.bookmark_list)
         recyclerView.layoutManager = GridLayoutManager(this, 2) // 2 columns
-        recyclerView.adapter = BookAdapter(books)
+        //recyclerView.adapter = BookAdapter(books)
     }
 }

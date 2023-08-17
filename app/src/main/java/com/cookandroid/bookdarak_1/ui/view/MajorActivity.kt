@@ -40,10 +40,6 @@ class MajorActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-
-
-
-
         setupJetpackNavigation()
 
 
@@ -73,32 +69,6 @@ class MajorActivity : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
-    /*
-    //바텀 내비게이션 클릭에 따른 프래그먼트 변화 함수
-    private fun setupBottomNavigationView(){
-        binding.bottomNavigationView.setOnItemSelectedListener { item ->
-            when(item.itemId){
-                R.id.fragment_search -> {
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.frame_layout, SearchFragment())
-                        .commit()
-                    true
-                }
-                R.id.fragment_favorite -> {
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.frame_layout, FavoriteFragment())
-                        .commit()
-                    true
-                }
-                R.id.fragment_settings -> {
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.frame_layout, SettingsFragment())
-                        .commit()
-                    true
-                }
-                else -> false
-            }
-        }
-    }
-     */
+
+
 }
