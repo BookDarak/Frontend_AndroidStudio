@@ -29,7 +29,7 @@ class BookmarkActivity : AppCompatActivity() {
 
         override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
             val book = books[position]
-            holder.bookImage.setImageResource(book.image)
+            //holder.bookImage.setImageResource(book.image)
             holder.bookTitle.text = book.title
         }
 
@@ -50,6 +50,6 @@ class BookmarkActivity : AppCompatActivity() {
         // Set up RecyclerView
         val recyclerView = findViewById<RecyclerView>(R.id.bookmark_list)
         recyclerView.layoutManager = GridLayoutManager(this, 2) // 2 columns
-        recyclerView.adapter = BookAdapter(books)
+        //recyclerView.adapter = BookAdapter(books)
     }
 }

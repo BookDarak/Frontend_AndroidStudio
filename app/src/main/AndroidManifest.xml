@@ -7,6 +7,7 @@
 
     <application
         android:allowBackup="true"
+        android:name=".BookSearchApplication"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -28,12 +29,8 @@
 
         <activity
             android:name=".ui.view.MajorActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:exported="false">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
 
@@ -44,9 +41,8 @@
 
         <activity
             android:name=".SplashActivity"
-            android:exported="true">
+            android:exported="false"/>
 
-        </activity>
 
         <activity
             android:name=".writingreview"
@@ -65,12 +61,21 @@
             android:exported="false" />
         <activity
             android:name=".NaviActivity"
-            android:exported="false" />
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
         <activity
             android:name=".BookmarkActivity"
             android:exported="false">
 
         </activity>
+
+
     </application>
 
 </manifest>
