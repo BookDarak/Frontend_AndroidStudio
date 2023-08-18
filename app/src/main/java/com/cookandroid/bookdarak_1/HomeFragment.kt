@@ -1,10 +1,21 @@
 package com.cookandroid.bookdarak_1
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
+import com.cookandroid.bookdarak_1.databinding.FragmentHomeBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -12,49 +23,95 @@ import android.view.ViewGroup
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [HomeFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class HomeFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+
+
+class HomeFragment : Fragment() {
+
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
+
+    private var userId: Int = -1
+
+    companion object {
+        fun newInstance(userId: Int): HomeFragment {
+            val fragment = HomeFragment()
+            val args = Bundle()
+            args.putInt("USER_ID", userId)
+            fragment.arguments = args
+            return fragment
         }
     }
+    // Retrofit 인스턴스 생성
+    private val retrofit = Retrofit.Builder()
+        .baseUrl("http://www.bookdarak.shop:8080/") // 실제 API endpoint 주소로 변경
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+
+
+    private val service: BookDarakApiService = retrofit.create(BookDarakApiService::class.java)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+
+        userId = arguments?.getInt("USER_ID", -1) ?: -1
+
+        fetchRecommendationBooks()
+
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment HomeFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            HomeFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    private fun fetchRecommendationBooks() {
+        if (userId != -1) {
+            service.getBookRecommendation(userId).enqueue(object : Callback<RecommendationResponse> {
+                override fun onResponse(
+                    call: Call<RecommendationResponse>,
+                    response: Response<RecommendationResponse>
+                ) {
+                    if (response.isSuccessful && response.body()?.isSuccess == true) {
+                        updateUI(response.body()?.result)
+                    } else {
+                        Toast.makeText(context, "도서 추천을 불러오는 데 실패했습니다.", Toast.LENGTH_SHORT).show()
+                    }
                 }
-            }
+
+                override fun onFailure(call: Call<RecommendationResponse>, t: Throwable) {
+                    Toast.makeText(context, "오류: ${t.message}", Toast.LENGTH_SHORT).show()
+                }
+            })
+        } else {
+            Toast.makeText(context, "사용자 ID를 가져오는 데 실패했습니다.", Toast.LENGTH_SHORT).show()
+        }
     }
+
+    private fun updateUI(books: List<RecommendationResponse.Book>?) {
+        books?.let {
+            if (it.isNotEmpty()) {
+                updateBookView(binding.imageRec11, binding.textRec11Title, binding.textRec11Author, it[0])
+            }
+            if (it.size > 1) {
+                updateBookView(binding.imageRec12, binding.textRec12Title, binding.textRec12Author, it[1])
+            }
+            if (it.size > 2) {
+                updateBookView(binding.imageRec13, binding.textRec13Title, binding.textRec13Author, it[2])
+            }
+        }
+    }
+
+    private fun updateBookView(imageView: ImageView, titleView: TextView, authorView: TextView, book: RecommendationResponse.Book) {
+        Glide.with(this)
+            .load(book.coverImage)
+            .into(imageView)
+        titleView.text = book.title
+        authorView.text = book.author
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
 }

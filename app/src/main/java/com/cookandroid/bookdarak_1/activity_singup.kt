@@ -1,49 +1,47 @@
 package com.cookandroid.bookdarak_1
 
 import android.content.Intent
-import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.widget.Toast
+import com.cookandroid.bookdarak_1.databinding.ActivitySingupBinding  // <-- View Binding import
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class SingupActivity : AppCompatActivity() {
+class activity_singup : AppCompatActivity() {
+
+    private lateinit var binding: ActivitySingupBinding  // <-- View Binding 인스턴스 선언
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_singup)
 
-        val btnJoin = findViewById<Button>(R.id.btn_join)
-        val editTextId = findViewById<EditText>(R.id.editText_id)
-        val editTextPassword = findViewById<EditText>(R.id.editText_password)
-        val editTextName = findViewById<EditText>(R.id.editText_name)
-        val editTextAge = findViewById<EditText>(R.id.editText_age)
-        val editTextIntroduction = findViewById<EditText>(R.id.editText_introduction)
+        binding = ActivitySingupBinding.inflate(layoutInflater)  // <-- View Binding 초기화
+        setContentView(binding.root)  // 바뀐 setContentView
 
-        btnJoin.setOnClickListener {
-            val email = editTextId.text.toString()
-            val password = editTextPassword.text.toString()
-            val name = editTextName.text.toString()
-            val age = editTextAge.text.toString().toIntOrNull() ?: 0
-            val introduction = editTextIntroduction.text.toString()
+        binding.btnJoin.setOnClickListener {  // <-- 'binding.'을 사용하여 뷰에 접근
+            val email = binding.editTextId.text.toString()  // <-- 'binding.'을 사용하여 뷰에 접근
+            val password = binding.editTextPassword.text.toString()  // <-- 'binding.'을 사용하여 뷰에 접근
+            val name = binding.editTextName.text.toString()  // <-- 'binding.'을 사용하여 뷰에 접근
+            val gender = binding.editTextGender.text.toString()  // <-- 'binding.'을 사용하여 뷰에 접근
+            val age = binding.editTextAge.text.toString().toIntOrNull() ?: 0  // <-- 'binding.'을 사용하여 뷰에 접근
+            val introduction = binding.editTextIntroduction.text.toString()  // <-- 'binding.'을 사용하여 뷰에 접근
 
-            val signupRequest = SignupRequest(email, password, name, age, introduction)
+            val signupRequest = SignupRequest(email, password, name, gender, age, introduction) // gender 추가
+
 
             ApiClient.service.signup(signupRequest).enqueue(object: Callback<SignupResponse> {
                 override fun onResponse(call: Call<SignupResponse>, response: Response<SignupResponse>) {
                     if (response.isSuccessful && response.body()?.isSuccess == true) {
-                        val intent = Intent(this@SingupActivity, HomeFragment::class.java)
+                        val intent = Intent(this@activity_singup, HomeFragment::class.java)
                         startActivity(intent)
                     } else {
-                        Toast.makeText(this@SingupActivity, response.body()?.message, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@activity_singup, response.body()?.message, Toast.LENGTH_SHORT).show()
                     }
                 }
 
                 override fun onFailure(call: Call<SignupResponse>, t: Throwable) {
-                    Toast.makeText(this@SingupActivity, t.localizedMessage, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@activity_singup, t.localizedMessage, Toast.LENGTH_SHORT).show()
                 }
             })
         }
