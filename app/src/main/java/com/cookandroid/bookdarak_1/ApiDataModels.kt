@@ -16,7 +16,7 @@ data class SignupResponse(
     val message: String,
     val result: ResultData
 ) {
-    data class ResultData(val userId: Int) // 'id'를 'userId'로 수정
+    data class ResultData(val id: Int)
 }
 
 
