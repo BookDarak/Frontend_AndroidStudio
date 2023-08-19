@@ -4,7 +4,7 @@ data class SignupRequest(
     val email: String,
     val password: String,
     val name: String,
-    val gender: String, // 이 줄 추가
+    val gender: String,
     val age: Int,
     val introduction: String
 )
@@ -38,8 +38,30 @@ data class RecommendationResponse(
     val result: List<Book>
 ) {
     data class Book(
-        val title: String,
+        val createdAt: String,
+        val updatedAt: String,
+        val id: Int,
+        val name: String,
         val author: String,
-        val coverImage: String
+        val isbn: String,
+        val imgUrl: String
+    )
+
+}
+data class UserInfoResponse(
+    val isSuccess: Boolean,
+    val code: Int,
+    val message: String,
+    val result: UserResult
+) {
+    data class UserResult(
+        val name: String,
+        val introduction: String,
+        val profileUrl: String?,
+        val age: Int,
+        val reviewCount: Int,
+        val bookmarkCount: Int,
+        val followCount: Int
     )
 }
+

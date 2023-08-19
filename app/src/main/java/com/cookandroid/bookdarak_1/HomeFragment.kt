@@ -1,3 +1,4 @@
+
 package com.cookandroid.bookdarak_1
 
 import android.os.Bundle
@@ -15,16 +16,10 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-
-
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-
-
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class HomeFragment : Fragment() {
 
@@ -42,12 +37,11 @@ class HomeFragment : Fragment() {
             return fragment
         }
     }
-    // Retrofit 인스턴스 생성
+
     private val retrofit = Retrofit.Builder()
-        .baseUrl("http://www.bookdarak.shop:8080/") // 실제 API endpoint 주소로 변경
+        .baseUrl("http://www.bookdarak.shop:8080/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
-
 
     private val service: BookDarakApiService = retrofit.create(BookDarakApiService::class.java)
 
@@ -59,34 +53,88 @@ class HomeFragment : Fragment() {
 
         userId = arguments?.getInt("USER_ID", -1) ?: -1
 
-        fetchRecommendationBooks()
+        fetchAllData()
 
         return binding.root
     }
 
-    private fun fetchRecommendationBooks() {
+    private fun fetchAllData() {
         if (userId != -1) {
-            service.getBookRecommendation(userId).enqueue(object : Callback<RecommendationResponse> {
-                override fun onResponse(
-                    call: Call<RecommendationResponse>,
-                    response: Response<RecommendationResponse>
-                ) {
-                    if (response.isSuccessful && response.body()?.isSuccess == true) {
-                        updateUI(response.body()?.result)
-                    } else {
-                        Toast.makeText(context, "도서 추천을 불러오는 데 실패했습니다.", Toast.LENGTH_SHORT).show()
-                    }
-                }
-
-                override fun onFailure(call: Call<RecommendationResponse>, t: Throwable) {
-                    Toast.makeText(context, "오류: ${t.message}", Toast.LENGTH_SHORT).show()
-                }
-            })
+            CoroutineScope(Dispatchers.Main).launch {
+                withContext(Dispatchers.IO) { fetchRecommendationBooks() }
+                withContext(Dispatchers.IO) { fetchGenderBasedRecommendationBooks() }
+                withContext(Dispatchers.IO) { fetchUserInfo() }
+            }
         } else {
             Toast.makeText(context, "사용자 ID를 가져오는 데 실패했습니다.", Toast.LENGTH_SHORT).show()
         }
     }
 
+    private suspend fun fetchRecommendationBooks() {
+        try {
+            val response = service.getBookRecommendation(userId).execute()
+            if (response.isSuccessful && response.body()?.isSuccess == true) {
+                withContext(Dispatchers.Main) {
+                    updateUI(response.body()?.result)
+                }
+            } else {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(context, "도서 추천을 불러오는 데 실패했습니다.", Toast.LENGTH_SHORT).show()
+                }
+            }
+        } catch (e: Exception) {
+            withContext(Dispatchers.Main) {
+                Toast.makeText(context, "오류: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private suspend fun fetchGenderBasedRecommendationBooks() {
+        try {
+            val response = service.getGenderBasedRecommendation(userId).execute()
+            if (response.isSuccessful && response.body()?.isSuccess == true) {
+                withContext(Dispatchers.Main) {
+                    updateGenderBasedUI(response.body()?.result)
+                }
+            } else {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(context, "성별 기반 도서 추천을 불러오는 데 실패했습니다.", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+        } catch (e: Exception) {
+            withContext(Dispatchers.Main) {
+                Toast.makeText(context, "오류: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private suspend fun fetchUserInfo() {
+        try {
+            val response = service.getUserInfo(userId).execute()
+            if (response.isSuccessful && response.body()?.isSuccess == true) {
+                withContext(Dispatchers.Main) {
+                    val userName = response.body()?.result?.name
+                    binding.nickname.text = userName
+                }
+            } else {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(context, "유저 정보를 불러오는 데 실패했습니다.", Toast.LENGTH_SHORT).show()
+                }
+            }
+        } catch (e: Exception) {
+            withContext(Dispatchers.Main) {
+                Toast.makeText(context, "오류: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+    private fun updateBookView(imageView: ImageView, titleView: TextView, authorView: TextView, book: RecommendationResponse.Book) {
+        Glide.with(this)
+            .load(book.imgUrl)
+            .into(imageView)
+        titleView.text = book.name
+        authorView.text = book.author
+    }
     private fun updateUI(books: List<RecommendationResponse.Book>?) {
         books?.let {
             if (it.isNotEmpty()) {
@@ -101,17 +149,22 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun updateBookView(imageView: ImageView, titleView: TextView, authorView: TextView, book: RecommendationResponse.Book) {
-        Glide.with(this)
-            .load(book.coverImage)
-            .into(imageView)
-        titleView.text = book.title
-        authorView.text = book.author
+    private fun updateGenderBasedUI(books: List<RecommendationResponse.Book>?) {
+        books?.let {
+            if (it.isNotEmpty()) {
+                updateBookView(binding.imageRec21, binding.textRec21Title, binding.textRec21Author, it[0])
+            }
+            if (it.size > 1) {
+                updateBookView(binding.imageRec22, binding.textRec22Title, binding.textRec22Author, it[1])
+            }
+            if (it.size > 2) {
+                updateBookView(binding.imageRec23, binding.textRec23Title, binding.textRec23Author, it[2])
+            }
+        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
 }

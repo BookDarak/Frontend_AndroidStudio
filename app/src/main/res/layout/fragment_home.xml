@@ -31,27 +31,28 @@
                     android:textStyle="bold" />
 
                 <LinearLayout
+                    android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/user"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/user_empty" />
+
+                <TextView
+                    android:id="@+id/nickname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:id="@+id/user"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:src="@drawable/user_empty" />
-
-                    <TextView
-                        android:id="@+id/nickname"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="책먹는수정"
-                        android:textColor="@color/black"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
+                    android:text="책먹는수정"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
             </LinearLayout>
+
+        </LinearLayout>
 
             <!-- 대학생 추천도서 section -->
             <LinearLayout
@@ -81,7 +82,7 @@
 
                     <!-- 첫 번째 책 뷰 -->
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="120dp"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:gravity="center"
@@ -97,6 +98,8 @@
                             android:id="@+id/textRec11Title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:maxLines="1"
                             android:text="책 제목 1"
                             android:textSize="14sp"
                             android:layout_marginTop="4dp"/>
@@ -113,7 +116,7 @@
 
                     <!-- 두 번째 책 뷰 -->
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="120dp"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:gravity="center"
@@ -129,6 +132,8 @@
                             android:id="@+id/textRec12Title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:maxLines="1"
                             android:text="책 제목 2"
                             android:textSize="14sp"
                             android:layout_marginTop="4dp"/>
@@ -144,7 +149,7 @@
 
                     <!-- 세 번째 책 뷰 -->
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="120dp"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:gravity="center"
@@ -160,6 +165,8 @@
                             android:id="@+id/textRec13Title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:maxLines="1"
                             android:text="책 제목 3"
                             android:textSize="14sp"
                             android:layout_marginTop="4dp"/>
@@ -176,6 +183,133 @@
                 </LinearLayout>
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:id="@+id/text_rec2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="여성 추천도서"
+                    android:padding="5dp"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:background="#F7F8FF">
+
+
+                    <!-- 첫 번째 책 뷰 -->
+                    <LinearLayout
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="10dp">
+
+                        <ImageView
+                            android:id="@+id/image_rec2_1"
+                            android:layout_width="100dp"
+                            android:layout_height="150dp"
+                            android:src="@drawable/book_sample" />
+
+                        <TextView
+                            android:id="@+id/textRec21Title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text="책 제목 1"
+                            android:textSize="14sp"
+                            android:layout_marginTop="4dp"/>
+
+                        <TextView
+                            android:id="@+id/textRec21Author"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="저자 1"
+                            android:textSize="12sp"
+                            android:layout_marginTop="2dp"/>
+                    </LinearLayout>
+
+
+                    <!-- 두 번째 책 뷰 -->
+                    <LinearLayout
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="10dp">
+
+                        <ImageView
+                            android:id="@+id/image_rec2_2"
+                            android:layout_width="100dp"
+                            android:layout_height="150dp"
+                            android:src="@drawable/book_sample" />
+
+                        <TextView
+                            android:id="@+id/textRec22Title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text="책 제목 2"
+                            android:textSize="14sp"
+                            android:layout_marginTop="4dp"/>
+
+                        <TextView
+                            android:id="@+id/textRec22Author"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="저자 2"
+                            android:textSize="12sp"
+                            android:layout_marginTop="2dp"/>
+                    </LinearLayout>
+
+                    <!-- 세 번째 책 뷰 -->
+                    <LinearLayout
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="10dp">
+
+                        <ImageView
+                            android:id="@+id/image_rec2_3"
+                            android:layout_width="100dp"
+                            android:layout_height="150dp"
+                            android:src="@drawable/book_sample" />
+
+                        <TextView
+                            android:id="@+id/textRec23Title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text="책 제목 3"
+                            android:textSize="14sp"
+                            android:layout_marginTop="4dp"/>
+
+                        <TextView
+                            android:id="@+id/textRec23Author"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="저자 3"
+                            android:textSize="12sp"
+                            android:layout_marginTop="2dp"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
             <!-- Add additional sections here if needed -->
 
             <!-- This is a placeholder to make sure the scroll view always has enough content to scroll. -->
