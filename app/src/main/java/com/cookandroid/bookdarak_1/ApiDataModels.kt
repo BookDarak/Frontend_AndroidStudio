@@ -64,4 +64,15 @@ data class UserInfoResponse(
         val followCount: Int
     )
 }
+data class QuoteResponse(
+    val isSuccess: Boolean,
+    val code: Int,
+    val message: String,
+    val result: Quote
+) {
+    data class Quote(
+        val line: String,
+        val speaker: String
+    )
+}
 

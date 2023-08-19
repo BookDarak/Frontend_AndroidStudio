@@ -21,4 +21,8 @@ interface BookDarakApiService {
 
     @GET("/books/recommend/gender/{userId}")
     fun getGenderBasedRecommendation(@Path("userId") userId: Int): Call<RecommendationResponse>
+
+    @POST("/gpt/quote")
+    fun getQuote(): Call<QuoteResponse>
+
 }

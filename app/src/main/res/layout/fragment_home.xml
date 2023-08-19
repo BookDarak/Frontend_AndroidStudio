@@ -311,6 +311,23 @@
                 </LinearLayout>
             </LinearLayout>
             <!-- Add additional sections here if needed -->
+            <TextView
+                android:id="@+id/quoteText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textStyle="italic"
+                android:text="When you have a dream, you've got to grab it and never let go."
+             />
+
+            <TextView
+                android:id="@+id/quoteSpeaker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:text="Carol Burnett"
+             />
+
 
             <!-- This is a placeholder to make sure the scroll view always has enough content to scroll. -->
             <View

@@ -64,6 +64,7 @@ class HomeFragment : Fragment() {
                 withContext(Dispatchers.IO) { fetchRecommendationBooks() }
                 withContext(Dispatchers.IO) { fetchGenderBasedRecommendationBooks() }
                 withContext(Dispatchers.IO) { fetchUserInfo() }
+                withContext(Dispatchers.IO) { fetchQuote() }
             }
         } else {
             Toast.makeText(context, "사용자 ID를 가져오는 데 실패했습니다.", Toast.LENGTH_SHORT).show()
@@ -162,6 +163,32 @@ class HomeFragment : Fragment() {
             }
         }
     }
+    private suspend fun fetchQuote() {
+        try {
+            val response = service.getQuote().execute()
+            if (response.isSuccessful && response.body()?.isSuccess == true) {
+                withContext(Dispatchers.Main) {
+                    updateQuoteUI(response.body()?.result)
+                }
+            } else {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(context, "명언을 불러오는 데 실패했습니다.", Toast.LENGTH_SHORT).show()
+                }
+            }
+        } catch (e: Exception) {
+            withContext(Dispatchers.Main) {
+                Toast.makeText(context, "오류: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+    private fun updateQuoteUI(quote: QuoteResponse.Quote?) {
+        quote?.let {
+            binding.quoteText.text = it.line
+            binding.quoteSpeaker.text = it.speaker
+        }
+    }
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()
