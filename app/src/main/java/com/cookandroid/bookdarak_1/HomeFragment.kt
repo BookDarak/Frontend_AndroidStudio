@@ -1,4 +1,3 @@
-
 package com.cookandroid.bookdarak_1
 
 import android.os.Bundle
@@ -20,6 +19,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import okhttp3.OkHttpClient
+import java.util.concurrent.TimeUnit
+
 
 class HomeFragment : Fragment() {
 
@@ -38,10 +40,18 @@ class HomeFragment : Fragment() {
         }
     }
 
+    val client = OkHttpClient.Builder()
+        .connectTimeout(1, TimeUnit.MINUTES)
+        .readTimeout(30, TimeUnit.SECONDS)
+        .writeTimeout(15, TimeUnit.SECONDS)
+        .build()
+
     private val retrofit = Retrofit.Builder()
         .baseUrl("http://www.bookdarak.shop:8080/")
         .addConverterFactory(GsonConverterFactory.create())
+        .client(client)  // 여기에 OkHttpClient 인스턴스를 추가합니다.
         .build()
+
 
     private val service: BookDarakApiService = retrofit.create(BookDarakApiService::class.java)
 
@@ -65,6 +75,7 @@ class HomeFragment : Fragment() {
                 withContext(Dispatchers.IO) { fetchGenderBasedRecommendationBooks() }
                 withContext(Dispatchers.IO) { fetchUserInfo() }
                 withContext(Dispatchers.IO) { fetchQuote() }
+                withContext(Dispatchers.IO) { fetchUserDay() }
             }
         } else {
             Toast.makeText(context, "사용자 ID를 가져오는 데 실패했습니다.", Toast.LENGTH_SHORT).show()
@@ -187,6 +198,26 @@ class HomeFragment : Fragment() {
             binding.quoteSpeaker.text = it.speaker
         }
     }
+    private suspend fun fetchUserDay() {
+        try {
+            val response = service.getUserDay(userId).execute()
+            if (response.isSuccessful && response.body()?.isSuccess == true) {
+                withContext(Dispatchers.Main) {
+                    val userDay = response.body()?.result
+                    binding.userDayTextView.text = "사용자 일자: $userDay"
+                }
+            } else {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(context, "사용자 일자를 불러오는 데 실패했습니다.", Toast.LENGTH_SHORT).show()
+                }
+            }
+        } catch (e: Exception) {
+            withContext(Dispatchers.Main) {
+                Toast.makeText(context, "오류: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
 
 
 

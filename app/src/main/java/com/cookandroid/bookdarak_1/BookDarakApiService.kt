@@ -25,4 +25,7 @@ interface BookDarakApiService {
     @POST("/gpt/quote")
     fun getQuote(): Call<QuoteResponse>
 
+    @GET("/users/day/{userId}")
+    fun getUserDay(@Path("userId") userId: Int): Call<UserDayResponse>
+
 }

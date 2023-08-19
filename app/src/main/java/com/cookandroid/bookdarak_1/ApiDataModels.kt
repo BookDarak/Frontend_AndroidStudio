@@ -75,4 +75,10 @@ data class QuoteResponse(
         val speaker: String
     )
 }
+data class UserDayResponse(
+    val isSuccess: Boolean,
+    val code: Int,
+    val message: String,
+    val result: Int
+)
 
