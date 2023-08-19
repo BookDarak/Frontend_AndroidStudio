@@ -40,6 +40,7 @@
                     android:id="@+id/user"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
+                    android:layout_marginEnd="8dp"
                     android:src="@drawable/user_empty" />
 
                 <TextView
@@ -52,7 +53,20 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
+
         </LinearLayout>
+            <TextView
+                android:id="@+id/userDayTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="n일차"
+                android:textSize="16sp"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:textColor="@android:color/black"
+                android:layout_gravity="left"
+                />
 
             <!-- 대학생 추천도서 section -->
             <LinearLayout
@@ -311,17 +325,7 @@
                 </LinearLayout>
             </LinearLayout>
             <!-- Add additional sections here if needed -->
-            <TextView
-                android:id="@+id/userDayTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="사용자 일자: "
-            android:textSize="16sp"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:textColor="@android:color/black"
-            />
+
 
 
             <TextView
@@ -331,6 +335,7 @@
                 android:textSize="16sp"
                 android:textStyle="italic"
                 android:text="When you have a dream, you've got to grab it and never let go."
+                android:layout_marginTop="20dp"
              />
 
             <TextView
@@ -339,6 +344,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
                 android:text="Carol Burnett"
+                android:layout_marginTop="8dp"
              />
 
 

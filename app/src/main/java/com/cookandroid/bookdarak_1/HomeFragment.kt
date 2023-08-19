@@ -29,6 +29,8 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
 
     private var userId: Int = -1
+    private var userAgeGroup: String = ""
+
 
     companion object {
         fun newInstance(userId: Int): HomeFragment {
@@ -126,8 +128,20 @@ class HomeFragment : Fragment() {
             val response = service.getUserInfo(userId).execute()
             if (response.isSuccessful && response.body()?.isSuccess == true) {
                 withContext(Dispatchers.Main) {
-                    val userName = response.body()?.result?.name
+                    val userResult = response.body()?.result
+                    val userName = userResult?.name
                     binding.nickname.text = userName
+
+                    val age = userResult?.age
+                    userAgeGroup = when (age) {
+                        1 -> "10대"
+                        2 -> "20대"
+                        3 -> "30대"
+                        else -> "기타"
+                    }
+
+                    // 연령대를 기반으로 추천도서의 타이틀 수정
+                    binding.textRec1.text = "$userAgeGroup 추천도서"
                 }
             } else {
                 withContext(Dispatchers.Main) {
@@ -140,6 +154,7 @@ class HomeFragment : Fragment() {
             }
         }
     }
+
     private fun updateBookView(imageView: ImageView, titleView: TextView, authorView: TextView, book: RecommendationResponse.Book) {
         Glide.with(this)
             .load(book.imgUrl)
@@ -204,7 +219,7 @@ class HomeFragment : Fragment() {
             if (response.isSuccessful && response.body()?.isSuccess == true) {
                 withContext(Dispatchers.Main) {
                     val userDay = response.body()?.result
-                    binding.userDayTextView.text = "사용자 일자: $userDay"
+                    binding.userDayTextView.text = "$userDay 일차"
                 }
             } else {
                 withContext(Dispatchers.Main) {
