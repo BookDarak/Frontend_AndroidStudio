@@ -125,3 +125,18 @@ data class ReviewIdResponse(
 ) {
     data class ReviewIdResult(val reviewId: Int)
 }
+
+data class UpdateReviewRequest(
+    val rating: String?,
+    val content: String?,
+    val phrase: String?,
+    val publicYn: String?,
+    val startDate: String?,
+    val endDate: String?
+)
+
+data class UpdateReviewResponse(
+    val isSuccess: Boolean,
+    val code: Int,
+    val message: String
+)
