@@ -133,14 +133,37 @@ class CalendarFragment : Fragment() {
 
 
     private fun updateCalendarWithEvents(results: List<CalendarResult>?) {
+        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+
+        // 날짜와 이벤트 목록을 매핑하기 위한 Map을 생성합니다.
+        val eventsMap: MutableMap<Long, MutableList<Event>> = mutableMapOf()
+
+        // 이벤트 데이터를 생성하고 Map에 추가합니다.
         results?.forEach { result ->
-            val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
             val startDate = sdf.parse(result.startDate)?.time ?: return@forEach
             val endDate = sdf.parse(result.endDate)?.time ?: return@forEach
 
             for (time in startDate..endDate step 86400000L) {
-                compactcalendar_view.addEvent(Event(Color.RED, time, "독서 기록 ${result.reviewId}"))
+                val event = Event(Color.RED, time, "독서 기록 ${result.reviewId}")
+
+                // Map에 해당 날짜의 이벤트 리스트가 없으면 새 리스트를 생성합니다.
+                if (eventsMap[time] == null) {
+                    eventsMap[time] = mutableListOf()
+                }
+
+                // Map의 해당 날짜의 이벤트 리스트에 이벤트를 추가합니다.
+                eventsMap[time]?.add(event)
             }
         }
+
+        // 이전에 추가된 모든 이벤트를 삭제합니다.
+        compactcalendar_view.removeAllEvents()
+
+        // Map에 저장된 모든 이벤트를 캘린더 뷰에 추가합니다.
+        for (time in eventsMap.keys) {
+            eventsMap[time]?.forEach { compactcalendar_view.addEvent(it) }
+        }
     }
+
+
 }
