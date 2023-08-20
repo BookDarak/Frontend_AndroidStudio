@@ -66,6 +66,9 @@ interface BookDarakApiService {
         @Query("endD") endDate: String
     ): Call<CalendarResponse>
 
+    @GET("/books/{bookId}")
+    fun getBookDetail(@Path("bookId") bookId: Int): Call<BookResponse>
+
 
 
 

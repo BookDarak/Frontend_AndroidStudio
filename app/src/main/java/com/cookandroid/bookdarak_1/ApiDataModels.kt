@@ -177,3 +177,17 @@ data class CalendarResult(
     val endDate: String
 )
 
+data class BookResponse(
+    val isSuccess: Boolean,
+    val code: Int,
+    val message: String,
+    val result: BookDetail
+)
+
+data class BookDetail(
+    val name: String,
+    val authorList: List<String>,
+    val isbn: String,
+    val imgUrl: String? // 이미지 URL은 선택적입니다.
+)
+
