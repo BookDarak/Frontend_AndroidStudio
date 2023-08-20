@@ -2,19 +2,24 @@ package com.cookandroid.bookdarak_1
 
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.sundeepk.compactcalendarview.CompactCalendarView
 import com.github.sundeepk.compactcalendarview.domain.Event
-import model.Book
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
+import adapter.BookAdapter
+import android.util.Log
+import androidx.fragment.app.Fragment
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.util.Calendar
 
 class CalendarFragment : Fragment() {
 
@@ -22,6 +27,18 @@ class CalendarFragment : Fragment() {
     lateinit var diaryTextView: TextView
     lateinit var title: TextView
     lateinit var bookRecyclerView: RecyclerView
+    var userId: Int = -1
+
+    companion object {
+        fun newInstance(userId: Int): CalendarFragment {
+            val fragment = CalendarFragment()
+            val args = Bundle()
+            args.putInt("USER_ID", userId)
+            fragment.arguments = args
+            return fragment
+        }
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,14 +51,11 @@ class CalendarFragment : Fragment() {
         diaryTextView = view.findViewById(R.id.diaryTextView)
         title = view.findViewById(R.id.title)
         bookRecyclerView = view.findViewById(R.id.bookRecyclerView)
+        userId = arguments?.getInt("USER_ID", -1) ?: -1
+        Log.d("CalendarFragment", "Fetched USER_ID: $userId")
 
-        title.text = "북 캘린더"
-
-        val events = listOf(
-            Event(Color.RED, Date().time, "독서 기록 1"),
-            Event(Color.BLUE, Date().time + 86400000L, "독서 기록 2"),
-            Event(Color.GREEN, Date().time + 2 * 86400000L, "독서 기록 3")
-        )
+        // 현재의 달을 제목에 표시합니다.
+        updateTitleWithMonth(Date())
 
         compactcalendar_view.setListener(object : CompactCalendarView.CompactCalendarViewListener {
             override fun onDayClick(dateClicked: Date) {
@@ -49,29 +63,42 @@ class CalendarFragment : Fragment() {
             }
 
             override fun onMonthScroll(firstDayOfNewMonth: Date) {
+                updateTitleWithMonth(firstDayOfNewMonth)
+                fetchCalendarDataForMonth(firstDayOfNewMonth) // 이 부분을 추가
             }
         })
-
-        events.forEach { compactcalendar_view.addEvent(it) }
 
         // 초기에 현재 날짜에 해당하는 이벤트를 보여줍니다.
         updateDiary(Date())
 
-        // 책 리스트를 생성하고 어댑터에 전달합니다.
-        val books = listOf(
-            Book(R.drawable.book_sample, "Book 1", "Author 1"),
-            Book(R.drawable.book_sample, "Book 2", "Author 2"),
-            Book(R.drawable.book_sample, "Book 3", "Author 3")
-        )
-
+        // 책 리스트를 초기화하고 어댑터에 전달합니다.
         bookRecyclerView.layoutManager = LinearLayoutManager(context)
-        Log.d("CalendarFragment", "Books: $books")
-        bookRecyclerView.adapter = BookmarkActivity.BookAdapter(books)
+        bookRecyclerView.adapter = BookAdapter(listOf())
+
+        fetchCalendarDataForMonth(Date()) // 초기 데이터 로드
 
         return view
     }
 
-    // 이벤트를 보여주는 부분을 별도의 메서드로 분리합니다.
+    private fun fetchCalendarDataForMonth(date: Date) {
+        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val calendar = Calendar.getInstance()
+        calendar.time = date
+
+        calendar.set(Calendar.DAY_OF_MONTH, 1)
+        val startDate = sdf.format(calendar.time)
+
+        calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH))
+        val endDate = sdf.format(calendar.time)
+
+        fetchCalendarData(userId, startDate, endDate)
+    }
+
+    private fun updateTitleWithMonth(date: Date) {
+        val sdf = SimpleDateFormat("yyyy년 MM월", Locale.getDefault())
+        title.text = sdf.format(date)
+    }
+
     private fun updateDiary(date: Date) {
         val eventsForTheDay = compactcalendar_view.getEvents(date)
         val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
@@ -81,6 +108,39 @@ class CalendarFragment : Fragment() {
                     eventsForTheDay.joinToString("\n") { it.data.toString() }
         } else {
             diaryTextView.text = "$dateString"
+        }
+    }
+
+    private fun fetchCalendarData(userId: Int, startDate: String, endDate: String) {
+        ApiClient.service.getCalendarData(userId, startDate, endDate).enqueue(object : Callback<CalendarResponse> {
+            override fun onResponse(call: Call<CalendarResponse>, response: Response<CalendarResponse>) {
+                if (response.isSuccessful) {
+                    val results = response.body()?.result
+                    updateCalendarWithEvents(results)
+                } else {
+                    Log.e("CalendarFragment", "Server returned error: ${response.code()} - ${response.message()}")
+                    response.body()?.let {
+                        Log.e("CalendarFragment", "Error code: ${it.code} - ${it.message}")
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<CalendarResponse>, t: Throwable) {
+                Log.e("CalendarFragment", "Error fetching data: ${t.message}")
+            }
+        })
+    }
+
+
+    private fun updateCalendarWithEvents(results: List<CalendarResult>?) {
+        results?.forEach { result ->
+            val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+            val startDate = sdf.parse(result.startDate)?.time ?: return@forEach
+            val endDate = sdf.parse(result.endDate)?.time ?: return@forEach
+
+            for (time in startDate..endDate step 86400000L) {
+                compactcalendar_view.addEvent(Event(Color.RED, time, "독서 기록 ${result.reviewId}"))
+            }
         }
     }
 }

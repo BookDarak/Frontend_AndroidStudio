@@ -59,13 +59,12 @@ interface BookDarakApiService {
     @GET("/bookmarks/{userId}/{bookId}")
     fun checkBookmark(@Path("userId") userId: Int, @Path("bookId") bookId: Int): Call<BookmarkCheckResponse>
 
-
-
-//    @GET("/calendar/{userId}")
-//    fun getCalendarData(
-//        @Path("userId") userId: Int,
-//        @Body requestBody: CalendarRequestBody
-//    ): Call<CalendarResponse>
+    @GET("/calendar/{userId}")
+    fun getCalendarData(
+        @Path("userId") userId: Int,
+        @Query("startD") startDate: String,
+        @Query("endD") endDate: String
+    ): Call<CalendarResponse>
 
 
 

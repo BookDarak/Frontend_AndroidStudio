@@ -163,21 +163,17 @@ data class BookmarkCheckResponse(
 )
 
 
-//data class CalendarResponse(
-//    val isSuccess: Boolean,
-//    val code: Int,
-//    val message: String,
-//    val result: List<CalendarResult>
-//)
-//
-//data class CalendarRequestBody(
-//    val calStartDate: String,
-//    val calEndDate: String
-//)
-//
-//data class CalendarResult(
-//    val reviewId: Int,
-//    val startDate: String,
-//    val endDate: String
-//)
+data class CalendarResponse(
+    val isSuccess: Boolean,
+    val code: Int,
+    val message: String,
+    val result: List<CalendarResult>
+)
+
+
+data class CalendarResult(
+    val reviewId: Int,
+    val startDate: String,
+    val endDate: String
+)
 
