@@ -100,3 +100,19 @@ data class ReviewResponse(
         val reviewId: Int  // 이 부분을 createdReviewId에서 reviewId로 수정
     )
 }
+data class ReviewDetailResponse(
+    val isSuccess: Boolean,
+    val code: Int,
+    val message: String,
+    val result: ReviewDetailResult
+) {
+    data class ReviewDetailResult(
+        val rating: Float,
+        val content: String,
+        val phrase: String?,
+        val publicYn: String,
+        val likeCount: Int,
+        val startDate: String,
+        val endDate: String
+    )
+}

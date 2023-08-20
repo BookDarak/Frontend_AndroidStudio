@@ -35,4 +35,7 @@ interface BookDarakApiService {
         @Body reviewRequest: ReviewRequest
     ): Call<ReviewResponse>
 
+    @GET("/reviews/{reviewId}")
+    fun getReviewDetail(@Path("reviewId") reviewId: Int): Call<ReviewDetailResponse>
+
 }
