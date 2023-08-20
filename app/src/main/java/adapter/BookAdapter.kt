@@ -7,10 +7,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.cookandroid.bookdarak_1.CalendarResult
 import com.cookandroid.bookdarak_1.R
-import model.Book
 
-class BookAdapter(private val books: List<Book>) : RecyclerView.Adapter<BookAdapter.BookViewHolder>() {
+class BookAdapter(private val books: List<CalendarResult>) : RecyclerView.Adapter<BookAdapter.BookViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.calendar_reviewbox, parent, false)
@@ -33,11 +34,12 @@ class BookAdapter(private val books: List<Book>) : RecyclerView.Adapter<BookAdap
         private val bookTitle: TextView = itemView.findViewById(R.id.book_title_cal)
         private val bookAuthor: TextView = itemView.findViewById(R.id.book_author_cal)
 
-        fun bind(book: Book) {
-            bookImage.setImageResource(book.imageResource)
-            bookTitle.text = book.title
+        fun bind(book: CalendarResult) {
+            Glide.with(itemView.context)
+                .load(book.bookImgUrl)
+                .into(bookImage)
+            bookTitle.text = book.name
             bookAuthor.text = book.author
         }
     }
-
 }

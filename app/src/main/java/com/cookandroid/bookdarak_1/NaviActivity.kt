@@ -33,7 +33,7 @@ class NaviActivity : AppCompatActivity() {
 
         binding.navigationView.setOnItemSelectedListener { item ->
             when(item.itemId) {
-                R.id.calenderFragment -> setFragment(TAG_CALENDER, CalendarFragment())
+                R.id.calenderFragment -> setFragment(TAG_CALENDER, CalendarFragment.newInstance(userId))
                 R.id.homeFragment -> setFragment(TAG_HOME, HomeFragment.newInstance(userId))
                 R.id.myPageFragment-> setFragment(TAG_MY_PAGE, MyPageFragment())
                 R.id.reviewFragment -> setFragment(TAG_REVIEW, ReviewFragment())

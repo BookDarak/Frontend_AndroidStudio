@@ -162,25 +162,43 @@ data class BookmarkCheckResponse(
     val result: String  // 이 경우에는 북마크 여부를 나타내는 String이므로 "true" 또는 "false"를 반환할 것입니다.
 )
 
+data class DeleteBookmarkResponse(
+    val isSuccess: Boolean,
+    val code: Int,
+    val message: String,
+    val result: String?
+)
 
 
 
+data class CalendarResponse(
+    val isSuccess: Boolean,
+    val code: Int,
+    val message: String,
+    val result: List<CalendarResult>?
+)
 
-//data class CalendarResponse(
-//    val isSuccess: Boolean,
-//    val code: Int,
-//    val message: String,
-//    val result: List<CalendarResult>
-//)
-//
-//data class CalendarRequestBody(
-//    val calStartDate: String,
-//    val calEndDate: String
-//)
-//
-//data class CalendarResult(
-//    val reviewId: Int,
-//    val startDate: String,
-//    val endDate: String
-//)
+data class CalendarResult(
+    val name: String,
+    val author: String,
+    val bookImgUrl: String,
+    val reviewId: Int,
+    val startDate: String,
+    val endDate: String
+)
+
+
+data class BookResponse(
+    val isSuccess: Boolean,
+    val code: Int,
+    val message: String,
+    val result: BookDetail
+)
+
+data class BookDetail(
+    val name: String,
+    val authorList: List<String>,
+    val isbn: String,
+    val imgUrl: String? // 이미지 URL은 선택적입니다.
+)
 
