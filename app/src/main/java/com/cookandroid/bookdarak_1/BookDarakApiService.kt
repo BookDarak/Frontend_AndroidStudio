@@ -56,6 +56,10 @@ interface BookDarakApiService {
     @POST("/bookmarks/{userId}/{bookId}")
     fun addBookmark(@Path("userId") userId: Int, @Path("bookId") bookId: Int): Call<BookmarkResponse>
 
+    @GET("/bookmarks/{userId}/{bookId}")
+    fun checkBookmark(@Path("userId") userId: Int, @Path("bookId") bookId: Int): Call<BookmarkCheckResponse>
+
+
 
 //    @GET("/calendar/{userId}")
 //    fun getCalendarData(
