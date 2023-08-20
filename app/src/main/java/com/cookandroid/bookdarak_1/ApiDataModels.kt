@@ -58,6 +58,7 @@ data class UserInfoResponse(
         val name: String,
         val introduction: String,
         val profileUrl: String?,
+        val gender: String,
         val age: Int,
         val reviewCount: Int,
         val bookmarkCount: Int,
