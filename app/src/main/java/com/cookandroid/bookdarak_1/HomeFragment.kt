@@ -133,10 +133,11 @@ class HomeFragment : Fragment() {
                     binding.nickname.text = userName
 
                     val age = userResult?.age
-                    userAgeGroup = when (age) {
-                        1 -> "10대"
-                        2 -> "20대"
-                        3 -> "30대"
+                    userAgeGroup = when {
+                        age in 10..19 -> "10대"
+                        age in 20..29 -> "20대"
+                        age in 30..39 -> "30대"
+                        age in 40..49 -> "40대"
                         else -> "기타"
                     }
 
