@@ -35,6 +35,28 @@
 
 
 
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            android:exported="false"
+            tools:node="merge">
+            <!-- If you are using androidx.startup to initialize other components -->
+            <meta-data
+                android:name="androidx.work.WorkManagerInitializer"
+                android:value="androidx.startup"
+                tools:node="remove" />
+        </provider>
+
+        <activity
+            android:name=".ui.view.MajorActivity"
+            android:exported="false">
+
+
+
+        </activity>
+
+
+
         <activity
             android:name=".Userpage"
             android:exported="false" />

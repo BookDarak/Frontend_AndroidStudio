@@ -20,32 +20,20 @@
             android:orientation="vertical"
             android:weightSum="10">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="top"
-                android:orientation="horizontal"
-                >
 
-                <ImageView
-                    android:id="@+id/back_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:src="@drawable/back_button" />
+
 
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="                도서 검색"
+                    android:text="도서 검색"
                     android:textSize="20dp"
                     android:padding="10dp"
                     android:textStyle="bold"
                     android:textColor="@color/black"/>
-            </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -54,7 +42,7 @@
                 >
 
                 <EditText
-                    android:id="@+id/edit_find"
+                    android:id="@+id/edittext_find"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:lines="2"
@@ -69,13 +57,7 @@
 
                     />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerView_booklist_history"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"
 
-                     />
             </LinearLayout>
 
 

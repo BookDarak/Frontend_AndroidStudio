@@ -32,15 +32,18 @@
             android:src="@drawable/bookmarks_icon"
             tools:ignore="TouchTargetSizeCheck" />
     </LinearLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/buttonLayout"
         android:fillViewport="true">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="150dp"
@@ -48,6 +51,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:src="@drawable/book_sample" />
+
             <TextView
                 android:id="@+id/bookname"
                 android:layout_width="wrap_content"
@@ -57,42 +61,110 @@
                 android:text="2045 인공지능 미래보고서"
                 android:textSize="20dp"
                 android:textStyle="bold" />
-            <TextView
-                android:id="@+id/writer"
-                android:layout_width="wrap_content"
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:text="저자 "
-                android:textSize="15dp"
-                android:textStyle="bold" />
-            <TextView
-                android:id="@+id/publisher"
-                android:layout_width="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:text="저자 : "
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/writer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="저자 "
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="5dp"
-                android:text="출판사 "
-                android:textSize="15dp"
-                android:textStyle="bold" />
-            <TextView
-                android:id="@+id/publishdate"
-                android:layout_width="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:text="출판사 : "
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/publisher"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="출판사 "
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="5dp"
-                android:text="발행일 "
-                android:textSize="15dp"
-                android:textStyle="bold" />
-            <TextView
-                android:id="@+id/price"
-                android:layout_width="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:text="발행일 : "
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/publishdate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="발행일 "
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="5dp"
-                android:text="판매가 "
-                android:textSize="15dp"
-                android:textStyle="bold" />
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:text="판매가 : "
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="판매가 "
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+
+
             <TextView
                 android:id="@+id/content"
                 android:layout_width="300dp"
@@ -104,6 +176,7 @@
                 android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
             <Button
                 android:id="@+id/expandButton"
                 android:layout_width="110dp"
@@ -113,36 +186,42 @@
                 android:background="@android:color/transparent"
                 android:text="자세히 보기"
                 android:textColor="@color/gray" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:src="@drawable/user_empty"
-                    android:scaleType="centerCrop" />
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/user_empty" />
+
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="vertical"
                     android:padding="8dp">
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="사용자명"
                         android:textStyle="bold" />
+
                     <RatingBar
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:progressTint="@color/rating_star_color"
                         android:numStars="5"
+                        android:progressTint="@color/rating_star_color"
+                        android:rating="4.5"
                         android:stepSize="0.5"
-                        tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck"
-                        android:rating="4.5" />
+                        tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
 
                     <TextView
+                        android:id="@+id/saved_review"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="서평 내용" />

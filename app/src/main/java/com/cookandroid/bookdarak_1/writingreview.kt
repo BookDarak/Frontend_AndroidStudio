@@ -1,14 +1,19 @@
 package com.cookandroid.bookdarak_1
 
+import android.content.Intent
+import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
+import com.cookandroid.bookdarak_1.data.model.FBook
+import com.cookandroid.bookdarak_1.databinding.ActivityWritingreviewBinding
+import model.Find_Review
 
 class writingreview : AppCompatActivity() {
 
-    /*private lateinit var binding: ActivityWritingreviewBinding
+    private lateinit var binding: ActivityWritingreviewBinding
+    private lateinit var db: FindBookDataBase
 
-    private lateinit var db: FindBook_datamigration
-
-    private var model: FindBookListDTO? = null
+    private var model: FBook? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,24 +27,28 @@ class writingreview : AppCompatActivity() {
         renderView()
 
         initSaveButton()
-    }*/
+    }
 
-    /*private fun initSaveButton() {
+    private fun initSaveButton() {
         binding.buttonRecord.setOnClickListener {
             Thread {
                 db.reviewDao().saveReview(
-                    FindBook_reviewmodel(
-                        model?.toString()?: 0,
+                    Find_Review(
+                        model?.isbn ?: "0",
                         binding.editReview.text.toString()
                     )
                 )
             }.start()
+            val intent = Intent(this, BookinfoActivity::class.java)
+            intent.putExtra("bookModel", model)
+            startActivity(intent)
         }
-    }*/
+    }
 
-    /*private fun renderView() {
+    private fun renderView() {
 
         binding.textWritingreviewBooktitle.text = model?.title.orEmpty()
+        //binding.textWritingreviewBooktitle.text = model?.title.orEmpty()
 
 
         Glide.with(binding.imageWritingreviewBookcover.context)
@@ -47,15 +56,9 @@ class writingreview : AppCompatActivity() {
             .into(binding.imageWritingreviewBookcover)
 
 
-        // 저장된 리뷰 데이터 가져오기;
-        Thread {
-            val review = db.reviewDao().getOneReview(model?.title?.toString() ?: title)//findbooklistdto에 id있어야오류해결
-            review?.let {
-                runOnUiThread {
-                    binding.editReview.setText(it.review)
-                }
-            }
-        }.start()
-    }*/
-}
 
+
+    }
+
+
+}
