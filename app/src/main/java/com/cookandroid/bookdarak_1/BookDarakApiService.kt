@@ -59,6 +59,12 @@ interface BookDarakApiService {
     @GET("/bookmarks/{userId}/{bookId}")
     fun checkBookmark(@Path("userId") userId: Int, @Path("bookId") bookId: Int): Call<BookmarkCheckResponse>
 
+    @DELETE("/bookmarks/{userId}/{bookId}")
+    fun deleteBookmark(
+        @Path("userId") userId: Int,
+        @Path("bookId") bookId: Int
+    ): Call<DeleteBookmarkResponse>
+
     @GET("/calendar/{userId}")
     fun getCalendarData(
         @Path("userId") userId: Int,

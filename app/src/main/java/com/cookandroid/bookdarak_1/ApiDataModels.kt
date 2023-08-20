@@ -162,6 +162,14 @@ data class BookmarkCheckResponse(
     val result: String  // 이 경우에는 북마크 여부를 나타내는 String이므로 "true" 또는 "false"를 반환할 것입니다.
 )
 
+data class DeleteBookmarkResponse(
+    val isSuccess: Boolean,
+    val code: Int,
+    val message: String,
+    val result: String?
+)
+
+
 
 data class CalendarResponse(
     val isSuccess: Boolean,
