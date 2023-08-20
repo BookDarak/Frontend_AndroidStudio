@@ -6,20 +6,24 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:allowBackup="true"
         android:name=".BookSearchApplication"
+        android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
-        android:theme="@style/Theme.BookDarak_1">
+        android:theme="@style/Theme.BookDarak_1"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".seereview_Activity"
+            android:exported="false" />
 
         <provider
             android:name="androidx.startup.InitializationProvider"
             android:authorities="${applicationId}.androidx-startup"
             android:exported="false"
             tools:node="merge">
+
             <!-- If you are using androidx.startup to initialize other components -->
             <meta-data
                 android:name="androidx.work.WorkManagerInitializer"
@@ -29,17 +33,14 @@
 
         <activity
             android:name=".ui.view.MajorActivity"
-            android:exported="false">
-
-        </activity>
-
-
+            android:exported="false"></activity>
 
         <provider
             android:name="androidx.startup.InitializationProvider"
             android:authorities="${applicationId}.androidx-startup"
             android:exported="false"
             tools:node="merge">
+
             <!-- If you are using androidx.startup to initialize other components -->
             <meta-data
                 android:name="androidx.work.WorkManagerInitializer"
@@ -49,23 +50,13 @@
 
         <activity
             android:name=".ui.view.MajorActivity"
-            android:exported="false">
-
-
-
-        </activity>
-
-
-
+            android:exported="false"></activity>
         <activity
             android:name=".Userpage"
             android:exported="false" />
-
         <activity
             android:name=".NaviActivity"
-            android:exported="false"/>
-
-
+            android:exported="false" />
         <activity
             android:name=".writingreview"
             android:exported="false" />
@@ -80,21 +71,16 @@
             android:exported="false" />
         <activity
             android:name=".SplashActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".BookmarkActivity"
-            android:exported="false">
-
-        </activity>
-
-
+            android:exported="false"></activity>
     </application>
 
 </manifest>

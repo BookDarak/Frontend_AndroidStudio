@@ -19,13 +19,17 @@ class BookinfoActivity : AppCompatActivity() {
     private var model: FBook? = null
 
 
+
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        db = getAppDatabase(this)
         binding = ActivityBookinfoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
 
-        db = getAppDatabase(this)
 
         model = intent.getParcelableExtra("bookModel")
 
@@ -39,8 +43,13 @@ class BookinfoActivity : AppCompatActivity() {
 
         val backButton = findViewById<ImageButton>(R.id.backButton)
         val bookmarkButton = findViewById<ImageButton>(R.id.bookmarkButton)
-        val content = findViewById<TextView>(R.id.content)
+        val bookcontent = findViewById<TextView>(R.id.bookcontent)
         val expandButton = findViewById<Button>(R.id.expandButton)
+
+        val content = intent.getStringExtra("content")
+        val rating = intent.getStringExtra("rating")
+
+        renderView2(content, rating)
 
         // Back button click event
         backButton.setOnClickListener {
@@ -60,11 +69,11 @@ class BookinfoActivity : AppCompatActivity() {
 
         // Expand/Collapse button click event
         expandButton.setOnClickListener {
-            if (content.maxLines == 5) {
-                content.maxLines = Integer.MAX_VALUE  // 전체 텍스트 표시
+            if (bookcontent.maxLines == 5) {
+                bookcontent.maxLines = Integer.MAX_VALUE  // 전체 텍스트 표시
                 expandButton.text = "접기"  // 버튼 텍스트 변경
             } else {
-                content.maxLines = 5  // 텍스트를 5줄까지만 표시
+                bookcontent.maxLines = 5  // 텍스트를 5줄까지만 표시
                 expandButton.text = "자세히 보기"  // 버튼 텍스트 변경
             }
 
@@ -78,9 +87,10 @@ class BookinfoActivity : AppCompatActivity() {
         binding.publisher.text = model?.publisher.orEmpty()
         binding.publishdate.text = model?.datetime.orEmpty()
         binding.price.text = model?.price.toString()
+        binding.textIsbn.text = model?.isbn.toString()
 
 
-        binding.content.text = model?.contents.orEmpty()
+
 
         Glide.with(binding.imageView.context)
             .load(model?.thumbnail.orEmpty())
@@ -88,15 +98,28 @@ class BookinfoActivity : AppCompatActivity() {
 
         //앱 구동할떄 이부분 주석처리해주세요!!!! 여기때문에 책 검색에서 책 누르면 화면 꺼집니다. 질문예정이구요!!
         // 저장된 리뷰 데이터 가져오기;
+        /*
+
         Thread {
-          val Find_Review = db.reviewDao().getOneReview(model?.isbn?:"0")
-           Find_Review?.let {
-               runOnUiThread {
+            val Find_Review = db.reviewDao().getOneReview(model?.isbn ?: "0")
+            Find_Review?.let {
+                runOnUiThread {
                     binding.savedReview.setText(it.Find_Review)
                 }
             }
         }.start()
-        }
+
+         */
+
+
+    }
+
+    private fun renderView2(content: String?, rating: String?) {
+        binding.reviewContent.text = content.orEmpty()
+
+        // Update your rating view here (if applicable)
+        // ...
+    }
     }
 
 
