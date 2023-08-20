@@ -140,3 +140,10 @@ data class UpdateReviewResponse(
     val code: Int,
     val message: String
 )
+
+data class DeleteReviewResponse(
+    val isSuccess: Boolean,
+    val code: Int,
+    val message: String,
+    val result: String
+)

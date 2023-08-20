@@ -1,11 +1,7 @@
 package com.cookandroid.bookdarak_1
 
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.POST
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.PATCH
+import retrofit2.http.*
 
 interface BookDarakApiService {
     @POST("/signup")
@@ -50,5 +46,12 @@ interface BookDarakApiService {
         @Path("reviewId") reviewId: Int,
         @Body updateReviewRequest: UpdateReviewRequest
     ): Call<UpdateReviewResponse>
+
+    @DELETE("/reviews/{userId}/{bookId}")
+    fun deleteReview(
+        @Path("userId") userId: Int,
+        @Path("bookId") bookId: Int
+    ): Call<DeleteReviewResponse>
+
 
 }
