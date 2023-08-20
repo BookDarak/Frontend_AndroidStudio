@@ -167,15 +167,18 @@ data class CalendarResponse(
     val isSuccess: Boolean,
     val code: Int,
     val message: String,
-    val result: List<CalendarResult>
+    val result: List<CalendarResult>?
 )
 
-
 data class CalendarResult(
+    val name: String,
+    val author: String,
+    val bookImgUrl: String,
     val reviewId: Int,
     val startDate: String,
     val endDate: String
 )
+
 
 data class BookResponse(
     val isSuccess: Boolean,

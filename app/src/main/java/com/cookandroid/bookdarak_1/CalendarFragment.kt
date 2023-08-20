@@ -39,7 +39,6 @@ class CalendarFragment : Fragment() {
         }
     }
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -64,7 +63,7 @@ class CalendarFragment : Fragment() {
 
             override fun onMonthScroll(firstDayOfNewMonth: Date) {
                 updateTitleWithMonth(firstDayOfNewMonth)
-                fetchCalendarDataForMonth(firstDayOfNewMonth) // 이 부분을 추가
+                fetchCalendarDataForMonth(firstDayOfNewMonth)
             }
         })
 
@@ -78,6 +77,28 @@ class CalendarFragment : Fragment() {
         fetchCalendarDataForMonth(Date()) // 초기 데이터 로드
 
         return view
+    }
+
+    private fun updateDiary(date: Date) {
+        val eventsForTheDay = compactcalendar_view.getEvents(date)
+        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val dateString = sdf.format(date)
+
+        val bookDataForTheDay: MutableList<CalendarResult> = mutableListOf()
+
+        eventsForTheDay.forEach { event ->
+            if (event.data is CalendarResult) {
+                bookDataForTheDay.add(event.data as CalendarResult)
+            }
+        }
+
+        if (bookDataForTheDay.isNotEmpty()) {
+            diaryTextView.text = "$dateString"
+            bookRecyclerView.adapter = BookAdapter(bookDataForTheDay)
+        } else {
+            diaryTextView.text = "$dateString"
+            bookRecyclerView.adapter = BookAdapter(emptyList())
+        }
     }
 
     private fun fetchCalendarDataForMonth(date: Date) {
@@ -97,18 +118,6 @@ class CalendarFragment : Fragment() {
     private fun updateTitleWithMonth(date: Date) {
         val sdf = SimpleDateFormat("yyyy년 MM월", Locale.getDefault())
         title.text = sdf.format(date)
-    }
-
-    private fun updateDiary(date: Date) {
-        val eventsForTheDay = compactcalendar_view.getEvents(date)
-        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-        val dateString = sdf.format(date)
-        if (eventsForTheDay.isNotEmpty()) {
-            diaryTextView.text = "$dateString\n" +
-                    eventsForTheDay.joinToString("\n") { it.data.toString() }
-        } else {
-            diaryTextView.text = "$dateString"
-        }
     }
 
     private fun fetchCalendarData(userId: Int, startDate: String, endDate: String) {
@@ -131,39 +140,19 @@ class CalendarFragment : Fragment() {
         })
     }
 
-
     private fun updateCalendarWithEvents(results: List<CalendarResult>?) {
         val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
 
-        // 날짜와 이벤트 목록을 매핑하기 위한 Map을 생성합니다.
-        val eventsMap: MutableMap<Long, MutableList<Event>> = mutableMapOf()
+        compactcalendar_view.removeAllEvents()
 
-        // 이벤트 데이터를 생성하고 Map에 추가합니다.
         results?.forEach { result ->
             val startDate = sdf.parse(result.startDate)?.time ?: return@forEach
             val endDate = sdf.parse(result.endDate)?.time ?: return@forEach
 
             for (time in startDate..endDate step 86400000L) {
-                val event = Event(Color.RED, time, "독서 기록 ${result.reviewId}")
-
-                // Map에 해당 날짜의 이벤트 리스트가 없으면 새 리스트를 생성합니다.
-                if (eventsMap[time] == null) {
-                    eventsMap[time] = mutableListOf()
-                }
-
-                // Map의 해당 날짜의 이벤트 리스트에 이벤트를 추가합니다.
-                eventsMap[time]?.add(event)
+                val event = Event(Color.RED, time, result)
+                compactcalendar_view.addEvent(event)
             }
         }
-
-        // 이전에 추가된 모든 이벤트를 삭제합니다.
-        compactcalendar_view.removeAllEvents()
-
-        // Map에 저장된 모든 이벤트를 캘린더 뷰에 추가합니다.
-        for (time in eventsMap.keys) {
-            eventsMap[time]?.forEach { compactcalendar_view.addEvent(it) }
-        }
     }
-
-
 }
