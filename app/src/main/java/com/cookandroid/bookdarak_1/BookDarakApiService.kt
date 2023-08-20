@@ -28,4 +28,11 @@ interface BookDarakApiService {
     @GET("/users/day/{userId}")
     fun getUserDay(@Path("userId") userId: Int): Call<UserDayResponse>
 
+    @POST("/reviews/{userId}/{bookId}")
+    fun writeReview(
+        @Path("userId") userId: Int,
+        @Path("bookId") bookId: Int,
+        @Body reviewRequest: ReviewRequest
+    ): Call<ReviewResponse>
+
 }

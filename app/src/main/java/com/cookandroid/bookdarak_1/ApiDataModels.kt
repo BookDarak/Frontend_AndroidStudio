@@ -81,4 +81,22 @@ data class UserDayResponse(
     val message: String,
     val result: Int
 )
+data class ReviewRequest(
+    val rating: String,
+    val content: String,   // 이 부분을 List<String>에서 String으로 수정
+    val phrase: String?,
+    val publicYn: String,
+    val startDate: String,
+    val endDate: String
+)
 
+data class ReviewResponse(
+    val isSuccess: Boolean,
+    val code: Int,
+    val message: String,
+    val result: ReviewResult?
+) {
+    data class ReviewResult(
+        val reviewId: Int  // 이 부분을 createdReviewId에서 reviewId로 수정
+    )
+}
