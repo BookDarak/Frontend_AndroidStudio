@@ -16,22 +16,25 @@ private const val TAG_REVIEW = "review_fragment"
 
 class NaviActivity : AppCompatActivity() {
 
-    private lateinit var binding : ActivityNaviBinding
+    private lateinit var binding: ActivityNaviBinding
+    private var userId: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityNaviBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        userId = intent.getIntExtra("USER_ID", -1)
+
         // Set initial fragment
-        setFragment(TAG_HOME, HomeFragment())
+        setFragment(TAG_HOME, HomeFragment.newInstance(userId))
         // Set initial selected item in the navigation bar
         binding.navigationView.selectedItemId = R.id.homeFragment
 
         binding.navigationView.setOnItemSelectedListener { item ->
             when(item.itemId) {
                 R.id.calenderFragment -> setFragment(TAG_CALENDER, CalendarFragment())
-                R.id.homeFragment -> setFragment(TAG_HOME, HomeFragment())
+                R.id.homeFragment -> setFragment(TAG_HOME, HomeFragment.newInstance(userId))
                 R.id.myPageFragment-> setFragment(TAG_MY_PAGE, MyPageFragment())
                 R.id.reviewFragment -> setFragment(TAG_REVIEW, ReviewFragment())
                 R.id.findFragment -> setFragment(TAG_FIND, FindFragment())
