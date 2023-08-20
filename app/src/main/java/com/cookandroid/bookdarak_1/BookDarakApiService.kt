@@ -38,4 +38,10 @@ interface BookDarakApiService {
     @GET("/reviews/{reviewId}")
     fun getReviewDetail(@Path("reviewId") reviewId: Int): Call<ReviewDetailResponse>
 
+    @GET("/reviews/{userId}/{bookId}")
+    fun getReviewId(
+        @Path("userId") userId: Int,
+        @Path("bookId") bookId: Int
+    ): Call<ReviewIdResponse>
+
 }

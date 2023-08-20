@@ -116,3 +116,12 @@ data class ReviewDetailResponse(
         val endDate: String
     )
 }
+
+data class ReviewIdResponse(
+    val isSuccess: Boolean,
+    val code: Int,
+    val message: String,
+    val result: ReviewIdResult
+) {
+    data class ReviewIdResult(val reviewId: Int)
+}
