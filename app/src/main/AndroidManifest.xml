@@ -15,6 +15,12 @@
         android:theme="@style/Theme.BookDarak_1"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".example2"
+            android:exported="false" />
+        <activity
+            android:name=".example1"
+            android:exported="false" />
+        <activity
             android:name=".seereview_Activity"
             android:exported="false" />
 
@@ -33,7 +39,7 @@
 
         <activity
             android:name=".ui.view.MajorActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
 
         <provider
             android:name="androidx.startup.InitializationProvider"
@@ -50,7 +56,7 @@
 
         <activity
             android:name=".ui.view.MajorActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".Userpage"
             android:exported="false" />
@@ -80,7 +86,7 @@
         </activity>
         <activity
             android:name=".BookmarkActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
     </application>
 
 </manifest>

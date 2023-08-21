@@ -86,7 +86,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="저자 "
+                    android:text="[일본경제신문사]"
                     android:textSize="15dp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -110,7 +110,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="출판사 "
+                    android:text="반니"
                     android:textSize="15dp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -135,7 +135,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="발행일 "
+                    android:text="2019-03-08T00:00:00.000+09:00"
                     android:textSize="15dp"
                     android:textStyle="bold" />
 
@@ -161,7 +161,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="판매가 "
+                    android:text="15000"
                     android:textSize="15dp"
                     android:textStyle="bold" />
 
@@ -186,7 +186,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="isbn "
+                    android:text="1189653052 9791189653057"
                     android:textSize="15dp"
                     android:textStyle="bold" />
 
@@ -199,6 +199,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:ellipsize="end"
+                android:text="AI를 사용하는 사람이 될 것인가,
+아니면 AI에 대체되는 사람이 될 것인가
+AI 시대를 준비하는 가장 강력한 보고서!
+
+미래학자 레이 커즈와일은 2045년에는 AI가 인간의 능력과 지성을 따라잡을 것으로 예측했다. 이미 시작된 AI의 시대에 인간과 기업, 국가의 미래는 어떻게 될까. AI와 로봇이 인간의 직업 절반을 대체하게 될까. 인간은 AI와 어떻게 공존해나가야 하는 것일까? 이 책은 일본경제신문사에서 1년여 동안 심혈을 기울여 진행한"
                 android:maxLines="5"
                 android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
@@ -214,29 +219,69 @@
                 android:text="자세히 보기"
                 android:textColor="@color/gray" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+
+ <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+ android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:background="@drawable/reviewbox"
+android:padding="16dp">
+
+<ImageView
+    android:id="@+id/user_image"
+    android:layout_width="50dp"
+    android:layout_height="50dp"
+    android:layout_alignParentStart="true"
+    android:layout_centerVertical="true"
+    android:layout_marginEnd="16dp"
+    android:src="@drawable/user_empty" />
+
+<TextView
+    android:id="@+id/review_Id"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_toEndOf="@id/user_image"
+    android:textColor="#000000"
+    android:text="다락"
+    android:textSize="16sp" />
+
+<!-- Add your star rating view here -->
+<RatingBar
+    android:id="@+id/user_rating"
+    style="?android:attr/ratingBarStyleSmall"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/review_Id"
+    android:layout_toEndOf="@id/user_image"
+    android:numStars="5"
+    android:rating="4.5"
+    android:stepSize="1.0" />
+
+     <TextView
+         android:id="@+id/review_content"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_below="@id/user_rating"
+         android:layout_toEndOf="@id/user_image"
+         android:text="가독성이 좋다"
+
+         android:textColor="#000000"
+         android:textSize="14sp" />
+
+</RelativeLayout>
 
 
 
 
 
 
-                <Button
-                    android:id="@+id/writebutton"
-                    android:textStyle="bold"
-                    android:layout_width="130dp"
-                    android:layout_height="50dp"
-                    android:text="기록하기"
-                    android:layout_gravity="center"
-                    android:textSize="17sp"
-                    android:background="@drawable/round"
-                    app:backgroundTint="#A6AFFF" />
 
 
-            </LinearLayout>
-        </LinearLayout>
+
+
+
+
+
+    </LinearLayout>
+
     </ScrollView>
 </RelativeLayout>

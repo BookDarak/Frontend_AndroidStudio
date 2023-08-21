@@ -3,14 +3,12 @@ package com.cookandroid.bookdarak_1
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
+import android.widget.Button
+import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.cookandroid.bookdarak_1.data.model.FBook
 import com.cookandroid.bookdarak_1.databinding.ActivityWritingreviewBinding
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class writingreview : AppCompatActivity() {
 
@@ -34,34 +32,42 @@ class writingreview : AppCompatActivity() {
     }
 
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityWritingreviewBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        findViewById<Button>(R.id.button_record).setOnClickListener {
+            val intent = Intent(this, example2::class.java)
+            startActivity(intent)
+        }
 
-        userId = intent.getIntExtra("USER_ID", -1)
-        bookId = intent.getIntExtra("BOOK_ID", -1)
+            findViewById<ImageButton>(R.id.writingreview_back_button).setOnClickListener {
+                val intent = Intent(this, BookinfoActivity::class.java)
+                intent.putExtra("bookModel", model)
+                startActivity(intent)
+            }
 
 
-
-
-
-        db = getAppDatabase(this)
-
-        model = intent.getParcelableExtra("bookModel")
-
-        renderView()
-
-        initSaveButton()
-
-    }
+            userId = intent.getIntExtra("USER_ID", -1)
+            bookId = intent.getIntExtra("BOOK_ID", -1)
 
 
 
 
 
+            db = getAppDatabase(this)
+
+            model = intent.getParcelableExtra("bookModel")
+
+            renderView()
+
+           // initSaveButton()
+
+        }
+
+
+/*
     private fun initSaveButton() {
         binding.buttonRecord.setOnClickListener {
             val ratingString = binding.writingreviewRatingbar.rating
@@ -88,10 +94,15 @@ class writingreview : AppCompatActivity() {
                 override fun onResponse(call: Call<ReviewResponse>, response: Response<ReviewResponse>) {
                     if (response.isSuccessful && response.body()?.isSuccess == true) {
                         val reviewId = response.body()?.result?.reviewId ?: -1
+                        val intent = Intent(this@writingreview, ReviewFragment::class.java)
+                        intent.putExtra("REVIEW_ID", reviewId)
+
+
+                        startActivity(intent)
 
 
                     } else {
-                        Toast.makeText(this@writingreview, response.body()?.message, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@writingreview, response.body()?.message.toString(), Toast.LENGTH_SHORT).show()
                     }
                 }
 
@@ -100,12 +111,24 @@ class writingreview : AppCompatActivity() {
                 }
             })
 
+            val intent = Intent(this@writingreview, seereview_Activity::class.java)
+            intent.putExtra("content",content)
+            intent.putExtra("phrase",phrase)
+            intent.putExtra("rating",rating)
+            //intent.putExtra("publicYn",publicYn)
+            intent.putExtra("startdate",startDate)
+            intent.putExtra("enddate",endDate)
+
+
+
+            startActivity(intent)
+
 
 
 
         }
     }
-
+*/
 
 
     private fun renderView() {
@@ -126,4 +149,7 @@ class writingreview : AppCompatActivity() {
 
 
 
-}
+ }
+
+
+

@@ -16,7 +16,7 @@
         android:layout_marginEnd="16dp"/>
 
     <TextView
-        android:id="@+id/review_title"
+        android:id="@+id/review_Id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toEndOf="@id/user_image"
@@ -28,7 +28,7 @@
         android:id="@+id/user_rating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/review_title"
+        android:layout_below="@id/review_Id"
         android:layout_toEndOf="@id/user_image"
         android:numStars="5"
         android:stepSize="1.0"

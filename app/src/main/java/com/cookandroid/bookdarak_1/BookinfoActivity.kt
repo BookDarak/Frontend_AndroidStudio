@@ -31,6 +31,8 @@ class BookinfoActivity : AppCompatActivity() {
 
 
 
+
+
         model = intent.getParcelableExtra("bookModel")
 
         renderView()
@@ -49,7 +51,7 @@ class BookinfoActivity : AppCompatActivity() {
         val content = intent.getStringExtra("content")
         val rating = intent.getStringExtra("rating")
 
-        renderView2(content, rating)
+
 
         // Back button click event
         backButton.setOnClickListener {
@@ -88,6 +90,7 @@ class BookinfoActivity : AppCompatActivity() {
         binding.publishdate.text = model?.datetime.orEmpty()
         binding.price.text = model?.price.toString()
         binding.textIsbn.text = model?.isbn.toString()
+        binding.bookcontent.text = model?.contents.toString()
 
 
 
@@ -114,12 +117,9 @@ class BookinfoActivity : AppCompatActivity() {
 
     }
 
-    private fun renderView2(content: String?, rating: String?) {
-        binding.reviewContent.text = content.orEmpty()
 
-        // Update your rating view here (if applicable)
-        // ...
-    }
+
+
     }
 
 

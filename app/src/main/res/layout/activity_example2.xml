@@ -28,7 +28,7 @@
             >
 
             <ImageButton
-                android:id="@+id/writingreview_back_button"
+                android:id="@+id/see_backbutton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
@@ -36,14 +36,16 @@
 
 
             <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="      기록 작성하기"
-            android:textSize="20dp"
-            android:padding="10dp"
-            android:textStyle="bold"
-            android:textColor="@color/black"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="        기록 보기"
+                android:textSize="20dp"
+                android:padding="10dp"
+                android:textStyle="bold"
+                android:textColor="@color/black"/>
+
+
         </LinearLayout>
 
         <LinearLayout
@@ -56,20 +58,20 @@
             android:weightSum="10">
 
 
-        <ImageView
-            android:id="@+id/image_writingreview_bookcover"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_gravity="center"
-            android:src="@drawable/book_sample" />
+            <ImageView
+                android:id="@+id/image_seereview_bookcover"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
+                android:src="@drawable/book_sample" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/text_writingreview_booktitle"
+                android:id="@+id/text_seereview_booktitle"
                 android:layout_gravity="center"
                 android:padding="5dp"
-                android:text="책 제목"
+                android:text="AI 인공지능 미래보고서"
                 android:textColor="@color/black"
                 android:textSize="15dp"
                 android:textStyle="bold" />
@@ -77,25 +79,24 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/text_writingreview_isbn"
+                android:id="@+id/text_seereview_isbn"
                 android:layout_gravity="center"
                 android:padding="5dp"
-                android:text="책 제목"
                 android:textColor="@color/black"
                 android:textSize="12dp"
                 android:textStyle="bold" />
 
-       <RatingBar
-            android:id="@+id/writingreview_ratingbar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:numStars="5"
-            android:rating="5"
-            android:progressTint="#FFD179"
-            android:isIndicator="false"
-            android:stepSize="1"
-            />
+            <RatingBar
+                android:id="@+id/see_ratingbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:numStars="5"
+                android:rating="5"
+                android:progressTint="#FFD179"
+                android:isIndicator="true"
+                android:stepSize="1"
+                />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -109,23 +110,27 @@
 
 
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center_vertical|center_horizontal"
-                    android:orientation="horizontal"
-                    android:weightSum="10">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center_vertical|center_horizontal"
+                android:orientation="horizontal"
+                android:weightSum="10">
 
-                <EditText
-                    android:id="@+id/startday"
+                <TextView
+                    android:id="@+id/see_startday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0000/00/00 "
+                    android:text="2023/6/25 "
                     android:textSize="16dp"
                     android:textColor="@color/black"/>
 
-
+                <ImageView
+                    android:id="@+id/calendar_button_start"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/calendar_button" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -134,15 +139,20 @@
                     android:textSize="16dp"
                     android:textColor="@color/black"/>
 
-                <EditText
-                    android:id="@+id/finishday"
+                <TextView
+                    android:id="@+id/see_finishday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0000/00/00 "
+                    android:text="2023/6/30 "
                     android:textSize="16dp"
                     android:textColor="@color/black"/>
 
 
+                <ImageView
+                    android:id="@+id/calendar_button_finish"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/calendar_button" />
 
 
             </LinearLayout>
@@ -157,9 +167,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="              서평"
+                    android:text="서평                                 "
                     android:padding="5dp"
-                    android:textSize="15dp"
+                    android:textSize="16dp"
                     android:textStyle="bold"
                     android:textColor="@color/black"/>
 
@@ -170,16 +180,17 @@
                     android:layout_height="match_parent">
 
                     <RadioButton
-                        android:id="@+id/rg_btn1"
+                        android:id="@+id/rg_seebtn1"
                         android:layout_weight="1"
                         android:text="공개"
+                        android:checked="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
                     <RadioButton
                         android:layout_weight="1"
                         android:text="비공개"
-                        android:id="@+id/rg_btn2"
+                        android:id="@+id/rg_seebtn2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
@@ -197,11 +208,16 @@
                 android:weightSum="10">
 
 
-            <EditText
-                android:id="@+id/edit_review"
-                android:layout_width="300dp"
-                android:layout_height="150dp"
-                 />
+                <TextView
+                    android:id="@+id/text_review"
+                    android:layout_width="300dp"
+                    android:text="가독성이 좋다"
+                    android:textSize="15dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+
+                    android:layout_height="100dp"
+                    />
 
             </LinearLayout>
 
@@ -216,7 +232,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="    인상에 남는 구절"
+                    android:text=" 인상에 남는 구절"
                     android:textColor="@color/black"
                     android:textSize="16dp"
                     android:textStyle="bold" />
@@ -234,8 +250,8 @@
                 android:weightSum="10">
 
 
-                <EditText
-                    android:id="@+id/edit_impressive"
+                <TextView
+                    android:id="@+id/text_impressive"
                     android:layout_width="300dp"
                     android:layout_height="80dp"
                     android:letterSpacing="0.04"
@@ -248,20 +264,40 @@
 
 
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center_vertical|center_horizontal"
+                android:orientation="horizontal"
 
-            <Button
-            android:id="@+id/button_record"
-            android:textStyle="bold"
-            android:layout_width="130dp"
-            android:layout_height="50dp"
-            android:text="저장하기"
-            android:layout_gravity="center"
-            android:textSize="17sp"
-            android:background="@drawable/round"
-            app:backgroundTint="#A6AFFF" />
+                >
 
+                <Button
+                    android:id="@+id/button_modify"
+                    android:textStyle="bold"
+                    android:layout_width="120dp"
+                    android:layout_height="50dp"
+                    android:text="수정하기"
+                    android:textSize="17sp"
+                    android:background="@drawable/round"
+                    app:backgroundTint="#A6AFFF"
+                    android:layout_margin="10dp"/>
+
+                <Button
+                    android:id="@+id/button_bookinfo"
+                    android:textStyle="bold"
+                    android:layout_width="120dp"
+                    android:layout_height="50dp"
+                    android:text="확인"
+                    android:textSize="17sp"
+                    android:background="@drawable/round"
+                    android:layout_margin="10dp"
+                    app:backgroundTint="#A6AFFF" />
+
+            </LinearLayout>
         </LinearLayout>
+
     </LinearLayout>
 
 </LinearLayout>
-

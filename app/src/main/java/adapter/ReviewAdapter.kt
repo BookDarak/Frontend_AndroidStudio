@@ -12,7 +12,7 @@ class ReviewAdapter(private val reviewList: List<Review>) :
     RecyclerView.Adapter<ReviewAdapter.ReviewViewHolder>() {
 
     class ReviewViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val title: TextView = itemView.findViewById(R.id.review_title)
+        val title: TextView = itemView.findViewById(R.id.review_Id)
         val content: TextView = itemView.findViewById(R.id.review_content)
     }
 
