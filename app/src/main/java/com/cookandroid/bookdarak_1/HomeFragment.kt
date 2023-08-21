@@ -141,6 +141,15 @@ class HomeFragment : Fragment() {
                         else -> "기타"
                     }
 
+                    val userGender = userResult?.gender ?: ""
+                    if (userGender == "F") {
+                        binding.textRec2.text = "여성 추천도서"
+                    } else if (userGender == "M") {
+                        binding.textRec2.text = "남성 추천도서"
+                    } else {
+                        binding.textRec2.text = "추천도서"
+                    }
+
                     // 연령대를 기반으로 추천도서의 타이틀 수정
                     binding.textRec1.text = "$userAgeGroup 추천도서"
                 }
@@ -155,6 +164,7 @@ class HomeFragment : Fragment() {
             }
         }
     }
+
 
     private fun updateBookView(imageView: ImageView, titleView: TextView, authorView: TextView, book: RecommendationResponse.Book) {
         Glide.with(this)
