@@ -3,12 +3,14 @@ package com.cookandroid.bookdarak_1
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.ImageButton
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.cookandroid.bookdarak_1.data.model.FBook
 import com.cookandroid.bookdarak_1.databinding.ActivityWritingreviewBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class writingreview : AppCompatActivity() {
 
@@ -37,16 +39,16 @@ class writingreview : AppCompatActivity() {
         binding = ActivityWritingreviewBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        findViewById<Button>(R.id.button_record).setOnClickListener {
-            val intent = Intent(this, example2::class.java)
+
+
+        binding.writingreviewBackButton.setOnClickListener {
+
+
+            val intent = Intent(this@writingreview, BookinfoActivity::class.java)
+            intent.putExtra("bookModel", model)
             startActivity(intent)
         }
 
-            findViewById<ImageButton>(R.id.writingreview_back_button).setOnClickListener {
-                val intent = Intent(this, BookinfoActivity::class.java)
-                intent.putExtra("bookModel", model)
-                startActivity(intent)
-            }
 
 
             userId = intent.getIntExtra("USER_ID", -1)
@@ -62,16 +64,17 @@ class writingreview : AppCompatActivity() {
 
             renderView()
 
-           // initSaveButton()
+            initSaveButton()
 
         }
 
 
-/*
+
     private fun initSaveButton() {
         binding.buttonRecord.setOnClickListener {
             val ratingString = binding.writingreviewRatingbar.rating
             val rating = String.format("%.1f", ratingString)//레이팅을 문자로 바꿈
+            val rating_2 = binding.writingreviewRatingbar.rating
 
             val content = binding.editReview.text.toString()
             val phrase = binding.editImpressive.text.toString()
@@ -90,7 +93,8 @@ class writingreview : AppCompatActivity() {
             val reviewrequest = ReviewRequest(rating, content, phrase, publicYn, startDate, endDate) // gender 추가
 
 
-            ApiClient.service.writeReview(userId, bookId, reviewrequest).enqueue(object: Callback<ReviewResponse> {
+            ApiClient.service.writeReview(userId, bookId, reviewrequest).enqueue(object:
+                Callback<ReviewResponse> {
                 override fun onResponse(call: Call<ReviewResponse>, response: Response<ReviewResponse>) {
                     if (response.isSuccessful && response.body()?.isSuccess == true) {
                         val reviewId = response.body()?.result?.reviewId ?: -1
@@ -111,10 +115,31 @@ class writingreview : AppCompatActivity() {
                 }
             })
 
+            ApiClient.service.getReviewId(userId, bookId).enqueue(object: Callback<ReviewIdResponse> {
+                override fun onResponse(call: Call<ReviewIdResponse>, response: Response<ReviewIdResponse>) {
+                    if (response.isSuccessful) {
+                        val reviewId = response.body()?.result?.reviewId
+                        //val intent = Intent(this@writingreview, ReviewFragment::class.java)
+                        //intent.putExtra("REVIEW_ID", reviewId)
+
+
+                        //startActivity(intent)
+
+
+                    } else {
+                        Toast.makeText(this@writingreview, response.body()?.message.toString(), Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+                override fun onFailure(call: Call<ReviewIdResponse>, t: Throwable) {
+                    Toast.makeText(this@writingreview, t.localizedMessage, Toast.LENGTH_SHORT).show()
+                }
+            })
+
             val intent = Intent(this@writingreview, seereview_Activity::class.java)
             intent.putExtra("content",content)
             intent.putExtra("phrase",phrase)
-            intent.putExtra("rating",rating)
+            intent.putExtra("rating_2",rating_2)
             //intent.putExtra("publicYn",publicYn)
             intent.putExtra("startdate",startDate)
             intent.putExtra("enddate",endDate)
@@ -128,7 +153,7 @@ class writingreview : AppCompatActivity() {
 
         }
     }
-*/
+
 
 
     private fun renderView() {

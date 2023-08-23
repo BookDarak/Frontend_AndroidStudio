@@ -36,12 +36,40 @@ private const val ARG_PARAM2 = "param2"
 class FindFragment : Fragment() {
 
 
+    private var userId: Int = -1
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var binding: FragmentFindBinding
     private lateinit var bookRecyclerViewAdapter: BookSearchViewHolder
     private lateinit var bookService: FindBookAPI
     //private lateinit var historyAdapter: Find_HistoryAdapter
+
+    companion object {
+
+        fun newInstance(userId: Int): FindFragment {
+            val fragment = FindFragment()
+            val args = Bundle()
+            args.putInt("USER_ID", userId)
+            fragment.arguments = args
+            return fragment
+        }
+
+        /**
+         * Use this factory method to create a new instance of
+         * this fragment using the provided parameters.
+         *
+         * @param param1 Parameter 1.
+         * @param param2 Parameter 2.
+         * @return A new instance of fragment FindFragment.
+         */
+        // TODO: Rename and change types and number of parameters
+        private const val M_TAG = "FindFragment"
+
+
+    }
+
+
+
 
     private val db: FindBookDataBase by lazy {
         getAppDatabase(requireContext())
@@ -74,6 +102,7 @@ class FindFragment : Fragment() {
         savedInstanceState: Bundle?
 
     ): View? {
+              userId = arguments?.getInt("USER_ID", -1) ?: -1
 
             binding = FragmentFindBinding.inflate(inflater, container, false)
             val rootView = binding.root
@@ -83,6 +112,8 @@ class FindFragment : Fragment() {
             initSearchEditText()
 
             initBookService()
+
+
 
             arguments?.let {
                 param1 = it.getString(ARG_PARAM1)
@@ -116,6 +147,8 @@ class FindFragment : Fragment() {
             intent.putExtra("bookModel", it)
             startActivity(intent)
         })
+
+
 
         binding.recyclerViewBooklist.layoutManager = LinearLayoutManager(requireContext() )
         binding.recyclerViewBooklist.adapter = bookRecyclerViewAdapter
@@ -202,6 +235,7 @@ class FindFragment : Fragment() {
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == MotionEvent.ACTION_DOWN) {
                 bookServiceSearchBook(binding.edittextFind.text.toString())
                 return@setOnKeyListener true// 처리 되었음.
+
             }
             return@setOnKeyListener false // 처리 안됬음 을 나타냄.
         }
@@ -219,29 +253,8 @@ class FindFragment : Fragment() {
 
 
 
-        companion object {
 
 
-            /**
-             * Use this factory method to create a new instance of
-             * this fragment using the provided parameters.
-             *
-             * @param param1 Parameter 1.
-             * @param param2 Parameter 2.
-             * @return A new instance of fragment FindFragment.
-             */
-            // TODO: Rename and change types and number of parameters
-            private const val M_TAG = "FindFragment"
-
-            @JvmStatic
-            fun newInstance(param1: String, param2: String) =
-                FindFragment().apply {
-                    arguments = Bundle().apply {
-                        putString(ARG_PARAM1, param1)
-                        putString(ARG_PARAM2, param2)
-                    }
-                }
-        }
 
 }
 

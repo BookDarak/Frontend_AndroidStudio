@@ -200,7 +200,7 @@
             <EditText
                 android:id="@+id/edit_review"
                 android:layout_width="300dp"
-                android:layout_height="150dp"
+                android:layout_height="100dp"
                  />
 
             </LinearLayout>

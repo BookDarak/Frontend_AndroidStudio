@@ -75,6 +75,11 @@ interface BookDarakApiService {
     @GET("/books/{bookId}")
     fun getBookDetail(@Path("bookId") bookId: Int): Call<BookResponse>
 
+    @POST("/books")
+    fun bookId(
+        @Body bookIdRequest: bookIdRequest
+    ): Call<bookIdResponse>
+
 
 
 

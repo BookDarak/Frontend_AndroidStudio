@@ -172,7 +172,7 @@
                     android:textColor="@color/black"/>
 
                 <RadioGroup
-                    android:id="@+id/radioGroup"
+                    android:id="@+id/see_radioGroup"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">

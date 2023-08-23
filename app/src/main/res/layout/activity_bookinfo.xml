@@ -24,10 +24,12 @@
             android:contentDescription="@string/back_button"
             android:src="@drawable/back_button"
             tools:ignore="TouchTargetSizeCheck" />
+
         <View
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_weight="1"/>
+            android:layout_weight="1" />
+
         <ImageButton
             android:id="@+id/bookmarkButton"
             android:layout_width="wrap_content"
