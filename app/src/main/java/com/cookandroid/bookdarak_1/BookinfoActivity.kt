@@ -1,6 +1,5 @@
 package com.cookandroid.bookdarak_1
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -19,21 +18,16 @@ class BookinfoActivity : AppCompatActivity() {
     private var bookmarked = false
     private lateinit var binding: ActivityBookinfoBinding
 
-    private lateinit var db: FindBookDataBase
+    //private lateinit var db: FindBookDataBase
 
     private var model: FBook? = null
     private var userId: Int = -1
     private var bookId: Int = -1
 
-    companion object {
-        fun newInstance(context: Context, userId: Int): Intent {
-            val intent = Intent(context, BookinfoActivity::class.java)
-            val args = Bundle()
-            args.putInt("USER_ID", userId)
-            intent.putExtras(args)
-            return intent
-        }
-    }
+
+
+
+
 
 
 
@@ -42,12 +36,12 @@ class BookinfoActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        db = getAppDatabase(this)
+        //db = getAppDatabase(this)
         binding = ActivityBookinfoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         userId = intent.getIntExtra("USER_ID", -1)
-        bookId = intent.getIntExtra("BOOK_ID", -1)
+        //bookId = intent.getIntExtra("BOOK_ID", -1)
 
         // Assuming your binding object is properly set up
         val authorsList = binding.writer.text // This assumes the binding syntax for retrieving a TextView's text
@@ -65,46 +59,53 @@ class BookinfoActivity : AppCompatActivity() {
         //binding.textIsbn.text = model?.isbn.toString()
 
 
-        val writerText = binding.writer.text.toString()
+        //val writerText = model?.authors.toString()
 
 // Now, isbnList contains the individual ISBN numbers as a list of strings
 
 
 
-        val booktitle = model?.title.orEmpty()
-        val writerList = writerText.split(", ")
+        val booktitle = model?.title.toString()
+        //val writerList = writerText
+        //    .trim('[', ']') // 괄호 제거
+        //    .split("\" \"") // 작가 이름들을 분할하여 리스트로 변환
+        val writerList = model?.authors
         val isbn = model?.isbn.toString()
 
 
         val image = model?.thumbnail.toString()
 
-        val bookIdrequest = bookIdRequest(booktitle, writerList, isbn, image) // gender 추가
+        val BookIdrequest =
+            writerList?.let { BookIdRequest(booktitle, it, isbn, image) } // gender 추가
 
 
-        ApiClient.service.bookId(bookIdrequest).enqueue(object: Callback<bookIdResponse> {
-            override fun onResponse(call: Call<bookIdResponse>, response: Response<bookIdResponse>) {
-                if (response.isSuccessful && response.body()?.isSuccess == true) {
-                    val bookId = response.body()?.result?.bookId ?: -1
-                    val intent = Intent(this@BookinfoActivity, writingreview::class.java)
-                    intent.putExtra("BOOK_ID", bookId)
-
-
-
-
-                    startActivity(intent)
+        if (BookIdrequest != null) {
+            ApiClient.service.bookId(BookIdrequest).enqueue(object: Callback<BookIdResponse> {
+                override fun onResponse(call: Call<BookIdResponse>, response: Response<BookIdResponse>) {
+                    if (response.isSuccessful && response.body()?.isSuccess == true) {
+                        //val bookId = response.body()?.result?.bookId ?: -1
+                        val intent = Intent(this@BookinfoActivity, writingreview::class.java)
+                        intent.putExtra("BOOK_ID", bookId)
 
 
 
 
-                } else {
-                    Toast.makeText(this@BookinfoActivity, response.body()?.message.toString(), Toast.LENGTH_SHORT).show()
+
+                        startActivity(intent)
+
+
+
+
+                    } else {
+                        Toast.makeText(this@BookinfoActivity, response.body()?.message.toString(), Toast.LENGTH_SHORT).show()
+                    }
                 }
-            }
 
-            override fun onFailure(call: Call<bookIdResponse>, t: Throwable) {
-                Toast.makeText(this@BookinfoActivity, t.localizedMessage, Toast.LENGTH_SHORT).show()
-            }
-        })
+                override fun onFailure(call: Call<BookIdResponse>, t: Throwable) {
+                    Toast.makeText(this@BookinfoActivity, t.localizedMessage, Toast.LENGTH_SHORT).show()
+                }
+            })
+        }
 
 
 

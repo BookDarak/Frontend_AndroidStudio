@@ -21,7 +21,7 @@ class seereview_Activity : AppCompatActivity() {
                 val rating_2 = intent.getFloatExtra("rating_2", 0.0f)
                 val startDate = intent.getStringExtra("startdate")
                 val endDate = intent.getStringExtra("enddate")
-                //val publicYnString = intent.getStringExtra("publicYn")
+                val publicYnString = intent.getStringExtra("publicYn")
 
                 // Use the content and phrase data to update your views
                 binding.textReview.text = content
@@ -30,13 +30,13 @@ class seereview_Activity : AppCompatActivity() {
                 binding.seeStartday.text = startDate
                 binding.seeFinishday.text = endDate
 
-                // Handle the publicYn value and update appropriate view
-                //val publicYnView = if (publicYnString == "public") {
-                //    getString(R.string.) // Replace with the appropriate string resource
-                //} else {
-                //    getString(R.string.non_public_text) // Replace with the appropriate string resource
-                //}
-                //binding.publicYnTextView.text = publicYnView
+                 //Handle the publicYn value and update appropriate view
+                if (publicYnString == "public") {
+                    getString(R.string.y)  // Replace with the appropriate string resource
+                } else {
+                    getString(R.string.n) // Replace with the appropriate string resource
+                }
+                binding.textviewPublicOr.text = publicYnString
 
 
 

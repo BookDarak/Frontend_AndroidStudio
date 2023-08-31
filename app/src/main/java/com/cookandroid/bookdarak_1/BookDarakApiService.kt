@@ -77,8 +77,8 @@ interface BookDarakApiService {
 
     @POST("/books")
     fun bookId(
-        @Body bookIdRequest: bookIdRequest
-    ): Call<bookIdResponse>
+        @Body bookIdRequest: BookIdRequest
+    ): Call<BookIdResponse>
 
 
 

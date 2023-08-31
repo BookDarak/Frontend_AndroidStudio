@@ -36,15 +36,18 @@ private const val ARG_PARAM2 = "param2"
 class FindFragment : Fragment() {
 
 
-    private var userId: Int = -1
-    private var param1: String? = null
-    private var param2: String? = null
-    private lateinit var binding: FragmentFindBinding
-    private lateinit var bookRecyclerViewAdapter: BookSearchViewHolder
-    private lateinit var bookService: FindBookAPI
-    //private lateinit var historyAdapter: Find_HistoryAdapter
+
 
     companion object {
+
+        private var userId: Int = -1
+        private var param1: String? = null
+        private var param2: String? = null
+        private lateinit var binding: FragmentFindBinding
+        private lateinit var bookRecyclerViewAdapter: BookSearchViewHolder
+        private lateinit var bookService: FindBookAPI
+
+        //private lateinit var historyAdapter: Find_HistoryAdapter
 
         fun newInstance(userId: Int): FindFragment {
             val fragment = FindFragment()
@@ -53,6 +56,9 @@ class FindFragment : Fragment() {
             fragment.arguments = args
             return fragment
         }
+
+
+
 
         /**
          * Use this factory method to create a new instance of
@@ -71,9 +77,9 @@ class FindFragment : Fragment() {
 
 
 
-    private val db: FindBookDataBase by lazy {
-        getAppDatabase(requireContext())
-    }
+    //private val db: FindBookDataBase by lazy {
+    //    getAppDatabase(requireContext())
+    //}
 
 
 
@@ -102,9 +108,14 @@ class FindFragment : Fragment() {
         savedInstanceState: Bundle?
 
     ): View? {
-              userId = arguments?.getInt("USER_ID", -1) ?: -1
 
-            binding = FragmentFindBinding.inflate(inflater, container, false)
+              userId = arguments?.getInt("USER_ID", -1) ?: -1
+              //Log.d("FindFragment", "Fetched USER_ID: $userId")
+
+
+              binding = FragmentFindBinding.inflate(inflater, container, false)
+
+
             val rootView = binding.root
 
             initBookRecyclerView()
@@ -145,6 +156,7 @@ class FindFragment : Fragment() {
 
             // 직렬화 해서 넘길 것.
             intent.putExtra("bookModel", it)
+            intent.putExtra("USER_ID", userId)
             startActivity(intent)
         })
 

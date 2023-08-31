@@ -202,7 +202,7 @@ data class BookDetail(
     val imgUrl: String? // 이미지 URL은 선택적입니다.
 )
 
-data class bookIdResponse(
+data class BookIdResponse(
     val isSuccess: Boolean,
     val code: Int,
     val message: String,
@@ -211,7 +211,7 @@ data class bookIdResponse(
     data class BookId(val bookId: Int)
 }
 
-data class bookIdRequest(
+data class BookIdRequest(
     val name: String,
     val author: List<String>,
     val isbn: String,

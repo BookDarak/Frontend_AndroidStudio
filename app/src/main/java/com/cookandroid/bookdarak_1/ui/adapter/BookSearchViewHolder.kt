@@ -19,6 +19,7 @@ class BookSearchViewHolder(private val itemClickedListener: (FBook)->Unit) : Lis
             binding.textBookcontents.text = bookModel.contents
             binding.textBookauthor.text = bookModel.authors.toString()
 
+
             binding.root.setOnClickListener {
                 itemClickedListener(bookModel)
             }

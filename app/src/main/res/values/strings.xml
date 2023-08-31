@@ -8,5 +8,7 @@
     <string name="settings">Settings</string>
     <string name="book_info">Book Info</string>
     <string name="bookmark_button">Bookmark</string>
+    <string name="y">공개</string>
+    <string name="n">비공개</string>
 
 </resources>
