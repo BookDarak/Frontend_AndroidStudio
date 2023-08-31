@@ -218,3 +218,22 @@ data class BookIdRequest(
     val imgUrl: String?
 )
 
+data class ReviewShortsResponse(
+    val isSuccess: Boolean,
+    val code: Int,
+    val message: String,
+    val result: List<ReviewShort>?
+)
+
+data class ReviewShort(
+    val userId: Int,
+    val username: String,
+    val bookId: Int,
+    val bookImgUrl: String,
+    val content: String,
+    val rating: Double,
+    val likeCount: Int,
+    val createdDate: String
+)
+
+

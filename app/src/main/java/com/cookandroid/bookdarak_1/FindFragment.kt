@@ -5,17 +5,20 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cookandroid.bookdarak_1.data.api.FindBookAPI
 import com.cookandroid.bookdarak_1.data.model.SearchResponse
 import com.cookandroid.bookdarak_1.databinding.FragmentFindBinding
 import com.cookandroid.bookdarak_1.ui.adapter.BookSearchViewHolder
+import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -57,6 +60,20 @@ class FindFragment : Fragment() {
             return fragment
         }
 
+        val client = OkHttpClient.Builder()
+            .connectTimeout(1, TimeUnit.MINUTES)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .writeTimeout(15, TimeUnit.SECONDS)
+            .build()
+
+        private val retrofit = Retrofit.Builder()
+            .baseUrl("http://www.bookdarak.shop:8080/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client)  // 여기에 OkHttpClient 인스턴스를 추가합니다.
+            .build()
+
+
+        private val service: BookDarakApiService = retrofit.create(BookDarakApiService::class.java)
 
 
 
@@ -157,6 +174,8 @@ class FindFragment : Fragment() {
             // 직렬화 해서 넘길 것.
             intent.putExtra("bookModel", it)
             intent.putExtra("USER_ID", userId)
+            Toast.makeText(context, "userid옮기기성공", Toast.LENGTH_SHORT)
+
             startActivity(intent)
         })
 

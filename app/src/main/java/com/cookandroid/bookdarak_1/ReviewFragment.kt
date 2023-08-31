@@ -11,7 +11,10 @@ import androidx.recyclerview.widget.RecyclerView
 import model.Review
 
 class ReviewFragment : Fragment() {
+
 /*
+
+
     private lateinit var reviewAdapter: ReviewAdapter
 
     override fun onCreateView(
@@ -80,6 +83,7 @@ class ReviewFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_review, container, false)
 
+        //reviewId = arguments?.getInt("USER_ID", -1) ?: -1
         // Prepare reviews
         val reviews = listOf(
 

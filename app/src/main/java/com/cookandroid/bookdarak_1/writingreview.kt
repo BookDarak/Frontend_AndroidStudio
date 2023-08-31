@@ -22,6 +22,7 @@ class writingreview : AppCompatActivity() {
     private var model: FBook? = null
     private var userId: Int = -1
     private var bookId: Int = -1
+    private var reviewId: Int = -1
 
 
 
@@ -65,6 +66,10 @@ class writingreview : AppCompatActivity() {
 
     private fun initSaveButton() {
         binding.buttonRecord.setOnClickListener {
+
+            val title = binding.textWritingreviewBooktitle.text.toString()
+            val isbn = binding.textWritingreviewIsbn.text.toString()
+
             val ratingString = binding.writingreviewRatingbar.rating
             val rating = String.format("%.1f", ratingString)//레이팅을 문자로 바꿈
             val rating_2 = binding.writingreviewRatingbar.rating
@@ -92,6 +97,7 @@ class writingreview : AppCompatActivity() {
                     if (response.isSuccessful && response.body()?.isSuccess == true) {
                         val reviewId = response.body()?.result?.reviewId ?: -1
                         Log.d(TAG, "reviewID: $reviewId")
+                        //Log.d(TAG, "userId: $userId, bookId: $bookId")
 
 
 
@@ -142,6 +148,9 @@ class writingreview : AppCompatActivity() {
             intent.putExtra("publicYn",publicYn)
             intent.putExtra("startdate",startDate)
             intent.putExtra("enddate",endDate)
+            intent.putExtra("isbn",isbn)
+            intent.putExtra("title",title)
+            intent.putExtra("bookModel", model)
 
 
 

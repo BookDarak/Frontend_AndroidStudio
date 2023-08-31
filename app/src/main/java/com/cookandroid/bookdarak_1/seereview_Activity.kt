@@ -2,12 +2,15 @@ package com.cookandroid.bookdarak_1
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
+import com.cookandroid.bookdarak_1.data.model.FBook
 import com.cookandroid.bookdarak_1.databinding.ActivitySeereviewBinding
 
 
 class seereview_Activity : AppCompatActivity() {
     private lateinit var binding: ActivitySeereviewBinding
 
+    private var model: FBook? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,6 +25,8 @@ class seereview_Activity : AppCompatActivity() {
                 val startDate = intent.getStringExtra("startdate")
                 val endDate = intent.getStringExtra("enddate")
                 val publicYnString = intent.getStringExtra("publicYn")
+                val title = intent.getStringExtra("title")
+                val isbn = intent.getStringExtra("isbn")
 
                 // Use the content and phrase data to update your views
                 binding.textReview.text = content
@@ -29,6 +34,8 @@ class seereview_Activity : AppCompatActivity() {
                 binding.seeRatingbar.rating = rating_2
                 binding.seeStartday.text = startDate
                 binding.seeFinishday.text = endDate
+                binding.textSeereviewBooktitle.text = title
+                binding.textSeereviewIsbn.text = isbn
 
                  //Handle the publicYn value and update appropriate view
                 if (publicYnString == "public") {
@@ -38,6 +45,8 @@ class seereview_Activity : AppCompatActivity() {
                 }
                 binding.textviewPublicOr.text = publicYnString
 
+        model = intent.getParcelableExtra("bookModel")
+        renderView()
 
 
 
@@ -45,6 +54,20 @@ class seereview_Activity : AppCompatActivity() {
 
 
 
+
+
+
+
+    }
+    private fun renderView() {
+
+        //binding.textSeereviewBooktitle.text = model?.title.orEmpty()
+        //binding.textSeereviewIsbn.text = model?.isbn.orEmpty()
+
+
+        Glide.with(binding.imageSeereviewBookcover.context)
+            .load(model?.thumbnail.orEmpty())
+            .into(binding.imageSeereviewBookcover)
 
 
 

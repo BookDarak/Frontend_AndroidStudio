@@ -2,6 +2,7 @@ package com.cookandroid.bookdarak_1
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
@@ -23,6 +24,7 @@ class BookinfoActivity : AppCompatActivity() {
     private var model: FBook? = null
     private var userId: Int = -1
     private var bookId: Int = -1
+    val TAG: String = "BookinfoActivity"
 
 
 
@@ -40,7 +42,11 @@ class BookinfoActivity : AppCompatActivity() {
         binding = ActivityBookinfoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        userId = intent.getIntExtra("USER_ID", -1)
+        // 다른 액티비티에서 ID를 받아옴
+        val receivedIntent = intent
+
+
+        userId = receivedIntent.getIntExtra("USER_ID", -1)
         //bookId = intent.getIntExtra("BOOK_ID", -1)
 
         // Assuming your binding object is properly set up
@@ -84,8 +90,12 @@ class BookinfoActivity : AppCompatActivity() {
                 override fun onResponse(call: Call<BookIdResponse>, response: Response<BookIdResponse>) {
                     if (response.isSuccessful && response.body()?.isSuccess == true) {
                         //val bookId = response.body()?.result?.bookId ?: -1
-                        val intent = Intent(this@BookinfoActivity, writingreview::class.java)
-                        intent.putExtra("BOOK_ID", bookId)
+                        val bookId = response.body()?.result?.bookId ?: -1  // <-- 'userId'를 'id'로 수정
+                        Log.d(TAG, "bookID: $bookId")
+                        Toast.makeText(this@BookinfoActivity,"북id성공.", Toast.LENGTH_SHORT).show()
+
+
+
 
 
 
@@ -102,7 +112,8 @@ class BookinfoActivity : AppCompatActivity() {
                 }
 
                 override fun onFailure(call: Call<BookIdResponse>, t: Throwable) {
-                    Toast.makeText(this@BookinfoActivity, t.localizedMessage, Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(this@BookinfoActivity, t.localizedMessage, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@BookinfoActivity,"북id실패.", Toast.LENGTH_SHORT).show()
                 }
             })
         }
