@@ -80,6 +80,13 @@ interface BookDarakApiService {
         @Body bookIdRequest: bookIdRequest
     ): Call<bookIdResponse>
 
+    @GET("/reviews/shorts/users/{userId}")
+    fun getUserReviews(
+        @Path("userId") userId: Int,
+        @Query("isOwner") isOwner: String,
+        @Query("sort") sort: String? = null
+    ): Call<UserReviewResponse>
+
 
 
 

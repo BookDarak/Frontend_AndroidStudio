@@ -35,7 +35,7 @@ class NaviActivity : AppCompatActivity() {
             when(item.itemId) {
                 R.id.calenderFragment -> setFragment(TAG_CALENDER, CalendarFragment.newInstance(userId))
                 R.id.homeFragment -> setFragment(TAG_HOME, HomeFragment.newInstance(userId))
-                R.id.myPageFragment-> setFragment(TAG_MY_PAGE, MyPageFragment())
+                R.id.myPageFragment-> setFragment(TAG_MY_PAGE, MyPageFragment.newInstance(userId))
                 R.id.reviewFragment -> setFragment(TAG_REVIEW, ReviewFragment())
                 R.id.findFragment -> setFragment(TAG_FIND, FindFragment.newInstance(userId))
             }

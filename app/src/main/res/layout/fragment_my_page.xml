@@ -13,7 +13,6 @@
         android:orientation="vertical"
         android:padding="20dp">
 
-
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -28,7 +27,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_vertical|center_horizontal"
-
                 >
 
                 <TextView
@@ -61,6 +59,7 @@
                     android:src="@drawable/user_empty" />
 
                 <TextView
+                    android:id="@+id/text_username"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -103,7 +102,7 @@
                         android:id="@+id/text_total_review"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="3"
+                        android:text="0"
                         android:padding="5dp"
                         android:textSize="16dp"
                         android:textColor="@color/black"/>
@@ -119,7 +118,7 @@
                         android:id="@+id/text_total_bookmark"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="5"
+                        android:text="0"
                         android:padding="5dp"
                         android:textSize="16dp"
                         android:textColor="@color/black"/>
@@ -135,7 +134,7 @@
                         android:id="@+id/text_total_following"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="3"
+                        android:text="0"
                         android:padding="5dp"
                         android:textSize="16dp"
                         android:textColor="@color/black"/>
@@ -197,20 +196,9 @@
                 </LinearLayout>
 
 
-
-
-
-
-
-
-
-
-
             </LinearLayout>
         </LinearLayout>
 
     </LinearLayout>
-
-
 
 </FrameLayout>
