@@ -81,10 +81,10 @@ interface BookDarakApiService {
     ): Call<BookIdResponse>
 
 
-    @GET("/reviews/shorts")
-    fun getShortReviews(
-        @Query("sort") sort: String
-    ): Call<ReviewShortsResponse>
+    //@GET("/reviews/shorts")
+    //fun getShortReviews(
+    //    @Query("sort") sort: String
+    //): Call<ReviewShortsResponse>
 
 
 
