@@ -47,6 +47,7 @@ class writingreview : AppCompatActivity() {
 
             userId = intent.getIntExtra("USER_ID", -1)
             bookId = intent.getIntExtra("BOOK_ID", -1)
+        Log.d(TAG, "writingreview_userandbookid: $userId,$bookId")
 
 
 
@@ -67,20 +68,20 @@ class writingreview : AppCompatActivity() {
     private fun initSaveButton() {
         binding.buttonRecord.setOnClickListener {
 
-            val title = binding.textWritingreviewBooktitle.text.toString()
-            val isbn = binding.textWritingreviewIsbn.text.toString()
+            //val title = binding.textWritingreviewBooktitle.text.toString()
+            //val isbn = binding.textWritingreviewIsbn.text.toString()
 
             val ratingString = binding.writingreviewRatingbar.rating
             val rating = String.format("%.1f", ratingString)//레이팅을 문자로 바꿈
-            val rating_2 = binding.writingreviewRatingbar.rating
+            //val rating_2 = binding.writingreviewRatingbar.rating
 
             val content = binding.editReview.text.toString()
             val phrase = binding.editImpressive.text.toString()
             val selectedRadioButtonId = binding.radioGroup.checkedRadioButtonId
 
             val publicYn = when (selectedRadioButtonId) {
-                R.id.rg_btn1_w -> "(공개)"
-                R.id.rg_btn2_w -> "(비공개)"
+                R.id.rg_btn1_w -> "Y"
+                R.id.rg_btn2_w -> "N"
                 else -> ""
             }
 
@@ -89,7 +90,7 @@ class writingreview : AppCompatActivity() {
 
 
             val reviewrequest = ReviewRequest(rating, content, phrase, publicYn, startDate, endDate) // gender 추가
-
+            Log.d(TAG, "reviewrequest: $rating, $content, $phrase, $publicYn, $startDate, $endDate")
 
             ApiClient.service.writeReview(userId, bookId, reviewrequest).enqueue(object:
                 Callback<ReviewResponse> {
@@ -103,7 +104,7 @@ class writingreview : AppCompatActivity() {
 
                         val intent = Intent(this@writingreview, ReviewFragment::class.java)
                         intent.putExtra("REVIEW_ID", reviewId)
-                        startActivity(intent)
+
 
 
                     } else {

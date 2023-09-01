@@ -68,7 +68,7 @@ class BookinfoActivity : AppCompatActivity() {
 
             val writerText = model?.authors.toString()
             val booktitle = model?.title.toString()
-            val writerList = model?.authors ?: emptyList()
+            val authorList = model?.authors ?: emptyList()
             //val writerList = listOf("Alice", "Bob", "Charlie")
             //val writerString = writerList?.joinToString(", ") ?: ""
             val isbn = model?.isbn.toString()
@@ -78,8 +78,8 @@ class BookinfoActivity : AppCompatActivity() {
 
             //val writerList: List<String> = model?.authors ?: emptyList()
 
-            Log.d(TAG, "rbookidrequest: $booktitle,$isbn,$image,$writerList")
-            val BookIdrequest = BookIdRequest(booktitle, writerList, isbn, image) // gender 추가
+            Log.d(TAG, "rbookidrequest: $booktitle,$isbn,$image,$authorList")
+            val BookIdrequest = BookIdRequest(booktitle, authorList, isbn, image) // gender 추가
             Log.d(TAG, "rbookidrequest_2: $BookIdrequest")
 
 
@@ -87,9 +87,9 @@ class BookinfoActivity : AppCompatActivity() {
                 ApiClient.service.bookId(BookIdrequest).enqueue(object: Callback<BookIdResponse> {
                     override fun onResponse(call: Call<BookIdResponse>, response: Response<BookIdResponse>) {
                         if (response.isSuccessful  && response.body()?.isSuccess == true) {
-                            Log.d(TAG, "rbookidrequest_3: $writerList")
+                            Log.d(TAG, "rbookidrequest_3: $authorList")
                             //val bookId = response.body()?.result?.bookId ?: -1
-                            val bookId = response.body()?.result?.bookId ?: -1  // <-- 'userId'를 'id'로 수정
+                            val bookId = response.body()?.result?.id ?: -1  // <-- 'bookId'를 'id'로 수정
                             Log.d(TAG, "wwbookID: $bookId")
 
 
@@ -98,6 +98,7 @@ class BookinfoActivity : AppCompatActivity() {
                             intent.putExtra("bookModel", model)
                             intent.putExtra("USER_ID", userId) // Passing userId to writingreview activity
                             intent.putExtra("BOOK_ID", bookId)
+                            Log.d(TAG, "user and bookID: $userId, $bookId")
                             startActivity(intent)
 
 

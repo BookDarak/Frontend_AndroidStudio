@@ -208,12 +208,12 @@ data class BookIdResponse(
     val message: String,
     val result: BookId?
 ) {
-    data class BookId(val bookId: Int)
+    data class BookId(val id: Int)
 }
 
 data class BookIdRequest(
     val name: String,
-    val author: List<String>,
+    val authorList: List<String>,
     val isbn: String,
     val imgUrl: String?
 )
