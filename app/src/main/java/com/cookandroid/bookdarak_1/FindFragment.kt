@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cookandroid.bookdarak_1.data.api.FindBookAPI
@@ -133,6 +132,8 @@ class FindFragment : Fragment() {
               binding = FragmentFindBinding.inflate(inflater, container, false)
 
 
+
+
             val rootView = binding.root
 
             initBookRecyclerView()
@@ -174,7 +175,7 @@ class FindFragment : Fragment() {
             // 직렬화 해서 넘길 것.
             intent.putExtra("bookModel", it)
             intent.putExtra("USER_ID", userId)
-            Toast.makeText(context, "userid옮기기성공", Toast.LENGTH_SHORT)
+
 
             startActivity(intent)
         })
@@ -185,16 +186,6 @@ class FindFragment : Fragment() {
         binding.recyclerViewBooklist.adapter = bookRecyclerViewAdapter
     }
 
-    /*private fun initHistoryRecyclerView() {
-        historyAdapter = Find_HistoryAdapter(historyDeleteClickListener = {
-            //deleteSearchKeyword(it)
-        }, this)
-
-        binding.recyclerViewBooklistHistory.layoutManager = LinearLayoutManager(requireContext() )
-        binding.recyclerViewBooklistHistory.adapter = historyAdapter
-
-        initSearchEditText()
-    }*/
 
 
     fun bookServiceSearchBook(keyword: String) {
@@ -227,35 +218,7 @@ class FindFragment : Fragment() {
     }
 
 
-   // private fun saveSearchKeyword(keyword: String) {
 
-    //    Thread {
-    //        db.historyDao().insertHistory(Find_History(null, keyword))
-     //   }.start()
-   // }
-
-
-    /*private fun showHistoryView() {
-        Thread {
-            val keywords = db.historyDao().getAll().reversed()
-            requireActivity().runOnUiThread {
-                binding.recyclerViewBooklistHistory.isVisible = true
-                historyAdapter.submitList(keywords.orEmpty())
-            }
-        }.start()
-
-    }*/
-
-    /*private fun hideHistoryView() {
-        binding.recyclerViewBooklistHistory.isVisible = false
-    }
-
-    private fun deleteSearchKeyword(keyword: String) {
-        Thread {
-            db.historyDao().delete(keyword)
-            showHistoryView()
-        }.start()
-    }*/
 
     @SuppressLint("ClickableViewAccessibility")
     private fun initSearchEditText() {
@@ -289,58 +252,3 @@ class FindFragment : Fragment() {
 
 }
 
-/*class FindFragment : Fragment() {
-
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        binding = FragmentFindBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        initBookRecyclerView()
-        initHistoryRecyclerView()
-        initSearchEditText()
-
-        initBookService()
-        bookServiceLoadBestSellers()
-    }
-
-    private fun bookServiceLoadBestSellers() {
-        베스트 셀러 가져오기;
-        bookService.getBestSellerBooks(getString(R.string.interparkAPIKey))
-            .enqueue(object : Callback<BestSellerDto> {
-                응답이 온 경우;
-                override fun onResponse(
-                    call: Call<BestSellerDto>,
-                    response: Response<BestSellerDto>
-                ) {
-                    // 받은 응답이 성공한 응답일 때;
-                    if (response.isSuccessful.not()) {
-                        Log.e(M_TAG, "NOT!! SUCCESS")
-                        return
-                    }
-
-                    // 받은 응답의 바디가 채워져 있는 경우만 진행;
-                    response.body()?.let {
-                        Log.d(M_TAG, it.toString())
-
-                        it.books.forEach { book ->
-                            Log.d(M_TAG, book.toString())
-                        }
-
-                        // 새 리스트로 갱신;
-                        bookRecyclerViewAdapter.submitList(it.books)
-                    }
-                }
-
-                // 응답에 실패한 경우
-                override fun onFailure(call: Call<BestSellerDto>, t: Throwable) {
-                    Log.e(M_TAG, t.toString())
-                }
-            })
-    }
-
-
-}*/

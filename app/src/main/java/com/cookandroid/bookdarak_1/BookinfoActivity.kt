@@ -49,74 +49,13 @@ class BookinfoActivity : AppCompatActivity() {
         userId = receivedIntent.getIntExtra("USER_ID", -1)
         //bookId = intent.getIntExtra("BOOK_ID", -1)
 
-        // Assuming your binding object is properly set up
-        val authorsList = binding.writer.text // This assumes the binding syntax for retrieving a TextView's text
-
-// Convert the list of authors to a readable string
-        //val authorString = authorsList.joinToString(", ") // Join authors with a comma and space
-
-// Now you can use the authorString as needed, such as displaying it in a TextView
-
-
-
-
-        //binding.bookname.text = model?.title.orEmpty()
-        //binding.writer.text = model?.authors.toString()
-        //binding.textIsbn.text = model?.isbn.toString()
-
-
-        //val writerText = model?.authors.toString()
-
-// Now, isbnList contains the individual ISBN numbers as a list of strings
-
-
-
-        val booktitle = model?.title.toString()
-        //val writerList = writerText
-        //    .trim('[', ']') // 괄호 제거
-        //    .split("\" \"") // 작가 이름들을 분할하여 리스트로 변환
-        val writerList = model?.authors
-        val isbn = model?.isbn.toString()
-
-
-        val image = model?.thumbnail.toString()
-
-        val BookIdrequest =
-            writerList?.let { BookIdRequest(booktitle, it, isbn, image) } // gender 추가
-
-
-        if (BookIdrequest != null) {
-            ApiClient.service.bookId(BookIdrequest).enqueue(object: Callback<BookIdResponse> {
-                override fun onResponse(call: Call<BookIdResponse>, response: Response<BookIdResponse>) {
-                    if (response.isSuccessful && response.body()?.isSuccess == true) {
-                        //val bookId = response.body()?.result?.bookId ?: -1
-                        val bookId = response.body()?.result?.bookId ?: -1  // <-- 'userId'를 'id'로 수정
-                        Log.d(TAG, "bookID: $bookId")
-                        Toast.makeText(this@BookinfoActivity,"북id성공.", Toast.LENGTH_SHORT).show()
+        Log.d(TAG, "Received USER_ID: $userId")
 
 
 
 
 
 
-
-
-                        startActivity(intent)
-
-
-
-
-                    } else {
-                        Toast.makeText(this@BookinfoActivity, response.body()?.message.toString(), Toast.LENGTH_SHORT).show()
-                    }
-                }
-
-                override fun onFailure(call: Call<BookIdResponse>, t: Throwable) {
-                    //Toast.makeText(this@BookinfoActivity, t.localizedMessage, Toast.LENGTH_SHORT).show()
-                    Toast.makeText(this@BookinfoActivity,"북id실패.", Toast.LENGTH_SHORT).show()
-                }
-            })
-        }
 
 
 
@@ -126,11 +65,63 @@ class BookinfoActivity : AppCompatActivity() {
         renderView()
 
         findViewById<Button>(R.id.writebutton).setOnClickListener {
-            val intent = Intent(this, writingreview::class.java)
-            intent.putExtra("bookModel", model)
-            intent.putExtra("USER_ID", userId) // Passing userId to writingreview activity
-            intent.putExtra("BOOK_ID", bookId)
-            startActivity(intent)
+
+            val writerText = model?.authors.toString()
+            val booktitle = model?.title.toString()
+            val writerList = model?.authors ?: emptyList()
+            //val writerList = listOf("Alice", "Bob", "Charlie")
+            //val writerString = writerList?.joinToString(", ") ?: ""
+            val isbn = model?.isbn.toString()
+
+
+            val image = model?.thumbnail.toString()
+
+            //val writerList: List<String> = model?.authors ?: emptyList()
+
+            Log.d(TAG, "rbookidrequest: $booktitle,$isbn,$image,$writerList")
+            val BookIdrequest = BookIdRequest(booktitle, writerList, isbn, image) // gender 추가
+            Log.d(TAG, "rbookidrequest_2: $BookIdrequest")
+
+
+
+                ApiClient.service.bookId(BookIdrequest).enqueue(object: Callback<BookIdResponse> {
+                    override fun onResponse(call: Call<BookIdResponse>, response: Response<BookIdResponse>) {
+                        if (response.isSuccessful  && response.body()?.isSuccess == true) {
+                            Log.d(TAG, "rbookidrequest_3: $writerList")
+                            //val bookId = response.body()?.result?.bookId ?: -1
+                            val bookId = response.body()?.result?.bookId ?: -1  // <-- 'userId'를 'id'로 수정
+                            Log.d(TAG, "wwbookID: $bookId")
+
+
+
+                            val intent = Intent(this@BookinfoActivity, writingreview::class.java)
+                            intent.putExtra("bookModel", model)
+                            intent.putExtra("USER_ID", userId) // Passing userId to writingreview activity
+                            intent.putExtra("BOOK_ID", bookId)
+                            startActivity(intent)
+
+
+
+
+
+
+
+
+
+
+
+                        } else {
+                            Toast.makeText(this@BookinfoActivity, response.body()?.message.toString(), Toast.LENGTH_SHORT).show()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<BookIdResponse>, t: Throwable) {
+                        Toast.makeText(this@BookinfoActivity, t.localizedMessage, Toast.LENGTH_SHORT).show()
+
+                    }
+                })
+
+
         }
 
         val backButton = findViewById<ImageButton>(R.id.backButton)
@@ -215,20 +206,7 @@ class BookinfoActivity : AppCompatActivity() {
             .load(model?.thumbnail.orEmpty())
             .into(binding.imageView)
 
-        //앱 구동할떄 이부분 주석처리해주세요!!!! 여기때문에 책 검색에서 책 누르면 화면 꺼집니다. 질문예정이구요!!
-        // 저장된 리뷰 데이터 가져오기;
-        /*
 
-        Thread {
-            val Find_Review = db.reviewDao().getOneReview(model?.isbn ?: "0")
-            Find_Review?.let {
-                runOnUiThread {
-                    binding.savedReview.setText(it.Find_Review)
-                }
-            }
-        }.start()
-
-         */
 
 
     }

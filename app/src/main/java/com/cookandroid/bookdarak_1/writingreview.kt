@@ -140,7 +140,7 @@ class writingreview : AppCompatActivity() {
             })
 
              */
-
+/*
             val intent = Intent(this@writingreview, seereview_Activity::class.java)
             intent.putExtra("content",content)
             intent.putExtra("phrase",phrase)
@@ -155,6 +155,8 @@ class writingreview : AppCompatActivity() {
 
 
             startActivity(intent)
+
+ */
 
 
 

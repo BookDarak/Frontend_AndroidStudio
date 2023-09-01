@@ -16,6 +16,7 @@ class seereview_Activity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySeereviewBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        model = intent.getParcelableExtra("bookModel")
 
 
                 // Get content and phrase from intent extras
@@ -45,7 +46,7 @@ class seereview_Activity : AppCompatActivity() {
                 }
                 binding.textviewPublicOr.text = publicYnString
 
-        model = intent.getParcelableExtra("bookModel")
+
         renderView()
 
 
