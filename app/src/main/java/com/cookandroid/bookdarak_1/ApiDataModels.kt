@@ -303,3 +303,10 @@ data class RecommendCountResponse(
     val message: String,
     val result: String
 )
+
+data class RecommendStatusResponse(
+    val isSuccess: Boolean,
+    val code: Int,
+    val message: String,
+    val result: String
+)

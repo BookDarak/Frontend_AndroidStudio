@@ -104,4 +104,10 @@ interface BookDarakApiService {
     fun getRecommendCountByReviewId(
         @Path("reviewId") reviewId: Int
     ): Call<RecommendCountResponse>
+
+    @GET("/reviews/shorts/recommend/{userId}/{reviewId}")
+    fun checkRecommendStatus(
+        @Path("userId") userId: Int,
+        @Path("reviewId") reviewId: Int
+    ): Call<RecommendStatusResponse>
 }
