@@ -102,7 +102,7 @@ class writingreview : AppCompatActivity() {
 
 
 
-                        val intent = Intent(this@writingreview, ReviewFragment::class.java)
+                        val intent = Intent(this@writingreview, seereview_Activity::class.java)
                         intent.putExtra("REVIEW_ID", reviewId)
 
 

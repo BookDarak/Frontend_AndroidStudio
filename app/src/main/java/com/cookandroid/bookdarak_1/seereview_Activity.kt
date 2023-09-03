@@ -46,7 +46,6 @@ class seereview_Activity : AppCompatActivity() {
                 }
                 binding.textviewPublicOr.text = publicYnString
 
-
         renderView()
 
 
@@ -56,10 +55,7 @@ class seereview_Activity : AppCompatActivity() {
 
 
 
-
-
-
-    }
+}
     private fun renderView() {
 
         //binding.textSeereviewBooktitle.text = model?.title.orEmpty()
@@ -74,11 +70,6 @@ class seereview_Activity : AppCompatActivity() {
 
 
     }
-
-
-
-
-
 }
 
 

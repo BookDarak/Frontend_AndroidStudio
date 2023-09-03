@@ -177,6 +177,8 @@ class FindFragment : Fragment() {
             intent.putExtra("USER_ID", userId)
 
 
+
+
             startActivity(intent)
         })
 
