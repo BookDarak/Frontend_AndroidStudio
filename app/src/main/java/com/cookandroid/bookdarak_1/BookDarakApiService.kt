@@ -82,8 +82,6 @@ interface BookDarakApiService {
 
 
 
-
-
     @GET("/reviews/shorts/users/{userId}")
     fun getUserReviews(
         @Path("userId") userId: Int,
@@ -91,7 +89,9 @@ interface BookDarakApiService {
         @Query("sort") sort: String? = null
     ): Call<UserReviewResponse>
 
-
-
-
+    @GET("/reviews/shorts/books/{bookId}")
+    fun getBookReviews(
+        @Path("bookId") bookId: Int,
+        @Query("sort") sort: String? = "createdAt,DESC"
+    ): Call<ReviewListResponse>
 }
