@@ -117,7 +117,7 @@ interface BookDarakApiService {
         @Path("reviewId") reviewId: Int
     ): Call<RecommendDeleteResponse>
 
-    @POST("/reviews/shorts/recommend/{userId}/{reviewId}")
+    @POST("/reviews/shorts/recommend/{userId}/{reviewId}")   //요약서평추천
     fun addRecommendation(
         @Path("userId") userId: Int,
         @Path("reviewId") reviewId: Int
