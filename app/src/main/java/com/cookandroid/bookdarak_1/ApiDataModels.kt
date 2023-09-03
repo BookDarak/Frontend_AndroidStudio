@@ -310,3 +310,10 @@ data class RecommendStatusResponse(
     val message: String,
     val result: String
 )
+
+data class RecommendDeleteResponse(
+    val isSuccess: Boolean,
+    val code: Int,
+    val message: String,
+    val result: String
+)

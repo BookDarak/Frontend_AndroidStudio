@@ -105,9 +105,15 @@ interface BookDarakApiService {
         @Path("reviewId") reviewId: Int
     ): Call<RecommendCountResponse>
 
-    @GET("/reviews/shorts/recommend/{userId}/{reviewId}")
+    @GET("/reviews/shorts/recommend/{userId}/{reviewId}")   //요약서평추천여부조회
     fun checkRecommendStatus(
         @Path("userId") userId: Int,
         @Path("reviewId") reviewId: Int
     ): Call<RecommendStatusResponse>
+
+    @DELETE("/reviews/shorts/recommend/{userId}/{reviewId}")   //요약서평추천삭제
+    fun deleteRecommendation(
+        @Path("userId") userId: Int,
+        @Path("reviewId") reviewId: Int
+    ): Call<RecommendDeleteResponse>
 }
