@@ -99,4 +99,9 @@ interface BookDarakApiService {
     fun getPublicSummaryReviews(
         @Query("sort") sort: String? = "createdAt,DESC"
     ): Call<ReviewSummaryResponse>
+
+    @GET("/reviews/shorts/recommend/{reviewId}")   //요약서평추천수조회
+    fun getRecommendCountByReviewId(
+        @Path("reviewId") reviewId: Int
+    ): Call<RecommendCountResponse>
 }

@@ -295,3 +295,11 @@ data class ReviewSummaryResponse(
         val createdDate: String
     )
 }
+
+
+data class RecommendCountResponse(
+    val isSuccess: Boolean,
+    val code: Int,
+    val message: String,
+    val result: String
+)
