@@ -270,3 +270,28 @@ data class ReviewListResponse(
     )
 }
 
+data class ReviewSummaryResponse(
+    val isSuccess: Boolean,
+    val code: Int,
+    val message: String,
+    val result: ReviewSummaryResult?
+) {
+    data class ReviewSummaryResult(
+        val currentPage: Int,
+        val totalPages: Int,
+        val totalItems: Int,
+        val items: List<ReviewSummaryItem>
+    )
+
+    data class ReviewSummaryItem(
+        val reviewId: Int,
+        val userId: Int,
+        val username: String,
+        val bookId: Int,
+        val bookImgUrl: String,
+        val content: String,
+        val rating: Double,
+        val likeCount: Int,
+        val createdDate: String
+    )
+}
