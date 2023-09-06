@@ -33,6 +33,8 @@ class writingreview : AppCompatActivity() {
         binding = ActivityWritingreviewBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.textWritingreviewBooktitle.text = title
+
 
 
         binding.writingreviewBackButton.setOnClickListener {
@@ -68,12 +70,12 @@ class writingreview : AppCompatActivity() {
     private fun initSaveButton() {
         binding.buttonRecord.setOnClickListener {
 
-            //val title = binding.textWritingreviewBooktitle.text.toString()
-            //val isbn = binding.textWritingreviewIsbn.text.toString()
+            val title = binding.textWritingreviewBooktitle.text.toString()
+            val isbn = binding.textWritingreviewIsbn.text.toString()
 
             val ratingString = binding.writingreviewRatingbar.rating
             val rating = String.format("%.1f", ratingString)//레이팅을 문자로 바꿈
-            //val rating_2 = binding.writingreviewRatingbar.rating
+            val rating_2 = binding.writingreviewRatingbar.rating
 
             val content = binding.editReview.text.toString()
             val phrase = binding.editImpressive.text.toString()
@@ -102,8 +104,7 @@ class writingreview : AppCompatActivity() {
 
 
 
-                        val intent = Intent(this@writingreview, seereview_Activity::class.java)
-                        intent.putExtra("REVIEW_ID", reviewId)
+
 
 
 
@@ -116,6 +117,23 @@ class writingreview : AppCompatActivity() {
                     Toast.makeText(this@writingreview, t.localizedMessage, Toast.LENGTH_SHORT).show()
                 }
             })
+
+            val intent = Intent(this@writingreview, seereview_Activity::class.java)
+            //intent.putExtra("REVIEW_ID", reviewId)
+            intent.putExtra("USER_ID", userId)
+            intent.putExtra("bookModel", model)
+            intent.putExtra("rating_2",rating_2)
+            intent.putExtra("publicYn",publicYn)
+
+            intent.putExtra("isbn",isbn)
+            intent.putExtra("title",title)
+
+            intent.putExtra("content",content)
+            intent.putExtra("phrase",phrase)
+
+            intent.putExtra("startdate",startDate)
+            intent.putExtra("enddate",endDate)
+            startActivity(intent)
 
             /*
 
@@ -141,23 +159,8 @@ class writingreview : AppCompatActivity() {
             })
 
              */
-/*
-            val intent = Intent(this@writingreview, seereview_Activity::class.java)
-            intent.putExtra("content",content)
-            intent.putExtra("phrase",phrase)
-            intent.putExtra("rating_2",rating_2)
-            intent.putExtra("publicYn",publicYn)
-            intent.putExtra("startdate",startDate)
-            intent.putExtra("enddate",endDate)
-            intent.putExtra("isbn",isbn)
-            intent.putExtra("title",title)
-            intent.putExtra("bookModel", model)
 
 
-
-            startActivity(intent)
-
- */
 
 
 

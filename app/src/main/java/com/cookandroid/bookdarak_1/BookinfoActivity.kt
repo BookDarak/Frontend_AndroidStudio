@@ -143,22 +143,20 @@ class BookinfoActivity : AppCompatActivity() {
                     }
 
 
+                    val writeButton: Button = findViewById(R.id.writebutton)
+                    writeButton.setOnClickListener {
 
-
-                    val intent = Intent(this@BookinfoActivity, writingreview::class.java)
-                    intent.putExtra("bookModel", model)
-                    intent.putExtra("USER_ID", userId) // Passing userId to writingreview activity
-                    intent.putExtra("BOOK_ID", bookId)
-                    Log.d(TAG, "user and bookID: $userId, $bookId")
-                    //startActivity(intent)
-
-
-
-
+                        val intent = Intent(this@BookinfoActivity, writingreview::class.java)
+                        intent.putExtra("bookModel", model)
+                        intent.putExtra("USER_ID", userId) // Passing userId to writingreview activity
+                        intent.putExtra("BOOK_ID", bookId)
+                        Log.d(TAG, "BookinfoActivity_user and bookID: $userId, $bookId")
+                        startActivity(intent)
 
 
 
 
+                    }
 
 
 
@@ -187,17 +185,12 @@ class BookinfoActivity : AppCompatActivity() {
 
 
 
+
+
+
         renderView()
 
-        findViewById<Button>(R.id.writebutton).setOnClickListener {
 
-            val intent = Intent(this@BookinfoActivity, writingreview::class.java)
-            startActivity(intent)
-
-
-
-
-        }
 
 
 
