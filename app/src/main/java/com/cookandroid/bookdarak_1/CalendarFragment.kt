@@ -145,14 +145,17 @@ class CalendarFragment : Fragment() {
 
         compactcalendar_view.removeAllEvents()
 
+        val customColor = Color.parseColor("#96A0FF")
+
         results?.forEach { result ->
             val startDate = sdf.parse(result.startDate)?.time ?: return@forEach
             val endDate = sdf.parse(result.endDate)?.time ?: return@forEach
 
             for (time in startDate..endDate step 86400000L) {
-                val event = Event(Color.RED, time, result)
+                val event = Event(customColor, time, result)
                 compactcalendar_view.addEvent(event)
             }
         }
     }
+
 }

@@ -5,6 +5,7 @@
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
+    <color name="purple_cal">#96A0FF</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#E6E6E6</color>
@@ -12,7 +13,7 @@
     <color name="rating_star_color">#FFFF00</color>
     <color name="colorPrimaryTransparent">#803F51B5</color>
     <color name="colorPrimaryDarkTransparent">#80303F9F</color>
-    <color name="colorAccentTransparent">#80FF4081</color>
+    <color name="colorAccentTransparent">#708490FF</color>
 
 
 </resources>
