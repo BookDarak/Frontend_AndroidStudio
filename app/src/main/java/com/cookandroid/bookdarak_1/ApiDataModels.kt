@@ -344,3 +344,16 @@ data class BookItem(
     val name: String,
     val bookImgUrl: String
 )
+
+data class FollowerResponse(
+    val isSuccess: Boolean,
+    val code: Int,
+    val message: String,
+    val result: List<Follower>?
+)
+
+data class Follower(
+    val followerId: Int,
+    val followerName: String,
+    val followerImgUrl: String?
+)
