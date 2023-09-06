@@ -20,6 +20,7 @@ import retrofit2.Response
 
         lateinit var reviewRecyclerView: RecyclerView // 리사이클러뷰 어댑터
         val sort = "DESC"
+        private lateinit var ReviewAdapter: ReviewAdapter
         //private val apiService = ApiService.create() // Retrofit을 사용하여 API 서비스 생성
 
         override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,8 +42,12 @@ import retrofit2.Response
 
             reviewRecyclerView = view.findViewById(R.id.review_recycler_view)
 
+            ReviewAdapter = ReviewAdapter(mutableListOf()) // ReviewAdapter 인스턴스 초기화
+
             reviewRecyclerView.layoutManager = LinearLayoutManager(context)
-            reviewRecyclerView.adapter = ReviewAdapter(listOf())
+            reviewRecyclerView.adapter = ReviewAdapter
+
+
 
         }
 
@@ -50,13 +55,21 @@ import retrofit2.Response
             ApiClient.service.getPublicSummaryReviews(sort).enqueue(object : Callback<ReviewSummaryResponse> {
                 override fun onResponse(call: Call<ReviewSummaryResponse>, response: Response<ReviewSummaryResponse>) {
                     if (response.isSuccessful) {
-                        //val results = response.body()?.result
+                        val results = response.body()?.result?.items
+                        //Log.d("ReviewFragment", "Review_frag_results: $results")
                         //updateCalendarWithEvents(results)
-                        val reviewSummaryResponse = response.body()
+                        //val reviewSummaryResponse = response.body()
+                        Log.d("ReviewFragment", "Review_frag_results: $results")
+
+
+
 
                         // 데이터가 정상적으로 받아졌을 때 어댑터에 데이터 설정
-                        //reviewSummaryResponse?.result?.items?.let {
-                           // ReviewAdapter.submitData(it)
+                        results?.let {
+                            ReviewAdapter.submitData(it)
+                        }
+
+
                     } else {
                         Log.e("ReviewFragment", "Server returned error: ${response.code()} - ${response.message()}")
                         response.body()?.let {
