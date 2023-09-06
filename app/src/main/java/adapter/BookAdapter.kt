@@ -14,7 +14,8 @@ import com.cookandroid.bookdarak_1.R
 class BookAdapter(private val books: List<CalendarResult>) : RecyclerView.Adapter<BookAdapter.BookViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.calendar_reviewbox, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.calendar_reviewbox, parent, false)
         return BookViewHolder(view)
     }
 
@@ -36,10 +37,11 @@ class BookAdapter(private val books: List<CalendarResult>) : RecyclerView.Adapte
 
         fun bind(book: CalendarResult) {
             Glide.with(itemView.context)
-                .load(book.bookImgUrl)
+                .load(book.bookImgUrl)   // 주의: 여기서 'image' 대신 'bookImgUrl'을 사용하였습니다.
                 .into(bookImage)
-            bookTitle.text = book.name
+            bookTitle.text = book.name  // 주의: 여기서 'title' 대신 'name'을 사용하였습니다.
             bookAuthor.text = book.author
         }
     }
 }
+

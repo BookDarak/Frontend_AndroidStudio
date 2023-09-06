@@ -122,4 +122,17 @@ interface BookDarakApiService {
         @Path("userId") userId: Int,
         @Path("reviewId") reviewId: Int
     ): Call<RecommendResponse>
+
+    @GET("/bookmarks/{userId}")  //북마크 리스트 조회
+    fun getBookmarks(
+        @Path("userId") userId: Int,
+        @Query("pageNo") pageNo: Int? = null,
+        @Query("pageSize") pageSize: Int? = null
+    ): Call<BookmarkListResponse>
+
+    @GET("/follows/followers/{userId}")  //팔로워들 조회
+    fun getFollowers(@Path("userId") userId: Int): Call<FollowerResponse>
+
+
+
 }
