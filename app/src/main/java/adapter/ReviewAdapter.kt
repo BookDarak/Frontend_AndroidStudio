@@ -11,7 +11,7 @@ import com.bumptech.glide.Glide
 import com.cookandroid.bookdarak_1.R
 import com.cookandroid.bookdarak_1.ReviewSummaryResponse
 
-class ReviewAdapter(private val reviews: List<ReviewSummaryResponse.ReviewSummaryItem>) : RecyclerView.Adapter<ReviewAdapter.ReviewViewHolder>() {
+class ReviewAdapter(private val reviews: List<ReviewSummaryResponse.ReviewSummaryItem>) : RecyclerView.Adapter<ReviewViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReviewViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.review_item, parent, false)
@@ -30,10 +30,10 @@ class ReviewAdapter(private val reviews: List<ReviewSummaryResponse.ReviewSummar
         return reviews.size
     }
 
-    fun submitData(newData: List<ReviewSummaryResponse.ReviewSummaryItem>) {
-        reviews.clear()
-        reviews.addAll(newData)
-        notifyDataSetChanged()
+   // fun submitData(newData: List<ReviewSummaryResponse.ReviewSummaryItem>) {
+     //   reviews.clear()
+       // reviews.addAll(newData)
+        //notifyDataSetChanged()
     }
 
     class ReviewViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -50,4 +50,3 @@ class ReviewAdapter(private val reviews: List<ReviewSummaryResponse.ReviewSummar
             //bookAuthor.text = review.author
         }
     }
-}
