@@ -1,7 +1,7 @@
 package model
 
 data class Book(
-    val imageResource: Int,
+    val image: String,
     val title: String,
     val author: String
 )

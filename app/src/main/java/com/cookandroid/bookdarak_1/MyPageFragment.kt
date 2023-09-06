@@ -1,5 +1,6 @@
 package com.cookandroid.bookdarak_1
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -60,6 +61,19 @@ class MyPageFragment : Fragment() {
         fetchUserReviews()
 
         fetchUserData()
+
+        val bookmarkClickView = view.findViewById<TextView>(R.id.text_total_bookmark)
+        val bookmarkNClickView = view.findViewById<TextView>(R.id.text_total_bookmark_n) // 여기서 참조를 가져옵니다.
+
+        val openBookmarkActivity = View.OnClickListener {
+            val intent = Intent(context, BookmarkActivity::class.java)
+            intent.putExtra("USER_ID", userId) // 유저ID 정보 전달
+            intent.putExtra("USER_NAME", userName.text.toString()) // 유저 닉네임 정보 전달
+            startActivity(intent)
+        }
+
+        bookmarkClickView.setOnClickListener(openBookmarkActivity) // 클릭 리스너 설정
+        bookmarkNClickView.setOnClickListener(openBookmarkActivity) // 'text_total_bookmark_n'에도 동일한 리스너 설정
 
         return view
     }

@@ -324,3 +324,23 @@ data class RecommendResponse(
     val message: String,
     val result: String
 )
+
+data class BookmarkListResponse(
+    val isSuccess: Boolean,
+    val code: Int,
+    val message: String,
+    val result: BookmarkListResult?
+)
+
+data class BookmarkListResult(
+    val currentPage: Int,
+    val totalPages: Int,
+    val totalItems: Int,
+    val items: List<BookItem>
+)
+
+data class BookItem(
+    val bookId: Int,
+    val name: String,
+    val bookImgUrl: String
+)
