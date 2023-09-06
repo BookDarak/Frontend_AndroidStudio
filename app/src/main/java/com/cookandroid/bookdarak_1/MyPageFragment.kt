@@ -75,6 +75,19 @@ class MyPageFragment : Fragment() {
         bookmarkClickView.setOnClickListener(openBookmarkActivity) // 클릭 리스너 설정
         bookmarkNClickView.setOnClickListener(openBookmarkActivity) // 'text_total_bookmark_n'에도 동일한 리스너 설정
 
+        val followerClickView = view.findViewById<TextView>(R.id.text_total_following)
+        val followerNClickView = view.findViewById<TextView>(R.id.text_total_following_n)
+
+        val openFollowerActivity = View.OnClickListener {
+            val intent = Intent(context, FollowerActivity::class.java)
+            intent.putExtra("USER_ID", userId) // 유저ID 정보 전달
+            intent.putExtra("USER_NAME", userName.text.toString()) // 유저 닉네임 정보 전달
+            startActivity(intent)
+        }
+
+        followerClickView.setOnClickListener(openFollowerActivity) // 클릭 리스너 설정
+        followerNClickView.setOnClickListener(openFollowerActivity) // 'text_total_following_n'에도 동일한 리스너 설정
+
         return view
     }
 
