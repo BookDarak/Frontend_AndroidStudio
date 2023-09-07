@@ -9,7 +9,6 @@ import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.cookandroid.bookdarak_1.data.api.FindBookAPI
@@ -60,12 +59,12 @@ class BookinfoActivity : AppCompatActivity() {
 
 
 
-        bookinforeviewRecyclerView = findViewById(R.id.bookinfo_review_recycler_view)
+        //bookinforeviewRecyclerView = findViewById(R.id.bookinfo_review_recycler_view)
 
         bookinfo_reviewAdapter = Bookinfo_ReviewAdapter(mutableListOf()) // Initialize ReviewAdapter instance
 
-        bookinforeviewRecyclerView.layoutManager = LinearLayoutManager(this)
-        bookinforeviewRecyclerView.adapter = bookinfo_reviewAdapter
+        //bookinforeviewRecyclerView.layoutManager = LinearLayoutManager(this)
+        //bookinforeviewRecyclerView.adapter = bookinfo_reviewAdapter
 
         // 다른 액티비티에서 ID를 받아옴
         val receivedIntent = intent

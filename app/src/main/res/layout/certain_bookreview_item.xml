@@ -38,29 +38,7 @@
                         android:layout_marginTop="7dp"
                         android:text="유저아이디"
                         />
-                    <TextView
-                        android:id="@+id/userid"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="#000000"
-                        android:layout_marginTop="7dp"
-                        android:text="1"
-                        />
-                    <TextView
-                        android:id="@+id/bookid"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="#000000"
-                        android:layout_marginTop="7dp"
-                        android:text="2"
-                        />
-                    <TextView
-                        android:id="@+id/reviewid"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="#000000"
-                        android:layout_marginTop="7dp"
-                        android:text="3"
+
                         />
                     <ImageView
                         android:id="@+id/user_detail"

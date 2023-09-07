@@ -30,16 +30,6 @@
             android:layout_height="0dp"
             android:layout_weight="1" />
 
-        <Button
-            android:id="@+id/writebutton"
-            android:textStyle="bold"
-            android:layout_width="70dp"
-            android:layout_height="29dp"
-            android:text="기록하기"
-            android:textSize="8sp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/round"
-            app:backgroundTint="#A6AFFF" />
 
         <ImageButton
             android:id="@+id/bookmarkButton"
@@ -231,13 +221,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/bookinfo_review_recycler_view"
-                    android:layout_width="390dp"
-                    android:layout_height="0dp"
+
+                <Button
+                    android:id="@+id/writebutton"
+                    android:textStyle="bold"
+                    android:layout_width="130dp"
+                    android:layout_height="50dp"
+                    android:text="기록하기"
                     android:layout_gravity="center"
-                    android:layout_weight="1"
-                    tools:listitem="@layout/certain_bookreview_item"/>
+                    android:textSize="17sp"
+                    android:background="@drawable/round"
+                    app:backgroundTint="#A6AFFF" />
+
+
+
+
 
 
 
