@@ -48,8 +48,8 @@ class ReviewAdapter(private val reviews: MutableList<ReviewSummaryResponse.Revie
 
 
         private val bookImage: ImageView = itemView.findViewById(R.id.book_image)
-        private val bookId: TextView = itemView.findViewById(R.id.book_id)
-        private val userId: TextView = itemView.findViewById(R.id.user_id)
+        //private val bookId: TextView = itemView.findViewById(R.id.book_id)
+        //private val userId: TextView = itemView.findViewById(R.id.user_id)
         private val content: TextView = itemView.findViewById(R.id.review_content)
         private val username: TextView = itemView.findViewById(R.id.review_item_username)
         private val rating: RatingBar = itemView.findViewById(R.id.review_item_rating)
@@ -78,8 +78,8 @@ class ReviewAdapter(private val reviews: MutableList<ReviewSummaryResponse.Revie
             rating.rating = review.rating.toFloat()
             createdDate.text = review.createdDate
             likeCount.text = review.likeCount.toString()
-            userId.text = review.userId.toString()
-            bookId.text = review.bookId.toString()
+            //userId.text = review.userId.toString()
+            //bookId.text = review.bookId.toString()
             //bookAuthor.text = review.author
 
 

@@ -34,19 +34,12 @@
             android:layout_marginTop="7dp"
             android:text="유저아이디"
              />
-        <TextView
-            android:id="@+id/user_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#000000"
-            android:layout_marginTop="7dp"
-            android:text="유저아이디"
-            />
+
 
         <ImageView
             android:id="@+id/user_detail"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
             android:src="@drawable/vector2"
             android:layout_marginTop="8dp"
             />
@@ -60,30 +53,27 @@
 
 
             <LinearLayout
-                android:layout_width="280dp"
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
 
-                <TextView
-                    android:id="@+id/book_id"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Book Title"
-                    android:textStyle="bold" />
+
 
 
                 <RatingBar
                     android:id="@+id/review_item_rating"
                     style="?android:attr/ratingBarStyleSmall"
                     android:layout_width="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:layout_height="wrap_content"
                     android:stepSize="0.5" />
 
                 <TextView
                     android:id="@+id/review_content"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
                     android:text="리뷰내용" />
 
             </LinearLayout>
@@ -95,7 +85,7 @@
 
                 <ImageView
                     android:id="@+id/book_image"
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="150dp"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"

@@ -20,6 +20,8 @@ import com.cookandroid.bookdarak_1.ui.adapter.BookSearchViewHolder
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class BookinfoActivity : AppCompatActivity() {
     private var bookmarked = false
@@ -70,7 +72,7 @@ class BookinfoActivity : AppCompatActivity() {
 
 
         userId = receivedIntent.getIntExtra("USER_ID", -1)
-        isbn_of_home = receivedIntent.getStringExtra("isbn_of_home")!!
+        isbn_of_home = receivedIntent.getStringExtra("isbn_of_home").toString()
         //bookId = intent.getIntExtra("BOOK_ID", -1)
 
         Log.d(TAG, "Received USER_ID: $userId")
@@ -95,11 +97,14 @@ class BookinfoActivity : AppCompatActivity() {
 
         if (isbn_of_home != "-1") {
 
+            initBookService()
+
             bookService.FindBook(isbn_of_home).enqueue(object : Callback<SearchResponse> {override fun onResponse(
                     call: Call<SearchResponse>, response: Response<SearchResponse>) {
                     if (response.isSuccessful.not()) {
                         return
                     }
+
 
                 val results_of_isbn_of_home = response.body()?.documents
 
@@ -302,6 +307,14 @@ class BookinfoActivity : AppCompatActivity() {
 
 
 
+    private fun initBookService() {
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://dapi.kakao.com/") // 인터파크 베이스 주소;
+            .addConverterFactory(GsonConverterFactory.create()) // Gson 변환기 사용;
+            .build()
+
+        bookService = retrofit.create(FindBookAPI::class.java)
+    }
 
 
 
