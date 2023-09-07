@@ -4,6 +4,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
@@ -12,10 +13,39 @@ import com.bumptech.glide.Glide
 import com.cookandroid.bookdarak_1.R
 import com.cookandroid.bookdarak_1.ReviewSummaryResponse
 
+
+private val ReviewAdapter.ReviewViewHolder.setOnThumbsUpClickListener: Unit
+    get() {}
+
 class ReviewAdapter(private val reviews: MutableList<ReviewSummaryResponse.ReviewSummaryItem>) : RecyclerView.Adapter<ReviewAdapter.ReviewViewHolder>() {
 
 
-    class ReviewViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+
+    private var onThumbsUpClickListener: OnThumbsUpClickListener? = null
+
+    fun setOnThumbsUpClickListener(listener: OnThumbsUpClickListener?) {
+        onThumbsUpClickListener = listener
+    }
+
+
+
+    interface OnThumbsUpClickListener {
+        fun onThumbsUpClick(reviewId: Int)
+    }
+
+
+
+
+
+
+
+
+    inner class ReviewViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+
+
+
 
         private val bookImage: ImageView = itemView.findViewById(R.id.book_image)
         private val bookId: TextView = itemView.findViewById(R.id.book_id)
@@ -25,6 +55,19 @@ class ReviewAdapter(private val reviews: MutableList<ReviewSummaryResponse.Revie
         private val rating: RatingBar = itemView.findViewById(R.id.review_item_rating)
         private val createdDate: TextView = itemView.findViewById(R.id.createdDate)
         private val likeCount: TextView = itemView.findViewById(R.id.likecount)
+        private val thumbsUpButton: ImageButton = itemView.findViewById(R.id.thumbsup)
+
+
+
+        init{
+            thumbsUpButton.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    onThumbsUpClickListener?.onThumbsUpClick(reviews[position].reviewId)
+                }
+            }
+        }
+
 
         fun bind(review: ReviewSummaryResponse.ReviewSummaryItem) {
             Glide.with(itemView.context)
@@ -38,10 +81,23 @@ class ReviewAdapter(private val reviews: MutableList<ReviewSummaryResponse.Revie
             userId.text = review.userId.toString()
             bookId.text = review.bookId.toString()
             //bookAuthor.text = review.author
+
+
+
+
+
         }
 
 
+
+
+
     }
+
+
+
+
+
 
 
 
@@ -57,9 +113,25 @@ class ReviewAdapter(private val reviews: MutableList<ReviewSummaryResponse.Revie
 
         Log.d("ReviewAdapter", "Binding review at position $position: $review")
         holder.bind(review)
+        holder.setOnThumbsUpClickListener
+
+
 
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     fun submitData(newData: List<ReviewSummaryResponse.ReviewSummaryItem>) {
         reviews.clear()
@@ -69,6 +141,8 @@ class ReviewAdapter(private val reviews: MutableList<ReviewSummaryResponse.Revie
     override fun getItemCount(): Int {
         return reviews.size
     }
+
+
 
 
 

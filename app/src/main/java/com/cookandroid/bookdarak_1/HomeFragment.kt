@@ -9,17 +9,15 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.cookandroid.bookdarak_1.data.api.FindBookAPI
 import com.cookandroid.bookdarak_1.databinding.FragmentHomeBinding
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 
@@ -38,8 +36,10 @@ class HomeFragment : Fragment() {
             val args = Bundle()
             args.putInt("USER_ID", userId)
             fragment.arguments = args
+
             return fragment
         }
+        private lateinit var bookService: FindBookAPI
     }
 
     val client = OkHttpClient.Builder()
@@ -191,6 +191,39 @@ class HomeFragment : Fragment() {
         books?.let {
             if (it.isNotEmpty()) {
                 updateBookView(binding.imageRec21, binding.textRec21Title, binding.textRec21Author, it[0])
+
+                /*
+                    val retrofit = Retrofit.Builder()
+                        .baseUrl("https://dapi.kakao.com/") // 인터파크 베이스 주소;
+                        .addConverterFactory(GsonConverterFactory.create()) // Gson 변환기 사용;
+                        .build()
+
+                    bookService = retrofit.create(FindBookAPI::class.java)
+
+
+                private fun initBookRecyclerView() {
+                    FindFragment.bookRecyclerViewAdapter = BookSearchViewHolder(itemClickedListener = {
+                        val intent = Intent(requireContext(), BookinfoActivity::class.java)
+
+                        // 직렬화 해서 넘길 것.
+                        intent.putExtra("bookModel", it)
+                        intent.putExtra("USER_ID", FindFragment.userId)
+
+
+
+
+                        startActivity(intent)
+                    })
+
+
+
+                    FindFragment.binding.recyclerViewBooklist.layoutManager = LinearLayoutManager(requireContext() )
+                    FindFragment.binding.recyclerViewBooklist.adapter =
+                        FindFragment.bookRecyclerViewAdapter
+                }
+
+                 */
+
             }
             if (it.size > 1) {
                 updateBookView(binding.imageRec22, binding.textRec22Title, binding.textRec22Author, it[1])
@@ -199,6 +232,29 @@ class HomeFragment : Fragment() {
                 updateBookView(binding.imageRec23, binding.textRec23Title, binding.textRec23Author, it[2])
             }
         }
+/*
+        // Inside HomeFragment, set click listeners for book cover images
+        binding.imageRec11.setOnClickListener {
+            navigateToBookDetail(bookList[0]) // Pass the book information to the detail page
+        }
+
+        binding.imageRec12.setOnClickListener {
+            navigateToBookDetail(bookList[1])
+        }
+
+        binding.imageRec13.setOnClickListener {
+            navigateToBookDetail(bookList[2])
+        }
+
+        // Create a function to navigate to the BookDetailFragment
+        fun navigateToBookDetail(book: RecommendationResponse.Book) {
+            val intent = Intent(requireContext(), BookinfoActivity::class.java)
+            intent.putExtra("bookModel", book)
+            startActivity(intent)
+        }
+
+ */
+
     }
     private suspend fun fetchQuote() {
         try {

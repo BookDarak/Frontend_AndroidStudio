@@ -102,22 +102,22 @@ class FindFragment : Fragment() {
 
 
     //override fun onCreate(savedInstanceState: Bundle?) {
-        //super.onCreate(savedInstanceState)
+    //super.onCreate(savedInstanceState)
 
-        //binding = FragmentFindBinding.inflate(layoutInflater)
-        //setContentView(binding.root)
+    //binding = FragmentFindBinding.inflate(layoutInflater)
+    //setContentView(binding.root)
 
-        //initBookRecyclerView()
-        //initHistoryRecyclerView()
-        //initSearchEditText()
+    //initBookRecyclerView()
+    //initHistoryRecyclerView()
+    //initSearchEditText()
 
-        //initBookService()
-        //bookServiceLoadBestSellers()
+    //initBookService()
+    //bookServiceLoadBestSellers()
 
-          //arguments?.let {
-            //param1 = it.getString(ARG_PARAM1)
-            //param2 = it.getString(ARG_PARAM2)
-        //}
+    //arguments?.let {
+    //param1 = it.getString(ARG_PARAM1)
+    //param2 = it.getString(ARG_PARAM2)
+    //}
     //}
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -125,29 +125,29 @@ class FindFragment : Fragment() {
 
     ): View? {
 
-              userId = arguments?.getInt("USER_ID", -1) ?: -1
-              //Log.d("FindFragment", "Fetched USER_ID: $userId")
+        userId = arguments?.getInt("USER_ID", -1) ?: -1
+        //Log.d("FindFragment", "Fetched USER_ID: $userId")
 
 
-              binding = FragmentFindBinding.inflate(inflater, container, false)
-
-
-
-
-            val rootView = binding.root
-
-            initBookRecyclerView()
-            //initHistoryRecyclerView()
-            initSearchEditText()
-
-            initBookService()
+        binding = FragmentFindBinding.inflate(inflater, container, false)
 
 
 
-            arguments?.let {
-                param1 = it.getString(ARG_PARAM1)
-                param2 = it.getString(ARG_PARAM2)
-            }
+
+        val rootView = binding.root
+
+        initBookRecyclerView()
+        //initHistoryRecyclerView()
+        initSearchEditText()
+
+        initBookService()
+
+
+
+        arguments?.let {
+            param1 = it.getString(ARG_PARAM1)
+            param2 = it.getString(ARG_PARAM2)
+        }
 
 
 
@@ -190,10 +190,7 @@ class FindFragment : Fragment() {
 
 
 
-    fun bookServiceSearchBook(keyword: String) {
-
-        bookService.FindBook(keyword)
-            .enqueue(object : Callback<SearchResponse> {
+    fun bookServiceSearchBook(keyword: String) {bookService.FindBook(keyword).enqueue(object : Callback<SearchResponse> {
                 // 성공.
 
                 override fun onResponse(
@@ -208,6 +205,7 @@ class FindFragment : Fragment() {
                     }
 
                     bookRecyclerViewAdapter.submitList(response.body()?.documents.orEmpty()) // 새 리스트로 갱신
+                    //어댑터에 북리스트전달하여 북리사이클러뷰그림
                 }
 
                 // 실패.
@@ -253,4 +251,3 @@ class FindFragment : Fragment() {
 
 
 }
-

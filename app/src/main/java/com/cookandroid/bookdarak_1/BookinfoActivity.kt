@@ -1,5 +1,6 @@
 package com.cookandroid.bookdarak_1
 
+import adapter.Bookinfo_ReviewAdapter
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -8,9 +9,14 @@ import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.cookandroid.bookdarak_1.data.api.FindBookAPI
 import com.cookandroid.bookdarak_1.data.model.FBook
+import com.cookandroid.bookdarak_1.data.model.SearchResponse
 import com.cookandroid.bookdarak_1.databinding.ActivityBookinfoBinding
+import com.cookandroid.bookdarak_1.ui.adapter.BookSearchViewHolder
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -19,12 +25,20 @@ class BookinfoActivity : AppCompatActivity() {
     private var bookmarked = false
     private lateinit var binding: ActivityBookinfoBinding
 
-    //private lateinit var db: FindBookDataBase
+
+
 
     private var model: FBook? = null
     private var userId: Int = -1
     private var bookId: Int = -1
+    private var isbn_of_home: String = "-1"
     val TAG: String = "BookinfoActivity"
+    lateinit var bookinforeviewRecyclerView: RecyclerView // RecyclerView adapter
+    val sort = "DESC"
+    private lateinit var bookinfo_reviewAdapter: Bookinfo_ReviewAdapter
+    private lateinit var bookRecyclerViewAdapter: BookSearchViewHolder
+    private lateinit var bookService: FindBookAPI
+
 
 
 
@@ -42,11 +56,21 @@ class BookinfoActivity : AppCompatActivity() {
         binding = ActivityBookinfoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+
+        bookinforeviewRecyclerView = findViewById(R.id.bookinfo_review_recycler_view)
+
+        bookinfo_reviewAdapter = Bookinfo_ReviewAdapter(mutableListOf()) // Initialize ReviewAdapter instance
+
+        bookinforeviewRecyclerView.layoutManager = LinearLayoutManager(this)
+        bookinforeviewRecyclerView.adapter = bookinfo_reviewAdapter
+
         // 다른 액티비티에서 ID를 받아옴
         val receivedIntent = intent
 
 
         userId = receivedIntent.getIntExtra("USER_ID", -1)
+        isbn_of_home = receivedIntent.getStringExtra("isbn_of_home")!!
         //bookId = intent.getIntExtra("BOOK_ID", -1)
 
         Log.d(TAG, "Received USER_ID: $userId")
@@ -69,6 +93,34 @@ class BookinfoActivity : AppCompatActivity() {
         val BookIdrequest = BookIdRequest(booktitle, authorList, isbn, image) // gender 추가
         Log.d(TAG, "rbookidrequest_2: $BookIdrequest")
 
+        if (isbn_of_home != "-1") {
+
+            bookService.FindBook(isbn_of_home).enqueue(object : Callback<SearchResponse> {override fun onResponse(
+                    call: Call<SearchResponse>, response: Response<SearchResponse>) {
+                    if (response.isSuccessful.not()) {
+                        return
+                    }
+
+                val results_of_isbn_of_home = response.body()?.documents
+
+                Log.d("BookinfoActivity", "results_of_isbn_of_home: $results_of_isbn_of_home")
+                renderView()
+
+                   // FindFragment.bookRecyclerViewAdapter.submitList(response.body()?.documents.orEmpty()) // 새 리스트로 갱신
+                    //어댑터에 북리스트전달하여 북리사이클러뷰그림
+                }
+
+                // 실패.
+                override fun onFailure(call: Call<SearchResponse>, t: Throwable) {
+                    //hideHistoryView()
+                    Log.e(TAG, t.toString())
+                }
+            })
+
+            }
+
+
+
 
 
         ApiClient.service.bookId(BookIdrequest).enqueue(object: Callback<BookIdResponse> {
@@ -79,8 +131,33 @@ class BookinfoActivity : AppCompatActivity() {
                     val bookId = response.body()?.result?.id ?: -1  // <-- 'bookId'를 'id'로 수정
                     Log.d(TAG, "wwbookID: $bookId")
 
-                    val bookmarkButton = findViewById<ImageButton>(R.id.bookmarkButton)
 
+
+                    ApiClient.service.getBookReviews(bookId,sort).enqueue(object : Callback<ReviewListResponse> {
+                        override fun onResponse(call: Call<ReviewListResponse>, response: Response<ReviewListResponse>) {
+                            if (response.isSuccessful) {
+                                val results = response.body()?.result?.items
+                                Log.d("BookinfoActivity", "Review_results: $results")
+
+                                // Set data to adapter when data is received normally
+                                results?.let {
+                                    bookinfo_reviewAdapter.submitData(it)
+                                }
+
+                            } else {
+                                Log.e("BookinfoActivity", "Server returned error: ${response.code()} - ${response.message()}")
+                                response.body()?.let {
+                                    Log.e("BookinfoActivity", "Error code: ${it.code} - ${it.message}")
+                                }
+                            }
+                        }
+
+                        override fun onFailure(call: Call<ReviewListResponse>, t: Throwable) {
+                            Log.e("BookinfoActivity", "Error fetching data: ${t.message}")
+                        }
+                    })
+
+                    val bookmarkButton = findViewById<ImageButton>(R.id.bookmarkButton)
 
                     var isBookmarked = false
                     bookmarkButton.setOnClickListener {
@@ -114,7 +191,7 @@ class BookinfoActivity : AppCompatActivity() {
 
                         } else {
 
-//북아이디를 파인드프래그먼트에서 생성하고 여기로 받아서 사용하기->북마크해결
+
                             bookmarkButton.setImageResource(R.drawable.bookmarks_icon)
                             ApiClient.service.deleteBookmark(userId, bookId).enqueue(object : Callback<DeleteBookmarkResponse> {
                                 override fun onResponse(call: Call<DeleteBookmarkResponse>, response: Response<DeleteBookmarkResponse>) {
@@ -221,6 +298,17 @@ class BookinfoActivity : AppCompatActivity() {
 
         }
     }
+
+
+
+
+
+
+
+
+
+
+
 
     private fun renderView() {
 
