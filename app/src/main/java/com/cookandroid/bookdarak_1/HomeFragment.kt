@@ -1,5 +1,6 @@
 package com.cookandroid.bookdarak_1
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -66,6 +67,31 @@ class HomeFragment : Fragment() {
         userId = arguments?.getInt("USER_ID", -1) ?: -1
 
         fetchAllData()
+        binding.imageRec11.setOnClickListener {
+            val isbn = it.tag as? String ?: ""
+            println("Read ISBN from tag: $isbn")
+            openBookInfoActivity(it.tag as? String ?: "", userId)
+        }
+
+        binding.imageRec12.setOnClickListener {
+            openBookInfoActivity(it.tag as? String ?: "", userId)
+        }
+
+        binding.imageRec13.setOnClickListener {
+            openBookInfoActivity(it.tag as? String ?: "", userId)
+        }
+
+        binding.imageRec21.setOnClickListener {
+            openBookInfoActivity(it.tag as? String ?: "", userId)
+        }
+
+        binding.imageRec22.setOnClickListener {
+            openBookInfoActivity(it.tag as? String ?: "", userId)
+        }
+
+        binding.imageRec23.setOnClickListener {
+            openBookInfoActivity(it.tag as? String ?: "", userId)
+        }
 
         return binding.root
     }
@@ -172,7 +198,11 @@ class HomeFragment : Fragment() {
             .into(imageView)
         titleView.text = book.name
         authorView.text = book.author
+        imageView.tag = book.isbn  // ISBN을 tag로 저장
+        println("Saving ISBN as tag: ${book.isbn}")
+
     }
+
     private fun updateUI(books: List<RecommendationResponse.Book>?) {
         books?.let {
             if (it.isNotEmpty()) {
@@ -192,38 +222,6 @@ class HomeFragment : Fragment() {
             if (it.isNotEmpty()) {
                 updateBookView(binding.imageRec21, binding.textRec21Title, binding.textRec21Author, it[0])
 
-                /*
-                    val retrofit = Retrofit.Builder()
-                        .baseUrl("https://dapi.kakao.com/") // 인터파크 베이스 주소;
-                        .addConverterFactory(GsonConverterFactory.create()) // Gson 변환기 사용;
-                        .build()
-
-                    bookService = retrofit.create(FindBookAPI::class.java)
-
-
-                private fun initBookRecyclerView() {
-                    FindFragment.bookRecyclerViewAdapter = BookSearchViewHolder(itemClickedListener = {
-                        val intent = Intent(requireContext(), BookinfoActivity::class.java)
-
-                        // 직렬화 해서 넘길 것.
-                        intent.putExtra("bookModel", it)
-                        intent.putExtra("USER_ID", FindFragment.userId)
-
-
-
-
-                        startActivity(intent)
-                    })
-
-
-
-                    FindFragment.binding.recyclerViewBooklist.layoutManager = LinearLayoutManager(requireContext() )
-                    FindFragment.binding.recyclerViewBooklist.adapter =
-                        FindFragment.bookRecyclerViewAdapter
-                }
-
-                 */
-
             }
             if (it.size > 1) {
                 updateBookView(binding.imageRec22, binding.textRec22Title, binding.textRec22Author, it[1])
@@ -232,28 +230,6 @@ class HomeFragment : Fragment() {
                 updateBookView(binding.imageRec23, binding.textRec23Title, binding.textRec23Author, it[2])
             }
         }
-/*
-        // Inside HomeFragment, set click listeners for book cover images
-        binding.imageRec11.setOnClickListener {
-            navigateToBookDetail(bookList[0]) // Pass the book information to the detail page
-        }
-
-        binding.imageRec12.setOnClickListener {
-            navigateToBookDetail(bookList[1])
-        }
-
-        binding.imageRec13.setOnClickListener {
-            navigateToBookDetail(bookList[2])
-        }
-
-        // Create a function to navigate to the BookDetailFragment
-        fun navigateToBookDetail(book: RecommendationResponse.Book) {
-            val intent = Intent(requireContext(), BookinfoActivity::class.java)
-            intent.putExtra("bookModel", book)
-            startActivity(intent)
-        }
-
- */
 
     }
     private suspend fun fetchQuote() {
@@ -300,11 +276,15 @@ class HomeFragment : Fragment() {
         }
     }
 
-
-
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+    private fun openBookInfoActivity(isbn: String, userId: Int) {
+        val intent = Intent(activity, BookinfoActivity::class.java)
+        intent.putExtra("isbn_of_home", isbn)
+        intent.putExtra("USER_ID", userId)
+        startActivity(intent)
+    }
+
 }
