@@ -14,7 +14,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BookDarak_1"
         android:usesCleartextTraffic="true">
-
+        <activity
+            android:name=".seereview2"
+            android:exported="false" />
+        <activity
+            android:name=".writingreview2"
+            android:exported="false" />
+        <activity
+            android:name=".writingreveiw2"
+            android:exported="false" />
+        <activity
+            android:name=".BookinfoActivity2"
+            android:exported="false" />
         <activity
             android:name=".seereview_Activity"
             android:exported="false" />
@@ -31,9 +42,6 @@
                 android:value="androidx.startup"
                 tools:node="remove" />
         </provider>
-
-
-
         <provider
             android:name="androidx.startup.InitializationProvider"
             android:authorities="${applicationId}.androidx-startup"
@@ -46,7 +54,6 @@
                 android:value="androidx.startup"
                 tools:node="remove" />
         </provider>
-
 
         <activity
             android:name=".Userpage"
@@ -82,6 +89,5 @@
             android:name=".FollowerActivity"
             android:exported="false" />
     </application>
-
 
 </manifest>

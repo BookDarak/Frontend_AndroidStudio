@@ -281,7 +281,7 @@ class HomeFragment : Fragment() {
         _binding = null
     }
     private fun openBookInfoActivity(isbn: String, userId: Int) {
-        val intent = Intent(activity, BookinfoActivity::class.java)
+        val intent = Intent(activity, BookinfoActivity2::class.java)
         intent.putExtra("isbn_of_home", isbn)
         intent.putExtra("USER_ID", userId)
         startActivity(intent)

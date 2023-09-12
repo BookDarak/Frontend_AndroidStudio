@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.cookandroid.bookdarak_1.data.api.FindBookAPI
 import com.cookandroid.bookdarak_1.data.model.FBook
-import com.cookandroid.bookdarak_1.data.model.SearchResponse
 import com.cookandroid.bookdarak_1.databinding.ActivityBookinfoBinding
 import com.cookandroid.bookdarak_1.ui.adapter.BookSearchViewHolder
 import retrofit2.Call
@@ -32,7 +31,6 @@ class BookinfoActivity : AppCompatActivity() {
     private var model: FBook? = null
     private var userId: Int = -1
     private var bookId: Int = -1
-    private var isbn_of_home: String = "-1"
     val TAG: String = "BookinfoActivity"
     lateinit var bookinforeviewRecyclerView: RecyclerView // RecyclerView adapter
     val sort = "DESC"
@@ -71,7 +69,6 @@ class BookinfoActivity : AppCompatActivity() {
 
 
         userId = receivedIntent.getIntExtra("USER_ID", -1)
-        isbn_of_home = receivedIntent.getStringExtra("isbn_of_home").toString()
         //bookId = intent.getIntExtra("BOOK_ID", -1)
 
         Log.d(TAG, "Received USER_ID: $userId")
@@ -94,34 +91,6 @@ class BookinfoActivity : AppCompatActivity() {
         val BookIdrequest = BookIdRequest(booktitle, authorList, isbn, image) // gender 추가
         Log.d(TAG, "rbookidrequest_2: $BookIdrequest")
 
-        if (isbn_of_home != "-1") {
-
-            initBookService()
-
-            bookService.FindBook(isbn_of_home).enqueue(object : Callback<SearchResponse> {override fun onResponse(
-                    call: Call<SearchResponse>, response: Response<SearchResponse>) {
-                    if (response.isSuccessful.not()) {
-                        return
-                    }
-
-
-                val results_of_isbn_of_home = response.body()?.documents
-
-                Log.d("BookinfoActivity", "results_of_isbn_of_home: $results_of_isbn_of_home")
-                renderView()
-
-                   // FindFragment.bookRecyclerViewAdapter.submitList(response.body()?.documents.orEmpty()) // 새 리스트로 갱신
-                    //어댑터에 북리스트전달하여 북리사이클러뷰그림
-                }
-
-                // 실패.
-                override fun onFailure(call: Call<SearchResponse>, t: Throwable) {
-                    //hideHistoryView()
-                    Log.e(TAG, t.toString())
-                }
-            })
-
-            }
 
 
 
