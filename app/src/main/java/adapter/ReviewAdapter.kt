@@ -30,6 +30,8 @@ class ReviewAdapter(private val reviews: MutableList<ReviewSummaryResponse.Revie
 
 
 
+
+
     interface OnThumbsUpClickListener {
         fun onThumbsUpClick(reviewId: Int)
     }
@@ -42,6 +44,7 @@ class ReviewAdapter(private val reviews: MutableList<ReviewSummaryResponse.Revie
 
 
     inner class ReviewViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
 
 
 
@@ -87,6 +90,9 @@ class ReviewAdapter(private val reviews: MutableList<ReviewSummaryResponse.Revie
 
 
         }
+
+
+
 
 
 

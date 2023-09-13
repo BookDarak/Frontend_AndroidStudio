@@ -15,13 +15,13 @@
         android:theme="@style/Theme.BookDarak_1"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".editreview"
+            android:exported="false" />
+        <activity
             android:name=".seereview2"
             android:exported="false" />
         <activity
             android:name=".writingreview2"
-            android:exported="false" />
-        <activity
-            android:name=".writingreveiw2"
             android:exported="false" />
         <activity
             android:name=".BookinfoActivity2"

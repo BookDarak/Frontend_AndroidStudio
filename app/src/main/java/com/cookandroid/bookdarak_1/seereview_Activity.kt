@@ -3,12 +3,17 @@ package com.cookandroid.bookdarak_1
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
 import android.util.Log
 import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.cookandroid.bookdarak_1.data.model.FBook
 import com.cookandroid.bookdarak_1.databinding.ActivitySeereviewBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class seereview_Activity : AppCompatActivity() {
@@ -16,7 +21,8 @@ class seereview_Activity : AppCompatActivity() {
 
     private var model: FBook? = null
     private var userId: Int = -1
-    //private var reviewId: Int = -1
+    private var bookId: Int = -1
+    private var reviewId: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,10 +30,12 @@ class seereview_Activity : AppCompatActivity() {
         setContentView(binding.root)
         model = intent.getParcelableExtra("bookModel")
         userId = intent.getIntExtra("USER_ID", -1)
-        //reviewId = intent.getIntExtra("REVIEW_ID", -1)
-        Log.d(TAG, "seereview_userandreviewid: $userId")
+        bookId = intent.getIntExtra("BOOK_ID", -1)
+        reviewId = intent.getIntExtra("REVIEW_ID", -1)
+        Log.d(TAG, "seereview_userandreviewid: $userId,$reviewId")
 
 
+        /*
                 //Get content and phrase from intent extras
                 val content = intent.getStringExtra("content")
                 val phrase = intent.getStringExtra("phrase")
@@ -55,33 +63,75 @@ class seereview_Activity : AppCompatActivity() {
                 }
                 binding.textviewPublicOr.text = publicYnString
 
-
-/*
-            ApiClient.service.getReviewDetail(reviewId).enqueue(object: Callback<ReviewDetailResponse> {
-                override fun onResponse(call: Call<ReviewDetailResponse>, response: Response<ReviewDetailResponse>) {
-                    if (response.isSuccessful) {
-                        val rating = response.body()?.result?.rating ?: -1
-                        val content = response.body()?.result?.content ?: -1
-                        val phrase = response.body()?.result?.phrase ?: -1
-                        val publicYn = response.body()?.result?.publicYn ?: -1
-                        val likeCount = response.body()?.result?.likeCount ?: -1
-                        val startDate = response.body()?.result?.startDate ?: -1
-                        val endDate = response.body()?.result?.endDate ?: -1
+         */
 
 
-                        //binding.textReview.text = content.toString()
-                        //binding.textImpressive.text = phrase.toString()
-                        //binding.seeRatingbar.rating = rating as Float
-                        //binding.seeStartday.text = startDate.toString()
-                        //binding.seeFinishday.text = endDate.toString()
-                        //binding.textviewPublicOr.text = startDate.toString()
-                        //binding.seeFinishday.text = endDate.toString()
-                        //val reviewId = response.body()?.result?.reviewId
-                        //val intent = Intent(this@writingreview, ReviewFragment::class.java)
-                        //intent.putExtra("REVIEW_ID", reviewId)
+
+        ApiClient.service.getReviewDetail(reviewId).enqueue(object:
+            Callback<ReviewDetailResponse> {
+            override fun onResponse(call: Call<ReviewDetailResponse>, response: Response<ReviewDetailResponse>) {
+                if (response.isSuccessful && response.body()?.isSuccess == true) {
+                    val editreviewresults = response.body()?.result
+                    Log.d(TAG, "editreiew_results: $editreviewresults")
 
 
-                        //startActivity(intent)
+
+                    editreviewresults?.let {
+                        val editablecontent = Editable.Factory.getInstance().newEditable(it.content)
+                        val editablerating = Editable.Factory.getInstance().newEditable(it.rating.toString())
+                        val editablephrase = Editable.Factory.getInstance().newEditable(it.phrase)
+                        val editablepublicYn = Editable.Factory.getInstance().newEditable(it.publicYn)
+                        val editablelikecount = Editable.Factory.getInstance().newEditable(it.likeCount.toString())
+                        val editablestartdate = Editable.Factory.getInstance().newEditable(it.startDate)
+                        val editableenddate = Editable.Factory.getInstance().newEditable(it.endDate)
+
+                        binding.seeRatingbar.rating = it.rating
+                        binding.textReview.text = editablecontent
+                        binding.textImpressive.text = editablephrase
+                        binding.seeStartday.text = editablestartdate
+                        binding.seeFinishday.text = editableenddate
+
+
+                        if (it.publicYn == "Y") {
+                            getString(R.string.y)  // Replace with the appropriate string resource
+                        } else {
+                            getString(R.string.n) // Replace with the appropriate string resource
+                        }
+                        binding.textviewPublicOr.text = it.publicYn
+
+                    }
+
+
+
+
+                } else {
+                    Toast.makeText(this@seereview_Activity, response.body()?.message.toString(), Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<ReviewDetailResponse>, t: Throwable) {
+                Toast.makeText(this@seereview_Activity, t.localizedMessage, Toast.LENGTH_SHORT).show()
+            }
+        })
+
+        binding.buttonDelete.setOnClickListener {
+
+
+
+            ApiClient.service.deleteReview(userId, bookId).enqueue(object:
+                Callback<DeleteReviewResponse> {
+                override fun onResponse(call: Call<DeleteReviewResponse>, response: Response<DeleteReviewResponse>) {
+                    if (response.isSuccessful && response.body()?.isSuccess == true) {
+                        val result = response.body()?.result
+                        Log.d(TAG, "seereview_deleteresult: $result")
+
+
+                        val intent = Intent(this@seereview_Activity, NaviActivity::class.java)
+
+                        intent.putExtra("USER_ID", userId)
+
+                        startActivity(intent)
+
 
 
                     } else {
@@ -89,13 +139,20 @@ class seereview_Activity : AppCompatActivity() {
                     }
                 }
 
-                override fun onFailure(call: Call<ReviewDetailResponse>, t: Throwable) {
+                override fun onFailure(call: Call<DeleteReviewResponse>, t: Throwable) {
                     Toast.makeText(this@seereview_Activity, t.localizedMessage, Toast.LENGTH_SHORT).show()
                 }
             })
 
 
- */
+
+
+
+
+
+        }
+
+
 
 
 
@@ -130,8 +187,8 @@ class seereview_Activity : AppCompatActivity() {
 }
     private fun renderView() {
 
-        //binding.textSeereviewBooktitle.text = model?.title.orEmpty()
-        //binding.textSeereviewIsbn.text = model?.isbn.orEmpty()
+        binding.textSeereviewBooktitle.text = model?.title.orEmpty()
+        binding.textSeereviewIsbn.text = model?.isbn.orEmpty()
 
 
         Glide.with(binding.imageSeereviewBookcover.context)

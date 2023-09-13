@@ -100,7 +100,28 @@ class writingreview : AppCompatActivity() {
                     if (response.isSuccessful && response.body()?.isSuccess == true) {
                         val reviewId = response.body()?.result?.reviewId ?: -1
                         Log.d(TAG, "reviewID: $reviewId")
-                        //Log.d(TAG, "userId: $userId, bookId: $bookId")
+
+
+                        val intent = Intent(this@writingreview, seereview_Activity::class.java)
+
+                        intent.putExtra("USER_ID", userId)
+                        intent.putExtra("BOOK_ID", bookId)
+                        intent.putExtra("REVIEW_ID", reviewId)
+                        intent.putExtra("bookModel", model)
+                        intent.putExtra("rating_2",rating_2)
+                        intent.putExtra("publicYn",publicYn)
+
+                        intent.putExtra("isbn",isbn)
+                        intent.putExtra("title",title)
+
+                        intent.putExtra("content",content)
+                        intent.putExtra("phrase",phrase)
+
+                        intent.putExtra("startdate",startDate)
+                        intent.putExtra("enddate",endDate)
+                        startActivity(intent)
+
+
 
 
 
@@ -118,47 +139,6 @@ class writingreview : AppCompatActivity() {
                 }
             })
 
-            val intent = Intent(this@writingreview, seereview_Activity::class.java)
-            //intent.putExtra("REVIEW_ID", reviewId)
-            intent.putExtra("USER_ID", userId)
-            intent.putExtra("bookModel", model)
-            intent.putExtra("rating_2",rating_2)
-            intent.putExtra("publicYn",publicYn)
-
-            intent.putExtra("isbn",isbn)
-            intent.putExtra("title",title)
-
-            intent.putExtra("content",content)
-            intent.putExtra("phrase",phrase)
-
-            intent.putExtra("startdate",startDate)
-            intent.putExtra("enddate",endDate)
-            startActivity(intent)
-
-            /*
-
-            ApiClient.service.getReviewId(userId, bookId).enqueue(object: Callback<ReviewIdResponse> {
-                override fun onResponse(call: Call<ReviewIdResponse>, response: Response<ReviewIdResponse>) {
-                    if (response.isSuccessful) {
-                        val reviewId = response.body()?.result?.reviewId
-                        //val intent = Intent(this@writingreview, ReviewFragment::class.java)
-                        //intent.putExtra("REVIEW_ID", reviewId)
-
-
-                        //startActivity(intent)
-
-
-                    } else {
-                        Toast.makeText(this@writingreview, response.body()?.message.toString(), Toast.LENGTH_SHORT).show()
-                    }
-                }
-
-                override fun onFailure(call: Call<ReviewIdResponse>, t: Throwable) {
-                    Toast.makeText(this@writingreview, t.localizedMessage, Toast.LENGTH_SHORT).show()
-                }
-            })
-
-             */
 
 
 

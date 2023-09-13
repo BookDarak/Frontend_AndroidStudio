@@ -49,6 +49,7 @@ class BookinfoActivity : AppCompatActivity() {
 
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //db = getAppDatabase(this)
@@ -84,12 +85,14 @@ class BookinfoActivity : AppCompatActivity() {
 
 
         val image = model?.thumbnail.toString()
+        val writeButton: Button = findViewById(R.id.writebutton)
 
         //val writerList: List<String> = model?.authors ?: emptyList()
 
         Log.d(TAG, "rbookidrequest: $booktitle,$isbn,$image,$authorList")
         val BookIdrequest = BookIdRequest(booktitle, authorList, isbn, image) // gender 추가
         Log.d(TAG, "rbookidrequest_2: $BookIdrequest")
+
 
 
 
@@ -103,6 +106,60 @@ class BookinfoActivity : AppCompatActivity() {
                     //val bookId = response.body()?.result?.bookId ?: -1
                     val bookId = response.body()?.result?.id ?: -1  // <-- 'bookId'를 'id'로 수정
                     Log.d(TAG, "wwbookID: $bookId")
+
+                    ApiClient.service.getReviewId(userId, bookId).enqueue(object: Callback<ReviewIdResponse> {
+                        override fun onResponse(call: Call<ReviewIdResponse>, response: Response<ReviewIdResponse>) {
+                            if (response.isSuccessful) {
+                                val reviewId = response.body()?.result?.reviewId
+
+                                if(reviewId == -1) {
+
+                                    writeButton.text = "기록하기"
+                                    writeButton.setOnClickListener {
+
+                                        val intent = Intent(this@BookinfoActivity, writingreview::class.java)
+                                        intent.putExtra("bookModel", model)
+                                        intent.putExtra("USER_ID", userId) // Passing userId to writingreview activity
+                                        intent.putExtra("BOOK_ID", bookId)
+                                        Log.d(TAG, "BookinfoActivity_user and bookID: $userId, $bookId")
+                                        startActivity(intent)
+
+
+
+
+                                    }
+
+                                    }
+                                else{
+
+                                    writeButton.text = "수정하기"
+                                    writeButton.setOnClickListener {
+
+                                        val intent = Intent(this@BookinfoActivity, editreview::class.java)
+                                        intent.putExtra("bookModel", model)
+                                        intent.putExtra("USER_ID", userId) // Passing userId to writingreview activity
+                                        intent.putExtra("BOOK_ID", bookId)
+                                        intent.putExtra("REVIEW_ID", reviewId)
+                                        Log.d(TAG, "BookinfoActivity_user and bookID and reviewId: $userId, $bookId ,$reviewId")
+                                        startActivity(intent)
+
+
+
+
+                                    }
+                                }
+
+
+                            } else {
+                                Toast.makeText(this@BookinfoActivity, response.body()?.message.toString(), Toast.LENGTH_SHORT).show()
+                            }
+                        }
+
+                        override fun onFailure(call: Call<ReviewIdResponse>, t: Throwable) {
+                            Toast.makeText(this@BookinfoActivity, t.localizedMessage, Toast.LENGTH_SHORT).show()
+                        }
+                    })
+
 
 
 
@@ -193,20 +250,6 @@ class BookinfoActivity : AppCompatActivity() {
                     }
 
 
-                    val writeButton: Button = findViewById(R.id.writebutton)
-                    writeButton.setOnClickListener {
-
-                        val intent = Intent(this@BookinfoActivity, writingreview::class.java)
-                        intent.putExtra("bookModel", model)
-                        intent.putExtra("USER_ID", userId) // Passing userId to writingreview activity
-                        intent.putExtra("BOOK_ID", bookId)
-                        Log.d(TAG, "BookinfoActivity_user and bookID: $userId, $bookId")
-                        startActivity(intent)
-
-
-
-
-                    }
 
 
 

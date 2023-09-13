@@ -68,31 +68,7 @@ class ReviewFragment : Fragment(),ReviewAdapter.OnThumbsUpClickListener {
 
         }
 
-        override fun onThumbsUpClick(reviewId: Int) {
-            // Handle thumbs-up button click here
-            // You can make an API call to update the like count on the server
-            // Then, refresh the data by calling loadReviewData() again
-            // Example:
-            ApiClient.service.addRecommendation(userId, reviewId)
-                .enqueue(object : Callback<RecommendResponse> {
-                    override fun onResponse(
-                        call: Call<RecommendResponse>,
-                        response: Response<RecommendResponse>
-                    ) {
-                        if (response.isSuccessful) {
-                            // Handle success
-                            // Refresh data by calling loadReviewData()
-                            loadReviewData()
-                        } else {
-                            // Handle error
-                        }
-                    }
 
-                    override fun onFailure(call: Call<RecommendResponse>, t: Throwable) {
-                        // Handle failure
-                    }
-                })
-        }
 
         private fun loadReviewData() {
             ApiClient.service.getPublicSummaryReviews(sort)
@@ -114,6 +90,8 @@ class ReviewFragment : Fragment(),ReviewAdapter.OnThumbsUpClickListener {
                                 ReviewAdapter.submitData(it)
                             }
 
+                            //onThumbsUpClick(ReviewAdapter.setOnThumbsUpClickListener())
+
 
                         } else {
                             Log.e(
@@ -131,77 +109,54 @@ class ReviewFragment : Fragment(),ReviewAdapter.OnThumbsUpClickListener {
                     }
                 })
         }
-    }
 
+    override fun onThumbsUpClick(reviewId: Int) {
+        // Handle thumbs-up button click here
+        // You can make an API call to update the like count on the server
+        // Then, refresh the data by calling loadReviewData() again
+        // Example:
+        ApiClient.service.addRecommendation(userId, reviewId)
+            .enqueue(object : Callback<RecommendResponse> {
+                override fun onResponse(
+                    call: Call<RecommendResponse>,
+                    response: Response<RecommendResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        val result = response.body()?.result
+                        Log.d("ReviewFragment", "Review_Count: $result")
+                        // Handle success
+                        // Refresh data by calling loadReviewData()
 
+                        ApiClient.service.getRecommendCountByReviewId(reviewId)
+                            .enqueue(object : Callback<RecommendCountResponse> {
+                                override fun onResponse(
+                                    call: Call<RecommendCountResponse>,
+                                    response: Response<RecommendCountResponse>
+                                ) {
+                                    if (response.isSuccessful) {
+                                        // Handle success
+                                        // Refresh data by calling loadReviewData()
 
-/*
-companion object {
-    fun newInstance(userId: Int): ReviewFragment {
-        val fragment = ReviewFragment()
-        val args = Bundle()
-        //args.putInt("USER_ID", userId)
-        fragment.arguments = args
-        return fragment
-    }
-}
+                                    } else {
+                                        // Handle error
+                                    }
+                                }
 
+                                override fun onFailure(call: Call<RecommendCountResponse>, t: Throwable) {
+                                    // Handle failure
+                                }
+                            })
 
-
-
-private lateinit var reviewAdapter: ReviewAdapter
-
-override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
-    savedInstanceState: Bundle?
-): View? {
-    val view = inflater.inflate(R.layout.fragment_review, container, false)
-
-    val review_recycler_view = view.findViewById<R.id.review>()
-
-
-    ApiClient.service.getPublicSummaryReviews(sort).enqueue(object : Callback<ReviewSummaryResponse> {
-        override fun onResponse(call: Call<ReviewSummaryResponse>, response: Response<ReviewSummaryResponse>) {
-            if (response.isSuccessful) {
-                val results = response.body()?.result
-                //updateCalendarWithEvents(results)
-            } else {
-                Log.e("ReviewFragment", "Server returned error: ${response.code()} - ${response.message()}")
-                response.body()?.let {
-                    Log.e("ReviewFragment", "Error code: ${it.code} - ${it.message}")
+                    } else {
+                        // Handle error
+                    }
                 }
-            }
-        }
 
-        override fun onFailure(call: Call<ReviewSummaryResponse>, t: Throwable) {
-            Log.e("ReviewrFragment", "Error fetching data: ${t.message}")
-        }
-    })
+                override fun onFailure(call: Call<RecommendResponse>, t: Throwable) {
+                    // Handle failure
+                }
+            })
+    }
+    }
 
-    //return veiw
-}
-}
 
-    /*
-    val reviews = listOf(
-
-        Review("무명 about '인간실격'", "사실 보통이라는게 사회 전반적인 합의가 아니라 내 주변의 몇몇 사람들만 합의한 내용은 아닐까라는 생각도 든다.\n" +
-                "세상의 보통이 아니라, 일부 개인들의 보통은 아닐까? 아니 개인들이 모여 집단을 이루고 그 집단이 모여 세상을 이루니 집단들의 보통이라고 해야 할까. 오늘도 보통은 참 어렵다."),
-        Review("박지한 about '미움받을 용기'", "목적론, 트라우마란 존재하지 않는다. - 경험에 의해 결정되는 것이 아니라, 경험에 부여한 의미에 따라 자신을 결정하는 것이다. 우리는 과거의 경험에 '어떤의미를 부여하는가'에 따라 자신의 삶을 결정한다. 인생이란 누군가 정해주는 것이 아니라 스스로 선택하는 것이다. 우리는 어떠한 ' 목적'을 따라 산다.")
-    )
-
-     */
-
-    // Set up RecyclerView
-/*
-    val recyclerView = view.findViewById<RecyclerView>(R.id.review_recycler_view)
-    recyclerView.layoutManager = LinearLayoutManager(activity)
-    reviewAdapter = ReviewAdapter(reviews)
-    recyclerView.adapter = reviewAdapter
-
-    return view
-}
-
-*/
-
- */
