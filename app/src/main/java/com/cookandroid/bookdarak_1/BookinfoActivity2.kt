@@ -140,6 +140,66 @@ class BookinfoActivity2 : AppCompatActivity() {
 
 
 
+                                ApiClient.service.getReviewId(userId, bookId).enqueue(object: Callback<ReviewIdResponse> {
+                                    override fun onResponse(call: Call<ReviewIdResponse>, response: Response<ReviewIdResponse>) {
+                                        if (response.isSuccessful) {
+                                            val reviewId = response.body()?.result?.reviewId
+
+                                            if(reviewId == -1) {
+                                                val writeButton2: Button = findViewById(R.id.writebutton2)
+
+                                                writeButton2.text = "기록하기"
+                                                writeButton2.setOnClickListener {
+
+                                                    val intent = Intent(this@BookinfoActivity2, writingreview2::class.java)
+                                                    intent.putExtra("bookinfo_home", bookinfo_home)
+                                                    intent.putExtra("USER_ID", userId) // Passing userId to writingreview activity
+                                                    intent.putExtra("BOOK_ID", bookId)
+                                                    Log.d(TAG, "BookinfoActivity2_user and bookID: $userId, $bookId, $bookinfo_home")
+                                                    startActivity(intent)
+
+
+
+
+                                                }
+
+                                            }
+                                            else{
+
+                                                val writeButton2: Button = findViewById(R.id.writebutton2)
+
+
+                                                writeButton2.text = "수정하기"
+                                                writeButton2.setOnClickListener {
+
+                                                    val intent = Intent(this@BookinfoActivity2, editreview2::class.java)
+                                                    intent.putExtra("bookinfo_home", bookinfo_home)
+                                                    intent.putExtra("USER_ID", userId) // Passing userId to writingreview activity
+                                                    intent.putExtra("BOOK_ID", bookId)
+                                                    intent.putExtra("REVIEW_ID", reviewId)
+                                                    Log.d(TAG, "BookinfoActivity2_user and bookID and reviewId: $userId, $bookId ,$reviewId,$bookinfo_home")
+                                                    startActivity(intent)
+
+
+
+
+                                                }
+                                            }
+
+
+                                        } else {
+                                            Toast.makeText(this@BookinfoActivity2, response.body()?.message.toString(), Toast.LENGTH_SHORT).show()
+                                        }
+                                    }
+
+                                    override fun onFailure(call: Call<ReviewIdResponse>, t: Throwable) {
+                                        Toast.makeText(this@BookinfoActivity2, t.localizedMessage, Toast.LENGTH_SHORT).show()
+                                    }
+                                })
+
+
+
+
                                 ApiClient.service.getBookReviews(bookId,sort).enqueue(object :
                                     Callback<ReviewListResponse> {
                                     override fun onResponse(call: Call<ReviewListResponse>, response: Response<ReviewListResponse>) {
@@ -230,20 +290,7 @@ class BookinfoActivity2 : AppCompatActivity() {
                                 }
 
 
-                                val writeButton2: Button = findViewById(R.id.writebutton2)
-                                writeButton2.setOnClickListener {
 
-                                    val intent = Intent(this@BookinfoActivity2, writingreview2::class.java)
-                                    intent.putExtra("USER_ID", userId)
-                                    intent.putExtra("BOOK_ID", bookId)
-                                    intent.putExtra("bookinfo_home",bookinfo_home)
-                                    Log.d(TAG, "BookinfoActivity2_intent: $userId, $bookinfo_home, $bookId")
-                                    startActivity(intent)
-
-
-
-
-                                }
 
 
 

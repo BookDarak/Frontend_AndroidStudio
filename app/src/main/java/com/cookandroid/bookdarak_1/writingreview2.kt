@@ -1,5 +1,6 @@
 package com.cookandroid.bookdarak_1
 
+import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -12,6 +13,7 @@ import com.cookandroid.bookdarak_1.databinding.ActivityWritingreview2Binding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 
 class writingreview2 : AppCompatActivity() {
 
@@ -25,6 +27,8 @@ class writingreview2 : AppCompatActivity() {
     private var bookId: Int = -1
     private var bookinfo_home: FBook? = null
     private var reviewId: Int = -1
+    var startdateString2=""
+    var finishdateString2=""
 
 
 
@@ -62,6 +66,26 @@ class writingreview2 : AppCompatActivity() {
 
         intent.putExtra("bookinfo_home",bookinfo_home)
 
+        binding.calendarButtonStart2.setOnClickListener {
+            val cal = Calendar.getInstance()    //캘린더뷰 만들기
+            val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+                startdateString2 = "${year}-${(month + 1).toString().padStart(2, '0')}-${dayOfMonth.toString().padStart(2, '0')}"
+                binding.startday2.text = startdateString2
+            }
+            DatePickerDialog(this, dateSetListener, cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(
+                Calendar.DAY_OF_MONTH)).show()
+        }
+
+        binding.calendarButtonFinish2.setOnClickListener {
+            val cal = Calendar.getInstance()    //캘린더뷰 만들기
+            val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+                finishdateString2 = "${year}-${(month + 1).toString().padStart(2, '0')}-${dayOfMonth.toString().padStart(2, '0')}"
+                binding.finishday2.text = finishdateString2
+            }
+            DatePickerDialog(this, dateSetListener, cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(
+                Calendar.DAY_OF_MONTH)).show()
+        }
+
 
         binding.buttonRecord2.setOnClickListener {
 
@@ -82,8 +106,10 @@ class writingreview2 : AppCompatActivity() {
                 else -> ""
             }
 
-            val startDate = binding.startday2.text.toString()
-            val endDate = binding.finishday2.text.toString()
+
+
+            val startDate = startdateString2
+            val endDate = finishdateString2
 
 
             val reviewrequest = ReviewRequest(rating, content, phrase, publicYn, startDate, endDate) // gender 추가

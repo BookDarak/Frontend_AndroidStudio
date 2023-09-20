@@ -14,6 +14,7 @@ import com.cookandroid.bookdarak_1.R
 import com.cookandroid.bookdarak_1.ReviewSummaryResponse
 
 
+
 private val ReviewAdapter.ReviewViewHolder.setOnThumbsUpClickListener: Unit
     get() {}
 

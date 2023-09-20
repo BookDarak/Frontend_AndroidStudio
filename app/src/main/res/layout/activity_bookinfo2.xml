@@ -227,7 +227,6 @@
                     android:textStyle="bold"
                     android:layout_width="130dp"
                     android:layout_height="50dp"
-                    android:text="기록하기"
                     android:layout_gravity="center"
                     android:textSize="17sp"
                     android:background="@drawable/round"

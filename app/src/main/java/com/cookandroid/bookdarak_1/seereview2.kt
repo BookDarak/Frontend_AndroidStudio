@@ -74,10 +74,9 @@ class seereview2 : AppCompatActivity() {
         button_ok2.setOnClickListener {
 
             val intent = Intent(this@seereview2, NaviActivity::class.java)
-            //intent.putExtra("bookModel", model)
-            intent.putExtra("USER_ID", userId) // Passing userId to writingreview activity
-            //intent.putExtra("BOOK_ID", bookId)
-            //Log.d(ContentValues.TAG, "BookinfoActivity_user and bookID: $userId, $bookId")
+
+            intent.putExtra("USER_ID", userId)
+
             startActivity(intent)
 
 

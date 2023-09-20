@@ -24,16 +24,14 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="top"
-            android:weightSum="10"
             android:orientation="horizontal"
             >
 
             <ImageButton
-                android:id="@+id/see_backbutton"
+                android:id="@+id/writingreview_back_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:layout_weight="2"
                 android:src="@drawable/back_button" />
 
 
@@ -41,21 +39,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="       기록 보기"
+                android:text="      기록 수정하기"
                 android:textSize="20dp"
                 android:padding="10dp"
-                android:layout_weight="6"
                 android:textStyle="bold"
                 android:textColor="@color/black"/>
-
-            <ImageButton
-                android:id="@+id/button_delete"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:layout_weight="2"
-                android:layout_gravity="center"
-                android:src="@drawable/trash_2" />
         </LinearLayout>
 
         <LinearLayout
@@ -69,7 +57,7 @@
 
 
             <ImageView
-                android:id="@+id/image_seereview_bookcover"
+                android:id="@+id/image_editreview_bookcover2"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_gravity="center"
@@ -78,10 +66,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/text_seereview_booktitle"
+                android:id="@+id/text_editreview_booktitle2"
                 android:layout_gravity="center"
                 android:padding="5dp"
-                android:text="AI 인공지능 미래보고서"
+                android:text="책 제목"
                 android:textColor="@color/black"
                 android:textSize="15dp"
                 android:textStyle="bold" />
@@ -89,22 +77,23 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/text_seereview_isbn"
+                android:id="@+id/text_editreview_isbn2"
                 android:layout_gravity="center"
                 android:padding="5dp"
+                android:text="책 제목"
                 android:textColor="@color/black"
                 android:textSize="12dp"
                 android:textStyle="bold" />
 
             <RatingBar
-                android:id="@+id/see_ratingbar"
+                android:id="@+id/editreview2_ratingbar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:numStars="5"
                 android:rating="5"
                 android:progressTint="#FFD179"
-                android:isIndicator="true"
+                android:isIndicator="false"
                 android:stepSize="1"
                 />
 
@@ -129,12 +118,18 @@
                 android:weightSum="10">
 
                 <TextView
-                    android:id="@+id/see_startday"
+                    android:id="@+id/edit2_startday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2023/6/25 "
+                    android:text="2023-00-00 "
                     android:textSize="16dp"
                     android:textColor="@color/black"/>
+
+                <ImageButton
+                    android:id="@+id/calendar_button_start2_edit"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/calendar_button" />
 
 
 
@@ -146,13 +141,18 @@
                     android:textColor="@color/black"/>
 
                 <TextView
-                    android:id="@+id/see_finishday"
+                    android:id="@+id/edit2_finishday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2023/6/30 "
+                    android:text="2023-00-00 "
                     android:textSize="16dp"
                     android:textColor="@color/black"/>
 
+                <ImageButton
+                    android:id="@+id/calendar_button_finish2_edit"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/calendar_button" />
 
 
 
@@ -169,23 +169,33 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="    서평"
+                    android:text="              서평"
                     android:padding="5dp"
-                    android:textSize="16dp"
+                    android:textSize="15dp"
                     android:textStyle="bold"
                     android:textColor="@color/black"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" 공개/비공개"
-                    android:padding="5dp"
-                    android:textSize="15dp"
-                    android:id="@+id/textview_public_or"
+                <RadioGroup
+                    android:id="@+id/edit2_radioGroup"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-                    />
+                    <RadioButton
+                        android:id="@+id/edit2_rg_btn1_w"
+                        android:layout_weight="1"
+                        android:text="공개"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
 
+                    <RadioButton
+                        android:layout_weight="1"
+                        android:text="비공개"
+                        android:id="@+id/edit2_rg_btn2_w"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
 
+                </RadioGroup>
 
             </LinearLayout>
 
@@ -199,10 +209,10 @@
                 android:weightSum="10">
 
 
-                <TextView
-                    android:id="@+id/text_review"
+                <EditText
+                    android:id="@+id/edit_edit_review2"
                     android:layout_width="300dp"
-                    android:layout_height="110dp"
+                    android:layout_height="100dp"
                     />
 
             </LinearLayout>
@@ -236,8 +246,8 @@
                 android:weightSum="10">
 
 
-                <TextView
-                    android:id="@+id/text_impressive"
+                <EditText
+                    android:id="@+id/edit_edit_impressive2"
                     android:layout_width="300dp"
                     android:layout_height="80dp"
                     android:letterSpacing="0.04"
@@ -250,40 +260,19 @@
 
 
 
-           <LinearLayout
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_gravity="center"
-               android:gravity="center_vertical|center_horizontal"
-               android:orientation="horizontal"
-
-               >
 
             <Button
-                android:id="@+id/button_modify"
+                android:id="@+id/edit_button_record2"
                 android:textStyle="bold"
-                android:layout_width="120dp"
+                android:layout_width="130dp"
                 android:layout_height="50dp"
                 android:text="수정하기"
+                android:layout_gravity="center"
                 android:textSize="17sp"
                 android:background="@drawable/round"
-                app:backgroundTint="#A6AFFF"
-                android:layout_margin="10dp"/>
-
-               <Button
-                   android:id="@+id/button_ok"
-                   android:textStyle="bold"
-                   android:layout_width="120dp"
-                   android:layout_height="50dp"
-                   android:text="확인"
-                   android:textSize="17sp"
-                   android:background="@drawable/round"
-                   android:layout_margin="10dp"
-                   app:backgroundTint="#A6AFFF" />
+                app:backgroundTint="#A6AFFF" />
 
         </LinearLayout>
     </LinearLayout>
-
-</LinearLayout>
 
 </LinearLayout>

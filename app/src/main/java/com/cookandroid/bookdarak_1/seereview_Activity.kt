@@ -32,38 +32,8 @@ class seereview_Activity : AppCompatActivity() {
         userId = intent.getIntExtra("USER_ID", -1)
         bookId = intent.getIntExtra("BOOK_ID", -1)
         reviewId = intent.getIntExtra("REVIEW_ID", -1)
-        Log.d(TAG, "seereview_userandreviewid: $userId,$reviewId")
+        Log.d(TAG, "seereview_userandreviewid: $userId,$reviewId,$bookId")
 
-
-        /*
-                //Get content and phrase from intent extras
-                val content = intent.getStringExtra("content")
-                val phrase = intent.getStringExtra("phrase")
-                val rating_2 = intent.getFloatExtra("rating_2", 0.0f)
-                val startDate = intent.getStringExtra("startdate")
-                val endDate = intent.getStringExtra("enddate")
-                val publicYnString = intent.getStringExtra("publicYn")
-                val title = intent.getStringExtra("title")
-                val isbn = intent.getStringExtra("isbn")
-
-                // Use the content and phrase data to update your views
-                binding.textReview.text = content
-                binding.textImpressive.text = phrase
-               binding.seeRatingbar.rating = rating_2
-               binding.seeStartday.text = startDate
-               binding.seeFinishday.text = endDate
-                binding.textSeereviewBooktitle.text = title
-                binding.textSeereviewIsbn.text = isbn
-
-                 //Handle the publicYn value and update appropriate view
-                if (publicYnString == "public") {
-                    getString(R.string.y)  // Replace with the appropriate string resource
-                } else {
-                    getString(R.string.n) // Replace with the appropriate string resource
-                }
-                binding.textviewPublicOr.text = publicYnString
-
-         */
 
 
 
@@ -163,10 +133,9 @@ class seereview_Activity : AppCompatActivity() {
         button_ok.setOnClickListener {
 
             val intent = Intent(this@seereview_Activity, NaviActivity::class.java)
-            //intent.putExtra("bookModel", model)
-            intent.putExtra("USER_ID", userId) // Passing userId to writingreview activity
-            //intent.putExtra("BOOK_ID", bookId)
-            //Log.d(ContentValues.TAG, "BookinfoActivity_user and bookID: $userId, $bookId")
+
+            intent.putExtra("USER_ID", userId)
+
             startActivity(intent)
 
 

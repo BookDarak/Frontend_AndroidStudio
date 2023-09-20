@@ -15,6 +15,9 @@
         android:theme="@style/Theme.BookDarak_1"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".editreview2"
+            android:exported="false" />
+        <activity
             android:name=".editreview"
             android:exported="false" />
         <activity

@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -58,19 +59,16 @@ class BookinfoActivity : AppCompatActivity() {
 
 
 
-        //bookinforeviewRecyclerView = findViewById(R.id.bookinfo_review_recycler_view)
 
-        bookinfo_reviewAdapter = Bookinfo_ReviewAdapter(mutableListOf()) // Initialize ReviewAdapter instance
 
-        //bookinforeviewRecyclerView.layoutManager = LinearLayoutManager(this)
-        //bookinforeviewRecyclerView.adapter = bookinfo_reviewAdapter
+        bookinfo_reviewAdapter = Bookinfo_ReviewAdapter(mutableListOf())
 
-        // 다른 액티비티에서 ID를 받아옴
+
         val receivedIntent = intent
 
 
         userId = receivedIntent.getIntExtra("USER_ID", -1)
-        //bookId = intent.getIntExtra("BOOK_ID", -1)
+
 
         Log.d(TAG, "Received USER_ID: $userId")
 
@@ -79,15 +77,12 @@ class BookinfoActivity : AppCompatActivity() {
         val writerText = model?.authors.toString()
         val booktitle = model?.title.toString()
         val authorList = model?.authors ?: emptyList()
-        //val writerList = listOf("Alice", "Bob", "Charlie")
-        //val writerString = writerList?.joinToString(", ") ?: ""
+
         val isbn = model?.isbn.toString()
 
 
         val image = model?.thumbnail.toString()
         val writeButton: Button = findViewById(R.id.writebutton)
-
-        //val writerList: List<String> = model?.authors ?: emptyList()
 
         Log.d(TAG, "rbookidrequest: $booktitle,$isbn,$image,$authorList")
         val BookIdrequest = BookIdRequest(booktitle, authorList, isbn, image) // gender 추가
@@ -151,7 +146,11 @@ class BookinfoActivity : AppCompatActivity() {
 
 
                             } else {
-                                Toast.makeText(this@BookinfoActivity, response.body()?.message.toString(), Toast.LENGTH_SHORT).show()
+                                when(response.body()?.code) {
+                                    2024 -> dialog("존재하지 않는 유저 id입니다.")
+                                    2033 -> dialog("존재하지 않는 책 id입니다.")
+                                    //else -> dialog("fail")
+                                }
                             }
                         }
 
@@ -159,6 +158,8 @@ class BookinfoActivity : AppCompatActivity() {
                             Toast.makeText(this@BookinfoActivity, t.localizedMessage, Toast.LENGTH_SHORT).show()
                         }
                     })
+
+
 
 
 
@@ -281,6 +282,9 @@ class BookinfoActivity : AppCompatActivity() {
 
 
 
+
+
+
         renderView()
 
 
@@ -328,6 +332,26 @@ class BookinfoActivity : AppCompatActivity() {
     }
 
 
+    fun dialog(type: String){
+        var dialog = AlertDialog.Builder(this)
+
+        when(type) {
+            "존재하지 않는 유저 id입니다." -> {
+                dialog.setTitle("리뷰 조회 실패")
+                dialog.setMessage("존재하지 않는 유저 id입니다.")
+            }
+            "존재하지 않는 책 id입니다." -> {
+                dialog.setTitle("리뷰 조회 실패")
+                dialog.setMessage("존재하지 않는 책 id입니다.")
+            }
+
+        }
+
+        dialog.setPositiveButton("확인") { _, _ ->
+            Log.d(TAG, "User acknowledged the dialog")
+        }
+        dialog.show()
+    }
 
 
 
