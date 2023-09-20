@@ -357,3 +357,11 @@ data class Follower(
     val followerName: String,
     val followerImgUrl: String?
 )
+
+data class UserDeleteResponse(
+    val isSuccess: Boolean,
+    val code: Int,
+    val message: String,
+    val result: String? // Nullable because it's not mandatory
+)
+

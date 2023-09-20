@@ -12,6 +12,10 @@ import com.bumptech.glide.Glide
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import android.app.AlertDialog
+import android.widget.Toast
+
+
 
 class MyPageFragment : Fragment() {
     private var userId: Int = -1
@@ -87,6 +91,11 @@ class MyPageFragment : Fragment() {
 
         followerClickView.setOnClickListener(openFollowerActivity) // 클릭 리스너 설정
         followerNClickView.setOnClickListener(openFollowerActivity) // 'text_total_following_n'에도 동일한 리스너 설정
+        val deleteUserTextView: TextView = view.findViewById(R.id.deleteuser)
+        deleteUserTextView.setOnClickListener {
+            showDeleteConfirmationDialog()
+        }
+
 
         return view
     }
@@ -161,4 +170,37 @@ class MyPageFragment : Fragment() {
             }
         }
     }
+    private fun showDeleteConfirmationDialog() {
+        AlertDialog.Builder(requireContext())
+            .setMessage("정말 회원탈퇴하시겠습니까?")
+            .setPositiveButton("확인") { dialog, _ ->
+                deleteUser()
+                dialog.dismiss()
+            }
+            .setNegativeButton("취소") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
+    }
+    private fun deleteUser() {
+        ApiClient.service.deleteUser(userId).enqueue(object : Callback<UserDeleteResponse> {
+            override fun onResponse(call: Call<UserDeleteResponse>, response: Response<UserDeleteResponse>) {
+                if (response.isSuccessful && response.body()?.isSuccess == true) {
+                    // 회원 탈퇴 성공 -> 로그인 화면으로 이동
+                    val intent = Intent(context, MainActivity::class.java)
+                    startActivity(intent)
+                    activity?.finish()  // 현재 Activity 종료
+                } else {
+                    // 회원 탈퇴 실패 처리
+                    Toast.makeText(context, response.body()?.message ?: "오류 발생", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<UserDeleteResponse>, t: Throwable) {
+                Toast.makeText(context, t.localizedMessage, Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+
 }
