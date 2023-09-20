@@ -23,7 +23,11 @@ class activity_singup : AppCompatActivity() {
             val email = binding.editTextId.text.toString()  // <-- 'binding.'을 사용하여 뷰에 접근
             val password = binding.editTextPassword.text.toString()  // <-- 'binding.'을 사용하여 뷰에 접근
             val name = binding.editTextName.text.toString()  // <-- 'binding.'을 사용하여 뷰에 접근
-            val gender = binding.editTextGender.text.toString()  // <-- 'binding.'을 사용하여 뷰에 접근
+            val gender = when (binding.radioGroupGender.checkedRadioButtonId) {
+                R.id.radioButtonMale -> "M"
+                R.id.radioButtonFemale -> "F"
+                else -> "" // Default or Error Case
+            }
             val age = binding.editTextAge.text.toString().toIntOrNull() ?: 0  // <-- 'binding.'을 사용하여 뷰에 접근
             val introduction = binding.editTextIntroduction.text.toString()  // <-- 'binding.'을 사용하여 뷰에 접근
 
