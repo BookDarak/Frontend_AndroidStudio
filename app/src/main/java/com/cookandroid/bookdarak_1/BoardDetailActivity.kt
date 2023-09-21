@@ -6,6 +6,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.cookandroid.bookdarak_1.databinding.BoardDetailBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -69,7 +70,13 @@ class BoardDetailActivity : AppCompatActivity() {
                     binding.questionTextView.text = result?.question
                     binding.bookTitleTextView.text = result?.bookname
 
-                    // TODO: Load the book image using some image loading library
+                    // Load the book image using Glide
+                    if (!result?.bookImg.isNullOrEmpty()) {
+                        Glide.with(this@BoardDetailActivity).load(result?.bookImg).into(binding.bookImageView)
+                    } else {
+
+                    }
+
                 } else {
                     Toast.makeText(this@BoardDetailActivity, "Failed to load board details", Toast.LENGTH_SHORT).show()
                 }
@@ -80,6 +87,7 @@ class BoardDetailActivity : AppCompatActivity() {
             }
         })
     }
+
 
     private fun loadComments(boardId: Int) {
         ApiClient.service.getAllComments(boardId).enqueue(object : Callback<CommentResponse> {
