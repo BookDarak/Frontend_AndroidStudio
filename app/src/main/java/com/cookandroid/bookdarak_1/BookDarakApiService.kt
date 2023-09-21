@@ -47,10 +47,9 @@ interface BookDarakApiService {
         @Body updateReviewRequest: UpdateReviewRequest
     ): Call<UpdateReviewResponse>
 
-    @DELETE("/reviews/{userId}/{bookId}")  //서평 삭제(수정 필요)
+    @DELETE("/reviews/{reviewId}")  //서평 삭제(수정 필요)
     fun deleteReview(
-        @Path("userId") userId: Int,
-        @Path("bookId") bookId: Int
+        @Path("reviewId") reviewId: Int
     ): Call<DeleteReviewResponse>
 
     @POST("/bookmarks/{userId}/{bookId}")    //북마크 추가

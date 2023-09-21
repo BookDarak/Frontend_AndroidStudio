@@ -41,12 +41,12 @@ class seereview_Activity : AppCompatActivity() {
             Callback<ReviewDetailResponse> {
             override fun onResponse(call: Call<ReviewDetailResponse>, response: Response<ReviewDetailResponse>) {
                 if (response.isSuccessful && response.body()?.isSuccess == true) {
-                    val editreviewresults = response.body()?.result
-                    Log.d(TAG, "editreiew_results: $editreviewresults")
+                    val seereviewresults = response.body()?.result
+                    Log.d(TAG, "seereview_results: $seereviewresults")
 
 
 
-                    editreviewresults?.let {
+                    seereviewresults?.let {
                         val editablecontent = Editable.Factory.getInstance().newEditable(it.content)
                         val editablerating = Editable.Factory.getInstance().newEditable(it.rating.toString())
                         val editablephrase = Editable.Factory.getInstance().newEditable(it.phrase)
@@ -88,7 +88,7 @@ class seereview_Activity : AppCompatActivity() {
 
 
 
-            ApiClient.service.deleteReview(userId, bookId).enqueue(object:
+            ApiClient.service.deleteReview(reviewId).enqueue(object:
                 Callback<DeleteReviewResponse> {
                 override fun onResponse(call: Call<DeleteReviewResponse>, response: Response<DeleteReviewResponse>) {
                     if (response.isSuccessful && response.body()?.isSuccess == true) {
@@ -153,7 +153,7 @@ class seereview_Activity : AppCompatActivity() {
 
 
 
-}
+    }
     private fun renderView() {
 
         binding.textSeereviewBooktitle.text = model?.title.orEmpty()
@@ -169,5 +169,4 @@ class seereview_Activity : AppCompatActivity() {
 
     }
 }
-
 

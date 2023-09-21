@@ -91,7 +91,7 @@ class editreview : AppCompatActivity() {
             override fun onResponse(call: Call<ReviewDetailResponse>, response: Response<ReviewDetailResponse>) {
                 if (response.isSuccessful && response.body()?.isSuccess == true) {
                     val editreviewresults = response.body()?.result
-                    Log.d(TAG, "editreiew_results: $editreviewresults")
+                    Log.d(TAG, "editrveiew_results: $editreviewresults")
 
 
 
