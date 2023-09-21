@@ -26,6 +26,7 @@ class editreview : AppCompatActivity() {
     private var userId: Int = -1
     private var bookId: Int = -1
     private var reviewId: Int = -1
+    private var firstIsbn: String = "-1"
     var startdateString_edit=""
     var finishdateString_edit=""
 
@@ -54,7 +55,9 @@ class editreview : AppCompatActivity() {
         userId = intent.getIntExtra("USER_ID", -1)
         bookId = intent.getIntExtra("BOOK_ID", -1)
         reviewId = intent.getIntExtra("REVIEW_ID", -1)
-        Log.d(TAG, "editreview_userandbookandreviewid: $userId,$bookId,$reviewId")
+        firstIsbn = intent.getStringExtra("FIRST_ISBN").toString()
+
+        Log.d(TAG, "editreview_userandbookandreviewid: $userId,$bookId,$reviewId,$firstIsbn")
 
 
 
@@ -163,7 +166,7 @@ class editreview : AppCompatActivity() {
                                     intent.putExtra("rating_2",rating_2)
                                     intent.putExtra("publicYn",publicYn)
 
-                                    intent.putExtra("isbn",isbn)
+                                    intent.putExtra("firstisbn",firstIsbn)
                                     intent.putExtra("title",title)
 
                                     intent.putExtra("content",content)
@@ -238,7 +241,10 @@ class editreview : AppCompatActivity() {
     private fun renderView() {
 
         binding.textEditreviewBooktitle.text = model?.title.orEmpty()
-        binding.textEditreviewIsbn.text = model?.isbn.orEmpty()
+        val isbnn = model?.isbn.toString().split(" ")
+        val isbnnn = isbnn[0]
+        binding.textEditreviewIsbn.text = isbnnn
+
 
 
         Glide.with(binding.imageEditreviewBookcover.context)

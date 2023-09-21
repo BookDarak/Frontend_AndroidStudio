@@ -25,6 +25,7 @@ class writingreview2 : AppCompatActivity() {
 
     private var userId: Int = -1
     private var bookId: Int = -1
+    private var firstIsbn: String = "-1"
     private var bookinfo_home: FBook? = null
     private var reviewId: Int = -1
     var startdateString2=""
@@ -46,15 +47,16 @@ class writingreview2 : AppCompatActivity() {
 
         userId = intent.getIntExtra("USER_ID", -1)
         bookId = intent.getIntExtra("BOOK_ID", -1)
+        firstIsbn = intent.getStringExtra("FIRST_ISBN").toString()
 
         val bookinfo_home = intent.getSerializableExtra("bookinfo_home") as? BookInfo_home
-        Log.d(TAG, "writingreview2_intent: $userId,$bookId,$bookinfo_home")
+        Log.d(TAG, "writingreview2_intent: $userId,$bookId,$bookinfo_home,$firstIsbn")
 
 
 
 
         binding.textWritingreviewBooktitle2.text = bookinfo_home?.title.orEmpty()
-        binding.textWritingreviewIsbn2.text = bookinfo_home?.isbn.orEmpty()
+        binding.textWritingreviewIsbn2.text = firstIsbn
 
         Glide.with(binding.imageWritingreviewBookcover2.context)
             .load(bookinfo_home?.thumbnail.orEmpty())
@@ -121,7 +123,26 @@ class writingreview2 : AppCompatActivity() {
                     if (response.isSuccessful && response.body()?.isSuccess == true) {
                         val reviewId = response.body()?.result?.reviewId ?: -1
                         Log.d(TAG, "reviewID: $reviewId")
-                        //Log.d(TAG, "userId: $userId, bookId: $bookId")
+
+
+                        val intent = Intent(this@writingreview2, seereview2::class.java)
+                        //intent.putExtra("REVIEW_ID", reviewId)
+                        intent.putExtra("USER_ID", userId)
+                        intent.putExtra("REVIEW_ID", reviewId)
+                        intent.putExtra("rating_2",rating_2)
+                        intent.putExtra("publicYn",publicYn)
+                        intent.putExtra("bookinfo_home",bookinfo_home)
+
+
+                        intent.putExtra("firstisbn",firstIsbn)
+                        intent.putExtra("title",title)
+
+                        intent.putExtra("content",content)
+                        intent.putExtra("phrase",phrase)
+
+                        intent.putExtra("startdate",startDate)
+                        intent.putExtra("enddate",endDate)
+                        startActivity(intent)
 
 
 
@@ -139,23 +160,7 @@ class writingreview2 : AppCompatActivity() {
                 }
             })
 
-            val intent = Intent(this@writingreview2, seereview2::class.java)
-            //intent.putExtra("REVIEW_ID", reviewId)
-            intent.putExtra("USER_ID", userId)
-            intent.putExtra("rating_2",rating_2)
-            intent.putExtra("publicYn",publicYn)
-            intent.putExtra("bookinfo_home",bookinfo_home)
 
-
-            intent.putExtra("isbn",isbn)
-            intent.putExtra("title",title)
-
-            intent.putExtra("content",content)
-            intent.putExtra("phrase",phrase)
-
-            intent.putExtra("startdate",startDate)
-            intent.putExtra("enddate",endDate)
-            startActivity(intent)
 
 
 
