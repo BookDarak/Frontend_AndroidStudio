@@ -1,0 +1,48 @@
+<!-- board_item.xml -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/board_box"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <!-- 질문 및 책 이미지 레이아웃 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/qbox_round"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <!-- 질문 텍스트 -->
+        <TextView
+            android:id="@+id/questionTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:paddingLeft="16dp"
+            android:layout_gravity="center_vertical"
+            android:text="질문 내용이 들어갑니다." />
+
+        <!-- 책 이미지 -->
+        <ImageView
+            android:id="@+id/bookImageView"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/book_sample" />
+    </LinearLayout>
+
+    <!-- board_item.xml에서 댓글 부분 -->
+    <!-- 댓글들 -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/commentRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="8dp"
+        android:clipToPadding="false"
+        android:nestedScrollingEnabled="false" />
+
+</LinearLayout>

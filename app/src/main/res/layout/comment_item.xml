@@ -1,0 +1,26 @@
+<!-- comment_item.xml -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:background="@drawable/commentbox"
+    android:orientation="horizontal"
+    android:padding="4dp">
+
+    <!-- 사용자 이미지 -->
+    <ImageView
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:paddingLeft="16dp"
+        android:src="@drawable/user_empty" />
+
+    <!-- 댓글 텍스트 -->
+    <TextView
+        android:id="@+id/commentText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="댓글 내용이 들어갑니다."
+        android:paddingLeft="16dp"/>
+</LinearLayout>

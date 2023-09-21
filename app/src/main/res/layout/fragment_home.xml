@@ -325,6 +325,15 @@
                 </LinearLayout>
             </LinearLayout>
             <!-- Add additional sections here if needed -->
+            <ImageView
+                android:id="@+id/boardBannerImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/boardbanner"
+                android:clickable="true"
+                android:focusable="true"
+                android:paddingTop="16dp"/>
+
 
 
 

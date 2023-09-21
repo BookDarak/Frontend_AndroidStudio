@@ -157,7 +157,7 @@ dependencies {
     kapt(Dependencies.hitlExtensionKapt)
 
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2' // 버전은 최신으로 확인해주세요
-
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2'
 
 
 

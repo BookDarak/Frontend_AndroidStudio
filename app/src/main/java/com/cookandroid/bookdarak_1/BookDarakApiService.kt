@@ -132,7 +132,13 @@ interface BookDarakApiService {
     @GET("/follows/followers/{userId}")  //팔로워들 조회
     fun getFollowers(@Path("userId") userId: Int): Call<FollowerResponse>
 
-    @DELETE("/users/{userId}")
+    @DELETE("/users/{userId}") //회원탈퇴
     fun deleteUser(@Path("userId") userId: Int): Call<UserDeleteResponse>
+
+    @GET("/boards/comments/{boardId}") //댓글 전체 조희
+    fun getAllComments(@Path("boardId") boardId: Int): Call<CommentResponse>
+
+    @GET("/boards") //게시판 모두 조회
+    fun getAllBoards(): Call<BoardResponse>
 
 }

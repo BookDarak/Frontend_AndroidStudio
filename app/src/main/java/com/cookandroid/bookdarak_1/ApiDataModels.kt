@@ -365,3 +365,49 @@ data class UserDeleteResponse(
     val result: String? // Nullable because it's not mandatory
 )
 
+data class CommentItem(
+    val userId: Int,
+    val content: String,
+    val userImg: String? // null이 될 수 있으므로 nullable로 선언
+)
+
+data class CommentResponseResult(
+    val currentPage: Int,
+    val totalPages: Int,
+    val totalItems: Int,
+    val items: List<CommentItem>
+)
+
+data class CommentResponse(
+    val isSuccess: Boolean,
+    val code: Int,
+    val message: String,
+    val result: CommentResponseResult
+)
+
+// API 전체 응답
+data class BoardResponse(
+    val isSuccess: Boolean,
+    val code: Int,
+    val message: String,
+    val result: BoardResult
+)
+
+// 'result'의 내부 구조
+data class BoardResult(
+    val currentPage: Int,
+    val totalPages: Int,
+    val totalItems: Int,
+    val items: List<BoardItem>
+)
+
+// 개별 게시판 항목
+data class BoardItem(
+    val boardId: Int,
+    val bookId: Int,
+    val question: String,
+    val bookname: String,
+    val bookImg: String
+)
+
+
