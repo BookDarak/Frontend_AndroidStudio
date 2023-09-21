@@ -78,14 +78,16 @@ class BookinfoActivity : AppCompatActivity() {
         val booktitle = model?.title.toString()
         val authorList = model?.authors ?: emptyList()
 
-        val isbn = model?.isbn.toString()
+        val fullisbn = model?.isbn.toString()
+        val split_isbn = fullisbn.split(" ") // 공백을 기준으로 문자열을 분할
+        val frontisbn = split_isbn[0]
 
 
         val image = model?.thumbnail.toString()
         val writeButton: Button = findViewById(R.id.writebutton)
 
-        Log.d(TAG, "rbookidrequest: $booktitle,$isbn,$image,$authorList")
-        val BookIdrequest = BookIdRequest(booktitle, authorList, isbn, image) // gender 추가
+        Log.d(TAG, "rbookidrequest: $booktitle,$frontisbn,$image,$authorList")
+        val BookIdrequest = BookIdRequest(booktitle, authorList, frontisbn, image) // gender 추가
         Log.d(TAG, "rbookidrequest_2: $BookIdrequest")
 
 
@@ -365,7 +367,9 @@ class BookinfoActivity : AppCompatActivity() {
         binding.publisher.text = model?.publisher.orEmpty()
         binding.publishdate.text = model?.datetime.orEmpty()
         binding.price.text = model?.price.toString()
-        binding.textIsbn.text = model?.isbn.toString()
+        val isbnn = model?.isbn.toString().split(" ")
+        val isbnnn = isbnn[0]
+        binding.textIsbn.text = isbnnn
         binding.bookcontent.text = model?.contents.toString()
 
 

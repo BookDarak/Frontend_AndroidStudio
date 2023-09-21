@@ -26,6 +26,7 @@ class editreview2 : AppCompatActivity() {
     private var userId: Int = -1
     private var bookId: Int = -1
     private var reviewId: Int = -1
+    private var firstIsbn: String = "-1"
     var startdateString_edit2=""
     var finishdateString_edit2=""
 
@@ -50,7 +51,8 @@ class editreview2 : AppCompatActivity() {
         bookId = intent.getIntExtra("BOOK_ID", -1)
         reviewId = intent.getIntExtra("REVIEW_ID", -1)
         bookinfo_home = intent.getSerializableExtra("bookinfo_home") as? BookInfo_home
-        Log.d(TAG, "editreview2_userandbookandreviewid: $userId,$bookId,$reviewId,$bookinfo_home")
+        firstIsbn = intent.getStringExtra("FIRST_ISBN").toString()
+        Log.d(TAG, "editreview2_userandbookandreviewid: $userId,$bookId,$reviewId,$bookinfo_home,$firstIsbn")
 
 
 
@@ -128,8 +130,8 @@ class editreview2 : AppCompatActivity() {
                         val selectedRadioButtonId = binding.edit2RadioGroup.checkedRadioButtonId
 
                         val publicYn = when (selectedRadioButtonId) {
-                            R.id.edit_rg_btn1_w -> "Y"
-                            R.id.edit_rg_btn2_w -> "N"
+                            R.id.edit2_rg_btn1_w -> "Y"
+                            R.id.edit2_rg_btn2_w -> "N"
                             else -> ""
                         }
 
@@ -232,8 +234,9 @@ class editreview2 : AppCompatActivity() {
     private fun renderView() {
 
         binding.textEditreviewBooktitle2.text = bookinfo_home?.title.orEmpty()
-        binding.textEditreviewIsbn2.text = bookinfo_home?.isbn.orEmpty()
-
+        val isbnn =  bookinfo_home?.isbn.toString().split(" ")
+        val isbnnn = isbnn[0]
+        binding.textEditreviewIsbn2.text = isbnnn
 
         Glide.with(binding.imageEditreviewBookcover2.context)
             .load(bookinfo_home?.thumbnail.orEmpty())

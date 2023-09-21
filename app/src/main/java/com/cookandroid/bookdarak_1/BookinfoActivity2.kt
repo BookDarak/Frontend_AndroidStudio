@@ -70,7 +70,10 @@ class BookinfoActivity2 : AppCompatActivity() {
         isbn_of_home = receivedIntent.getStringExtra("isbn_of_home").toString()
         //bookId = intent.getIntExtra("BOOK_ID", -1)
 
-        Log.d(TAG, "Received USER_ID: $userId")
+        Log.d(TAG, "Received USER_ID, isbn_of_home: $userId,$isbn_of_home")
+
+        val split_isbn = isbn_of_home.split(" ") // 공백을 기준으로 문자열을 분할
+        val frontisbn = split_isbn[0]
 
 
 
@@ -79,7 +82,7 @@ class BookinfoActivity2 : AppCompatActivity() {
 
             initBookService()
 
-            bookService.FindBook(isbn_of_home).enqueue(object : Callback<SearchResponse> {override fun onResponse(
+            bookService.FindBook(frontisbn).enqueue(object : Callback<SearchResponse> {override fun onResponse(
                 call: Call<SearchResponse>, response: Response<SearchResponse>
             ) {
                 if (response.isSuccessful.not()) {
@@ -121,13 +124,15 @@ class BookinfoActivity2 : AppCompatActivity() {
 
                     val booktitle = bookinfo_home.title.toString()
                     val authorList = bookinfo_home.authors ?: emptyList()
-                    val isbn = bookinfo_home.isbn.toString()
+                    val fullisbn = bookinfo_home.isbn.toString().split(" ")
+                    val firstisbn = fullisbn[0]
+                    Log.d(TAG, "rbookidrequest0: $fullisbn,$firstisbn")
                     val content = bookinfo_home.contents.toString()
                     val image = bookinfo_home.thumbnail.toString()
 
 
-                    Log.d(TAG, "rbookidrequest: $booktitle,$isbn,$image,$authorList")
-                    val BookIdrequest = BookIdRequest(booktitle, authorList, isbn, image) // gender 추가
+                    Log.d(TAG, "rbookidrequest: $booktitle,$firstisbn,$image,$authorList")
+                    val BookIdrequest = BookIdRequest(booktitle, authorList, firstisbn, image) // gender 추가
                     Log.d(TAG, "rbookidrequest_2: $BookIdrequest")
 
                     ApiClient.service.bookId(BookIdrequest).enqueue(object: Callback<BookIdResponse> {
@@ -155,6 +160,7 @@ class BookinfoActivity2 : AppCompatActivity() {
                                                     intent.putExtra("bookinfo_home", bookinfo_home)
                                                     intent.putExtra("USER_ID", userId) // Passing userId to writingreview activity
                                                     intent.putExtra("BOOK_ID", bookId)
+                                                    intent.putExtra("FIREST_ISBN", firstisbn)
                                                     Log.d(TAG, "BookinfoActivity2_user and bookID: $userId, $bookId, $bookinfo_home")
                                                     startActivity(intent)
 
@@ -177,6 +183,7 @@ class BookinfoActivity2 : AppCompatActivity() {
                                                     intent.putExtra("USER_ID", userId) // Passing userId to writingreview activity
                                                     intent.putExtra("BOOK_ID", bookId)
                                                     intent.putExtra("REVIEW_ID", reviewId)
+                                                    intent.putExtra("FIREST_ISBN", firstisbn)
                                                     Log.d(TAG, "BookinfoActivity2_user and bookID and reviewId: $userId, $bookId ,$reviewId,$bookinfo_home")
                                                     startActivity(intent)
 
