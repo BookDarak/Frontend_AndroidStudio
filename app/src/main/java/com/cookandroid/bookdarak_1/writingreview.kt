@@ -195,7 +195,9 @@ class writingreview : AppCompatActivity() {
     private fun renderView() {
 
         binding.textWritingreviewBooktitle.text = model?.title.orEmpty()
-        binding.textWritingreviewIsbn.text = model?.isbn.orEmpty()
+        val isbnn = model?.isbn.toString().split(" ")
+        val isbnnn = isbnn[0]
+        binding.textWritingreviewIsbn.text = isbnnn
 
 
         Glide.with(binding.imageWritingreviewBookcover.context)

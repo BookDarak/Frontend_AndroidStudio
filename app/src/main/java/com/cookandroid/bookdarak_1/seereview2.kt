@@ -23,7 +23,7 @@ class seereview2 : AppCompatActivity() {
     private var bookinfo_home: FBook? = null
     private var userId: Int = -1
     private var reviewId: Int = -1
-    private var firstIsbn: String = "-1"
+    private var frontisbn: String = "-1"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,14 +32,14 @@ class seereview2 : AppCompatActivity() {
         val bookinfo_home = intent.getSerializableExtra("bookinfo_home") as? BookInfo_home
         userId = intent.getIntExtra("USER_ID", -1)
         reviewId = intent.getIntExtra("REVIEW_ID", -1)
-        firstIsbn = intent.getStringExtra("FIRST_ISBN").toString()
+        frontisbn = intent.getStringExtra("FRONT_ISBN").toString()//바꾸기
 
-        Log.d(ContentValues.TAG, "seereview2_intent: $userId,$reviewId,$bookinfo_home,$firstIsbn")
+        Log.d(ContentValues.TAG, "seereview2_intent: $userId,$reviewId,$bookinfo_home,$frontisbn")
 
 
 
         binding.textSeereviewBooktitle2.text = bookinfo_home?.title.orEmpty()
-        binding.textSeereviewIsbn2.text = firstIsbn
+        binding.textSeereviewIsbn2.text = frontisbn
 
         Glide.with(binding.imageSeereviewBookcover2.context)
             .load(bookinfo_home?.thumbnail.orEmpty())
