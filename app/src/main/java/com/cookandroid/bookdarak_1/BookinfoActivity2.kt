@@ -113,7 +113,7 @@ class BookinfoActivity2 : AppCompatActivity() {
                 binding.publisher2.text = bookinfo_home.publisher.orEmpty()
                 binding.publishdate2.text = bookinfo_home.datetime.orEmpty()
                 binding.price2.text = bookinfo_home.price.toString()
-                binding.textIsbn2.text = bookinfo_home.isbn.toString()
+                binding.textIsbn2.text = frontisbn
                 binding.writer2.text = bookinfo_home.authors.toString()
 
 
@@ -160,8 +160,8 @@ class BookinfoActivity2 : AppCompatActivity() {
                                                     intent.putExtra("bookinfo_home", bookinfo_home)
                                                     intent.putExtra("USER_ID", userId) // Passing userId to writingreview activity
                                                     intent.putExtra("BOOK_ID", bookId)
-                                                    intent.putExtra("FIREST_ISBN", firstisbn)
-                                                    Log.d(TAG, "BookinfoActivity2_user and bookID: $userId, $bookId, $bookinfo_home")
+                                                    intent.putExtra("FRONT_ISBN", frontisbn)
+                                                    Log.d(TAG, "BookinfoActivity2_user and bookID: $userId, $bookId, $bookinfo_home,$firstisbn")
                                                     startActivity(intent)
 
 
@@ -183,8 +183,8 @@ class BookinfoActivity2 : AppCompatActivity() {
                                                     intent.putExtra("USER_ID", userId) // Passing userId to writingreview activity
                                                     intent.putExtra("BOOK_ID", bookId)
                                                     intent.putExtra("REVIEW_ID", reviewId)
-                                                    intent.putExtra("FIREST_ISBN", firstisbn)
-                                                    Log.d(TAG, "BookinfoActivity2_user and bookID and reviewId: $userId, $bookId ,$reviewId,$bookinfo_home")
+                                                    intent.putExtra("FRONT_ISBN", frontisbn)
+                                                    Log.d(TAG, "BookinfoActivity2_user and bookID and reviewId: $userId, $bookId ,$reviewId,$bookinfo_home,$firstisbn")
                                                     startActivity(intent)
 
 

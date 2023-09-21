@@ -26,7 +26,7 @@ class editreview2 : AppCompatActivity() {
     private var userId: Int = -1
     private var bookId: Int = -1
     private var reviewId: Int = -1
-    private var firstIsbn: String = "-1"
+    private var frontisbn = ""
     var startdateString_edit2=""
     var finishdateString_edit2=""
 
@@ -51,8 +51,8 @@ class editreview2 : AppCompatActivity() {
         bookId = intent.getIntExtra("BOOK_ID", -1)
         reviewId = intent.getIntExtra("REVIEW_ID", -1)
         bookinfo_home = intent.getSerializableExtra("bookinfo_home") as? BookInfo_home
-        firstIsbn = intent.getStringExtra("FIRST_ISBN").toString()
-        Log.d(TAG, "editreview2_userandbookandreviewid: $userId,$bookId,$reviewId,$bookinfo_home,$firstIsbn")
+        frontisbn = intent.getStringExtra("FRONT_ISBN").toString()
+        Log.d(TAG, "editreview2_userandbookandreviewid: $userId,$bookId,$reviewId,$bookinfo_home,$frontisbn")
 
 
 
@@ -159,7 +159,7 @@ class editreview2 : AppCompatActivity() {
                                     intent.putExtra("rating_2",rating_2)
                                     intent.putExtra("publicYn",publicYn)
 
-                                    intent.putExtra("isbn",isbn)
+                                    intent.putExtra("FRONT_ISBN",frontisbn)
                                     intent.putExtra("title",title)
 
                                     intent.putExtra("content",content)

@@ -25,7 +25,7 @@ class writingreview2 : AppCompatActivity() {
 
     private var userId: Int = -1
     private var bookId: Int = -1
-    private var firstIsbn: String = "-1"
+    private var frontisbn: String = "-1"
     private var bookinfo_home: FBook? = null
     private var reviewId: Int = -1
     var startdateString2=""
@@ -47,16 +47,16 @@ class writingreview2 : AppCompatActivity() {
 
         userId = intent.getIntExtra("USER_ID", -1)
         bookId = intent.getIntExtra("BOOK_ID", -1)
-        firstIsbn = intent.getStringExtra("FIRST_ISBN").toString()
+        frontisbn = intent.getStringExtra("FRONT_ISBN").toString()
 
         val bookinfo_home = intent.getSerializableExtra("bookinfo_home") as? BookInfo_home
-        Log.d(TAG, "writingreview2_intent: $userId,$bookId,$bookinfo_home,$firstIsbn")
+        Log.d(TAG, "writingreview2_intent: $userId,$bookId,$bookinfo_home,$frontisbn")
 
 
 
 
         binding.textWritingreviewBooktitle2.text = bookinfo_home?.title.orEmpty()
-        binding.textWritingreviewIsbn2.text = firstIsbn
+        binding.textWritingreviewIsbn2.text = frontisbn
 
         Glide.with(binding.imageWritingreviewBookcover2.context)
             .load(bookinfo_home?.thumbnail.orEmpty())
@@ -134,7 +134,7 @@ class writingreview2 : AppCompatActivity() {
                         intent.putExtra("bookinfo_home",bookinfo_home)
 
 
-                        intent.putExtra("firstisbn",firstIsbn)
+                        intent.putExtra("FRONT_ISBN",frontisbn)
                         intent.putExtra("title",title)
 
                         intent.putExtra("content",content)

@@ -157,7 +157,9 @@ class seereview_Activity : AppCompatActivity() {
     private fun renderView() {
 
         binding.textSeereviewBooktitle.text = model?.title.orEmpty()
-        binding.textSeereviewIsbn.text = model?.isbn.orEmpty()
+        val isbnn = model?.isbn.toString().split(" ")
+        val isbnnn = isbnn[0]
+        binding.textSeereviewIsbn.text = isbnnn
 
 
         Glide.with(binding.imageSeereviewBookcover.context)
