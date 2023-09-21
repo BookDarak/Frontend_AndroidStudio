@@ -94,6 +94,9 @@
         <activity
             android:name=".BoardActivity"
             android:exported="false" />
+        <activity
+            android:name=".BoardDetailActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

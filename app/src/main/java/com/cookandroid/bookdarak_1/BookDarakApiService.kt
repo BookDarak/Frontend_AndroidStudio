@@ -141,4 +141,16 @@ interface BookDarakApiService {
     @GET("/boards") //게시판 모두 조회
     fun getAllBoards(): Call<BoardResponse>
 
+    @GET("/boards/{boardId}") //게시판조회
+    fun getBoardDetail(@Path("boardId") boardId: Int): Call<BoardDetailResponse>
+
+    @POST("/boards/comments/{boardId}/{userId}") //댓글 등록
+    fun postComment(
+        @Path("boardId") boardId: Int,
+        @Path("userId") userId: Int,
+        @Body content: CommentPostBody
+    ): Call<CommentPostResponse>
+
+
+
 }

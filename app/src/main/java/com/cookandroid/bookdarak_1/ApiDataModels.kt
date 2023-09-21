@@ -410,4 +410,31 @@ data class BoardItem(
     val bookImg: String
 )
 
+data class BoardDetailResponse(
+    val isSuccess: Boolean,
+    val code: Int,
+    val message: String,
+    val result: BoardDetailResult
+)
+
+data class BoardDetailResult(
+    val bookId: Int,
+    val question: String,
+    val bookname: String,
+    val bookImg: String
+)
+
+data class CommentPostBody(
+    val content: String
+)
+
+data class CommentPostResponse(
+    val isSuccess: Boolean,
+    val code: Int,
+    val message: String,
+    val result: String
+)
+
+
+
 

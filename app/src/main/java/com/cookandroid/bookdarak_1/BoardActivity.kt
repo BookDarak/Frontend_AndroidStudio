@@ -19,8 +19,11 @@ class BoardActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_board)
 
+        val userId = intent.getIntExtra("USER_ID", -1)
+        // 여기서 userId를 받아옵니다.
+
         val recyclerView = findViewById<RecyclerView>(R.id.boardRecyclerView)
-        boardAdapter = BoardAdapter(this)
+        boardAdapter = BoardAdapter(this, userId)  // BoardAdapter에 userId를 전달합니다.
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = boardAdapter
 
@@ -45,6 +48,7 @@ class BoardActivity : AppCompatActivity() {
             }
         })
     }
+
     class VerticalSpaceItemDecoration(private val verticalSpaceHeight: Int) : RecyclerView.ItemDecoration() {
         override fun getItemOffsets(
             outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State
