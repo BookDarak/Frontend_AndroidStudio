@@ -33,8 +33,14 @@ class CommentAdapter(private val context: Context) : RecyclerView.Adapter<Commen
         private val commentText: TextView = view.findViewById(R.id.commentText)
 
         fun bind(commentItem: CommentItem) {
-            commentText.text = commentItem.content
+            val displayText = if (commentItem.content.length > 40) {
+                "${commentItem.content.substring(0, 40)}..."
+            } else {
+                commentItem.content
+            }
+            commentText.text = displayText
             // TODO: Bind other views if needed
         }
+
     }
 }

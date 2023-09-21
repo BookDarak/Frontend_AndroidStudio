@@ -42,6 +42,7 @@ class BoardAdapter(private val context: Context) : RecyclerView.Adapter<BoardAda
         // board_item.xml 내의 뷰 참조
         private val questionTextView: TextView = view.findViewById(R.id.questionTextView)
         private val bookImageView: ImageView = view.findViewById(R.id.bookImageView)
+        private val bookTitleTextView: TextView = view.findViewById(R.id.bookTitleTextView)
 
         fun bind(boardItem: BoardItem) {
             // 질문 텍스트 설정
@@ -52,6 +53,7 @@ class BoardAdapter(private val context: Context) : RecyclerView.Adapter<BoardAda
 
             commentRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             commentRecyclerView.adapter = commentAdapter
+            bookTitleTextView.text = boardItem.bookname
 
             loadComments(boardItem.boardId)
         }
@@ -61,7 +63,7 @@ class BoardAdapter(private val context: Context) : RecyclerView.Adapter<BoardAda
                 override fun onResponse(call: Call<CommentResponse>, response: Response<CommentResponse>) {
                     if (response.isSuccessful) {
                         response.body()?.let {
-                            commentAdapter.setCommentItems(it.result.items.take(3))  // 최대 3개만 가져오도록 함
+                            commentAdapter.setCommentItems(it.result.items.take(2))  // 최대 3개만 가져오도록 함
                         }
                     }
                 }

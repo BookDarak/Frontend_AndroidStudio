@@ -92,6 +92,10 @@ class HomeFragment : Fragment() {
         binding.imageRec23.setOnClickListener {
             openBookInfoActivity(it.tag as? String ?: "", userId)
         }
+        binding.boardBannerImageView.setOnClickListener {
+            openBoardActivity(userId)
+        }
+
 
         return binding.root
     }
@@ -286,5 +290,11 @@ class HomeFragment : Fragment() {
         intent.putExtra("USER_ID", userId)
         startActivity(intent)
     }
+    private fun openBoardActivity(userId: Int) {
+        val intent = Intent(activity, BoardActivity::class.java)
+        intent.putExtra("USER_ID", userId)
+        startActivity(intent)
+    }
+
 
 }
