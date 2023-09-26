@@ -6,9 +6,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ListView
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -18,34 +17,25 @@ import retrofit2.Response
 
 
 
-class ReviewFragment : Fragment(),ReviewAdapter.OnThumbsUpClickListener {
-
-
-
-
-    lateinit var reviewRecyclerView: RecyclerView // 리사이클러뷰 어댑터
+class ReviewFragment : Fragment(), ReviewAdapter.OnThumbsUpClickListener {
+    lateinit var reviewListView: ListView
+    private lateinit var reviewAdapter: ReviewAdapter
     val sort = "DESC"
-    private lateinit var ReviewAdapter: ReviewAdapter
     private var userId: Int = -1
-    //private val apiService = ApiService.create() // Retrofit을 사용하여 API 서비스 생성
+
     companion object {
         fun newInstance(userId: Int): ReviewFragment {
             val fragment = ReviewFragment()
             val args = Bundle()
             args.putInt("USER_ID", userId)
             fragment.arguments = args
-
             return fragment
         }
-
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
-        // 서평 데이터를 가져와 리사이클러뷰에 표시
+        // Get book review data and display it in ListView
         loadReviewData()
     }
 
@@ -59,18 +49,11 @@ class ReviewFragment : Fragment(),ReviewAdapter.OnThumbsUpClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        reviewRecyclerView = view.findViewById(R.id.review_recycler_view)
-
-        ReviewAdapter = ReviewAdapter(mutableListOf())// ReviewAdapter 인스턴스 초기화
-        ReviewAdapter.setOnThumbsUpClickListener(this)
-
-        reviewRecyclerView.layoutManager = LinearLayoutManager(context)
-        reviewRecyclerView.adapter = ReviewAdapter
-
-
+        reviewListView = view.findViewById(R.id.review_list_view)
+        reviewAdapter = ReviewAdapter(mutableListOf()) // Initialize ReviewAdapter instance
+        reviewAdapter.setOnThumbsUpClickListener(this)
+        reviewListView.adapter = reviewAdapter
     }
-
-
 
     private fun loadReviewData() {
         ApiClient.service.getPublicSummaryReviews(sort)
@@ -81,20 +64,12 @@ class ReviewFragment : Fragment(),ReviewAdapter.OnThumbsUpClickListener {
                 ) {
                     if (response.isSuccessful) {
                         val results = response.body()?.result?.items
-                        //Log.d("ReviewFragment", "Review_frag_results: $results")
-                        //updateCalendarWithEvents(results)
-                        //val reviewSummaryResponse = response.body()
                         Log.d("ReviewFragment", "Review_frag_results: $results")
 
-
-                        // 데이터가 정상적으로 받아졌을 때 어댑터에 데이터 설정
+                        // Set data to adapter when data is received normally
                         results?.let {
-                            ReviewAdapter.submitData(it)
+                            reviewAdapter.submitData(it)
                         }
-
-                        //onThumbsUpClick(ReviewAdapter.setOnThumbsUpClickListener())
-
-
                     } else {
                         Log.e(
                             "ReviewFragment",
@@ -138,7 +113,6 @@ class ReviewFragment : Fragment(),ReviewAdapter.OnThumbsUpClickListener {
                                     if (response.isSuccessful) {
                                         // Handle success
                                         // Refresh data by calling loadReviewData()
-
                                     } else {
                                         // Handle error
                                     }
@@ -150,7 +124,7 @@ class ReviewFragment : Fragment(),ReviewAdapter.OnThumbsUpClickListener {
                             })
 
                     } else {
-                        // Handle error
+                        Log.d("ReviewFragment", "추천실패")// Handle error
                     }
                 }
 
@@ -160,4 +134,3 @@ class ReviewFragment : Fragment(),ReviewAdapter.OnThumbsUpClickListener {
             })
     }
 }
-

@@ -32,6 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
+                android:layout_weight="2"
                 android:src="@drawable/back_button" />
 
 
@@ -42,8 +43,18 @@
                 android:text="        기록 보기"
                 android:textSize="20dp"
                 android:padding="10dp"
+                android:layout_weight="6"
                 android:textStyle="bold"
                 android:textColor="@color/black"/>
+
+            <ImageButton
+                android:id="@+id/button_delete2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:layout_weight="2"
+                android:layout_gravity="center"
+                android:src="@drawable/trash_2" />
         </LinearLayout>
 
         <LinearLayout

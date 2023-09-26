@@ -129,6 +129,7 @@ class writingreview2 : AppCompatActivity() {
                         //intent.putExtra("REVIEW_ID", reviewId)
                         intent.putExtra("USER_ID", userId)
                         intent.putExtra("REVIEW_ID", reviewId)
+                        intent.putExtra("BOOK_ID", bookId)
                         intent.putExtra("rating_2",rating_2)
                         intent.putExtra("publicYn",publicYn)
                         intent.putExtra("bookinfo_home",bookinfo_home)

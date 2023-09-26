@@ -22,6 +22,7 @@ class seereview2 : AppCompatActivity() {
 
     private var bookinfo_home: FBook? = null
     private var userId: Int = -1
+    private var bookId: Int = -1
     private var reviewId: Int = -1
     private var frontisbn: String = "-1"
 
@@ -31,15 +32,16 @@ class seereview2 : AppCompatActivity() {
         setContentView(binding.root)
         val bookinfo_home = intent.getSerializableExtra("bookinfo_home") as? BookInfo_home
         userId = intent.getIntExtra("USER_ID", -1)
+        bookId = intent.getIntExtra("BOOK_ID", -1)
         reviewId = intent.getIntExtra("REVIEW_ID", -1)
-        frontisbn = intent.getStringExtra("FRONT_ISBN").toString()//바꾸기
+        frontisbn = intent.getStringExtra("FRONT_ISBN").toString()
 
         Log.d(ContentValues.TAG, "seereview2_intent: $userId,$reviewId,$bookinfo_home,$frontisbn")
 
 
 
         binding.textSeereviewBooktitle2.text = bookinfo_home?.title.orEmpty()
-        binding.textSeereviewIsbn2.text = frontisbn
+
 
         Glide.with(binding.imageSeereviewBookcover2.context)
             .load(bookinfo_home?.thumbnail.orEmpty())
@@ -93,8 +95,59 @@ class seereview2 : AppCompatActivity() {
         })
 
 
+        binding.buttonDelete2.setOnClickListener {
 
 
+
+            ApiClient.service.deleteReview(reviewId).enqueue(object:
+                Callback<DeleteReviewResponse> {
+                override fun onResponse(call: Call<DeleteReviewResponse>, response: Response<DeleteReviewResponse>) {
+                    if (response.isSuccessful && response.body()?.isSuccess == true) {
+                        val result = response.body()?.result
+                        Log.d(ContentValues.TAG, "seereview2_deleteresult: $result")
+
+
+                        val intent = Intent(this@seereview2, NaviActivity::class.java)
+
+                        intent.putExtra("USER_ID", userId)
+
+                        startActivity(intent)
+
+
+
+                    } else {
+                        Toast.makeText(this@seereview2, response.body()?.message.toString(), Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+                override fun onFailure(call: Call<DeleteReviewResponse>, t: Throwable) {
+                    Toast.makeText(this@seereview2, t.localizedMessage, Toast.LENGTH_SHORT).show()
+                }
+            })
+
+
+
+
+
+
+
+
+        }
+
+
+
+
+        binding.buttonModify2.setOnClickListener {
+
+            val intent = Intent(this@seereview2, editreview2::class.java)
+
+            intent.putExtra("USER_ID", userId)
+            intent.putExtra("REVIEW_ID", reviewId)
+            intent.putExtra("BOOK_ID", bookId)
+            intent.putExtra("bookinfo_home", bookinfo_home)
+
+            startActivity(intent)
+        }
 
 
 

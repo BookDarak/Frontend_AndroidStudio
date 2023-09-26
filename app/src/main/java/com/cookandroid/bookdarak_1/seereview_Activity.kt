@@ -122,6 +122,27 @@ class seereview_Activity : AppCompatActivity() {
 
         }
 
+        binding.buttonModify.setOnClickListener {
+
+
+
+            val intent = Intent(this@seereview_Activity, editreview::class.java)
+
+            intent.putExtra("USER_ID", userId)
+            intent.putExtra("REVIEW_ID", reviewId)
+            intent.putExtra("BOOK_ID", bookId)
+            intent.putExtra("bookModel", model)
+
+            startActivity(intent)
+
+
+
+
+
+
+
+        }
+
 
 
 
