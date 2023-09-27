@@ -31,7 +31,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/username"
+                        android:id="@+id/certain_username"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="#000000"
@@ -57,7 +57,7 @@
 
 
                     <TextView
-                        android:id="@+id/bookinfo_review_createdDate"
+                        android:id="@+id/certain_review_createdDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="리뷰날짜"
@@ -69,7 +69,7 @@
                         android:orientation="horizontal">
 
                     <RatingBar
-                        android:id="@+id/review_item_rating"
+                        android:id="@+id/certain_item_rating"
                         style="?android:attr/ratingBarStyleSmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -84,14 +84,14 @@
                             android:layout_centerVertical="true" />
 
                         <TextView
-                            android:id="@+id/likecount"
+                            android:id="@+id/certain_likecount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="추천수" />
                     </LinearLayout>
 
                     <TextView
-                        android:id="@+id/bookinfo_review_content"
+                        android:id="@+id/certain_review_content"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="리뷰내용" />

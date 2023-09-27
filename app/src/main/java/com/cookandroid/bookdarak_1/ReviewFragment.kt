@@ -43,6 +43,9 @@ class ReviewFragment : Fragment(), ReviewAdapter.OnThumbsUpClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        userId = arguments?.getInt("USER_ID", -1) ?: -1
+
         return inflater.inflate(R.layout.fragment_review, container, false)
     }
 
@@ -88,6 +91,7 @@ class ReviewFragment : Fragment(), ReviewAdapter.OnThumbsUpClickListener {
     }
 
     override fun onThumbsUpClick(reviewId: Int) {
+        Log.d("ReviewFragment", "onThumbsUpClick - userId: $userId, reviewId: $reviewId")
         // Handle thumbs-up button click here
         // You can make an API call to update the like count on the server
         // Then, refresh the data by calling loadReviewData() again

@@ -232,6 +232,14 @@
                     android:background="@drawable/round"
                     app:backgroundTint="#A6AFFF" />
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/bookinfo_reviewrecyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:listitem="@layout/certain_bookreview_item"
+                    android:clipToPadding="false"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp" />
 
 
 

@@ -45,9 +45,13 @@ class writingreview : AppCompatActivity() {
 
         binding.writingreviewBackButton.setOnClickListener {
 
+            reviewId = -1
 
             val intent = Intent(this@writingreview, BookinfoActivity::class.java)
             intent.putExtra("bookModel", model)
+            intent.putExtra("REVIEW_Id", reviewId)
+            intent.putExtra("USER_Id", userId)
+            intent.putExtra("REVIEW_EDITED", reviewId != -1)
             startActivity(intent)
         }
 

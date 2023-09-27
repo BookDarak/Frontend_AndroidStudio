@@ -17,11 +17,11 @@ class Bookinfo_ReviewAdapter(private val reviewlists: MutableList<ReviewListResp
 
         //private val bookImage: ImageView = itemView.findViewById(R.id.book_image)
 
-        private val content: TextView = itemView.findViewById(R.id.review_content)
-        private val username: TextView = itemView.findViewById(R.id.review_item_username)
-        private val rating: RatingBar = itemView.findViewById(R.id.review_item_rating)
-        private val createdDate: TextView = itemView.findViewById(R.id.createdDate)
-        private val likeCount: TextView = itemView.findViewById(R.id.likecount)
+        private val content: TextView = itemView.findViewById(R.id.certain_review_content)
+        private val username: TextView = itemView.findViewById(R.id.certain_username)
+        private val rating: RatingBar = itemView.findViewById(R.id.certain_item_rating)
+        private val createdDate: TextView = itemView.findViewById(R.id.certain_review_createdDate)
+        private val likeCount: TextView = itemView.findViewById(R.id.certain_likecount)
 
         fun bind(reviewlist: ReviewListResponse.ReviewItem) {
 

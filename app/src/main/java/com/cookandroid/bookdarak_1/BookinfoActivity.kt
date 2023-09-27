@@ -10,6 +10,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.cookandroid.bookdarak_1.data.api.FindBookAPI
@@ -32,8 +33,9 @@ class BookinfoActivity : AppCompatActivity() {
     private var model: FBook? = null
     private var userId: Int = -1
     private var bookId: Int = -1
+    private var reviewId: Int = -1
     val TAG: String = "BookinfoActivity"
-    lateinit var bookinforeviewRecyclerView: RecyclerView // RecyclerView adapter
+    lateinit var bookinfo_reviewrecyclerview: RecyclerView // RecyclerView adapter
     val sort = "DESC"
     private lateinit var bookinfo_reviewAdapter: Bookinfo_ReviewAdapter
     private lateinit var bookRecyclerViewAdapter: BookSearchViewHolder
@@ -53,15 +55,24 @@ class BookinfoActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //db = getAppDatabase(this)
+
         binding = ActivityBookinfoBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val isReviewEdited = intent.getBooleanExtra("REVIEW_EDITED", false)
 
 
 
 
 
         bookinfo_reviewAdapter = Bookinfo_ReviewAdapter(mutableListOf())
+        bookinfo_reviewrecyclerview = findViewById(R.id.bookinfo_reviewrecyclerview)
+        bookinfo_reviewrecyclerview.adapter = bookinfo_reviewAdapter
+        val layoutManager = LinearLayoutManager(this)
+        bookinfo_reviewrecyclerview.layoutManager = layoutManager
+
+
+
 
 
         val receivedIntent = intent
@@ -73,6 +84,7 @@ class BookinfoActivity : AppCompatActivity() {
         Log.d(TAG, "Received USER_ID: $userId")
 
         model = intent.getParcelableExtra("bookModel")
+        reviewId = intent.getIntExtra("REVIEW_ID",-1)
 
         val writerText = model?.authors.toString()
         val booktitle = model?.title.toString()
@@ -109,25 +121,7 @@ class BookinfoActivity : AppCompatActivity() {
                             if (response.isSuccessful) {
                                 val reviewId = response.body()?.result?.reviewId
 
-                                if(reviewId == -1) {
-
-                                    writeButton.text = "기록하기"
-                                    writeButton.setOnClickListener {
-
-                                        val intent = Intent(this@BookinfoActivity, writingreview::class.java)
-                                        intent.putExtra("bookModel", model)
-                                        intent.putExtra("USER_ID", userId) // Passing userId to writingreview activity
-                                        intent.putExtra("BOOK_ID", bookId)
-                                        Log.d(TAG, "BookinfoActivity_user and bookID: $userId, $bookId")
-                                        startActivity(intent)
-
-
-
-
-                                    }
-
-                                    }
-                                else{
+                                if(isReviewEdited||reviewId != -1) {
 
                                     writeButton.text = "수정하기"
                                     writeButton.setOnClickListener {
@@ -140,6 +134,24 @@ class BookinfoActivity : AppCompatActivity() {
                                         Log.d(TAG, "BookinfoActivity_user and bookID and reviewId: $userId, $bookId ,$reviewId")
                                         startActivity(intent)
 
+
+
+
+
+                                    }
+
+                                    }
+                                else{
+
+                                    writeButton.text = "기록하기"
+                                    writeButton.setOnClickListener {
+
+                                        val intent = Intent(this@BookinfoActivity, writingreview::class.java)
+                                        intent.putExtra("bookModel", model)
+                                        intent.putExtra("USER_ID", userId) // Passing userId to writingreview activity
+                                        intent.putExtra("BOOK_ID", bookId)
+                                        Log.d(TAG, "BookinfoActivity_user and bookID: $userId, $bookId")
+                                        startActivity(intent)
 
 
 
