@@ -3,7 +3,10 @@ package adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.BaseAdapter
+import android.widget.ImageButton
+import android.widget.RatingBar
+import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.cookandroid.bookdarak_1.R
 import com.cookandroid.bookdarak_1.ReviewSummaryResponse
@@ -12,9 +15,14 @@ import com.cookandroid.bookdarak_1.ReviewSummaryResponse
 
 class ReviewAdapter(private val reviews: MutableList<ReviewSummaryResponse.ReviewSummaryItem>) : BaseAdapter() {
     private var onThumbsUpClickListener: OnThumbsUpClickListener? = null
+    private var onBookImageClickListener: OnBookImageClickListener? = null
 
     fun setOnThumbsUpClickListener(listener: OnThumbsUpClickListener?) {
         onThumbsUpClickListener = listener
+    }
+
+    fun setOnBookImageClickListener(listener: OnBookImageClickListener?) {
+        onBookImageClickListener = listener
     }
 
     override fun getCount(): Int {
@@ -34,7 +42,7 @@ class ReviewAdapter(private val reviews: MutableList<ReviewSummaryResponse.Revie
         val review = reviews[position]
 
         // Initialize your view elements here using 'view.findViewById' just like in your RecyclerView ViewHolder
-        val bookImage: ImageView = view.findViewById(R.id.book_image)
+        val bookImage: ImageButton = view.findViewById(R.id.book_image)
         val content: TextView = view.findViewById(R.id.review_content)
         val username: TextView = view.findViewById(R.id.review_item_username)
         val rating: RatingBar = view.findViewById(R.id.review_item_rating)
@@ -46,6 +54,12 @@ class ReviewAdapter(private val reviews: MutableList<ReviewSummaryResponse.Revie
         thumbsUpButton.setOnClickListener {
             onThumbsUpClickListener?.onThumbsUpClick(review.reviewId)
         }
+
+        bookImage.setOnClickListener {
+            onBookImageClickListener?.onBookImageClick(review.bookId)
+        }
+
+
 
         // Bind data to the view elements
         Glide.with(view.context)
@@ -62,6 +76,11 @@ class ReviewAdapter(private val reviews: MutableList<ReviewSummaryResponse.Revie
 
     interface OnThumbsUpClickListener {
         fun onThumbsUpClick(reviewId: Int)
+
+    }
+
+    interface OnBookImageClickListener {
+        fun onBookImageClick(bookId: Int)
     }
 
     // Method to update the adapter data

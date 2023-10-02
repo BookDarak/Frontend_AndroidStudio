@@ -1,6 +1,7 @@
 package com.cookandroid.bookdarak_1
 
 import adapter.ReviewAdapter
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,7 +18,7 @@ import retrofit2.Response
 
 
 
-class ReviewFragment : Fragment(), ReviewAdapter.OnThumbsUpClickListener {
+class ReviewFragment : Fragment(), ReviewAdapter.OnThumbsUpClickListener,ReviewAdapter.OnBookImageClickListener {
     lateinit var reviewListView: ListView
     private lateinit var reviewAdapter: ReviewAdapter
     val sort = "DESC"
@@ -37,6 +38,7 @@ class ReviewFragment : Fragment(), ReviewAdapter.OnThumbsUpClickListener {
         super.onCreate(savedInstanceState)
         // Get book review data and display it in ListView
         loadReviewData()
+
     }
 
     override fun onCreateView(
@@ -55,6 +57,9 @@ class ReviewFragment : Fragment(), ReviewAdapter.OnThumbsUpClickListener {
         reviewListView = view.findViewById(R.id.review_list_view)
         reviewAdapter = ReviewAdapter(mutableListOf()) // Initialize ReviewAdapter instance
         reviewAdapter.setOnThumbsUpClickListener(this)
+        reviewAdapter.setOnBookImageClickListener(this)
+
+
         reviewListView.adapter = reviewAdapter
     }
 
@@ -115,8 +120,8 @@ class ReviewFragment : Fragment(), ReviewAdapter.OnThumbsUpClickListener {
                                     response: Response<RecommendCountResponse>
                                 ) {
                                     if (response.isSuccessful) {
-                                        // Handle success
-                                        // Refresh data by calling loadReviewData()
+                                        val result_get = response.body()?.result
+                                        Log.d("ReviewFragment", "Review_Count_get: $result_get")
                                     } else {
                                         // Handle error
                                     }
@@ -136,5 +141,46 @@ class ReviewFragment : Fragment(), ReviewAdapter.OnThumbsUpClickListener {
                     // Handle failure
                 }
             })
+    }
+
+    override fun onBookImageClick(bookId: Int) {
+        Log.d("ReviewFragment", "onBookImageClick - userId: $userId, reviewId: $bookId")
+        // Handle thumbs-up button click here
+        // You can make an API call to update the like count on the server
+        // Then, refresh the data by calling loadReviewData() again
+        // Example:
+
+        ApiClient.service.getBookDetail(bookId)
+            .enqueue(object : Callback<BookResponse> {
+                override fun onResponse(
+                    call: Call<BookResponse>,
+                    response: Response<BookResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        val result_isbn = response.body()?.result?.isbn
+                        Log.d("ReviewFragment", "Review_isbn_get: $result_isbn")
+                        val intent = Intent(requireContext(), BookinfoActivity2::class.java)
+
+
+                        intent.putExtra("isbn_of_home",result_isbn)
+                        intent.putExtra("USER_ID", userId)
+
+
+
+
+                        startActivity(intent)
+
+                    } else {
+                        // Handle error
+                    }
+                }
+
+                override fun onFailure(call: Call<BookResponse>, t: Throwable) {
+                    // Handle failure
+                }
+            })
+
+
+
     }
 }

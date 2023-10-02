@@ -83,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <ImageView
+                <ImageButton
                     android:id="@+id/book_image"
                     android:layout_width="100dp"
                     android:layout_height="150dp"
