@@ -89,4 +89,5 @@ class ReviewAdapter(private val reviews: MutableList<ReviewSummaryResponse.Revie
         reviews.addAll(newData)
         notifyDataSetChanged() // Notify the adapter of data change
     }
+
 }
