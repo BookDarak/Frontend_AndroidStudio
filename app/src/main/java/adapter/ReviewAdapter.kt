@@ -16,6 +16,8 @@ import com.cookandroid.bookdarak_1.ReviewSummaryResponse
 class ReviewAdapter(private val reviews: MutableList<ReviewSummaryResponse.ReviewSummaryItem>) : BaseAdapter() {
     private var onThumbsUpClickListener: OnThumbsUpClickListener? = null
     private var onBookImageClickListener: OnBookImageClickListener? = null
+    private var onUsernameClickListener: OnUsernameClickListener? = null
+
 
     fun setOnThumbsUpClickListener(listener: OnThumbsUpClickListener?) {
         onThumbsUpClickListener = listener
@@ -23,6 +25,10 @@ class ReviewAdapter(private val reviews: MutableList<ReviewSummaryResponse.Revie
 
     fun setOnBookImageClickListener(listener: OnBookImageClickListener?) {
         onBookImageClickListener = listener
+    }
+
+    fun setOnUsernameClickListener(listener: OnUsernameClickListener?) {
+        onUsernameClickListener = listener
     }
 
     override fun getCount(): Int {
@@ -58,6 +64,9 @@ class ReviewAdapter(private val reviews: MutableList<ReviewSummaryResponse.Revie
         bookImage.setOnClickListener {
             onBookImageClickListener?.onBookImageClick(review.bookId)
         }
+        username.setOnClickListener {
+            onUsernameClickListener?.onUsernameClick(review.userId)
+        }
 
 
 
@@ -81,6 +90,10 @@ class ReviewAdapter(private val reviews: MutableList<ReviewSummaryResponse.Revie
 
     interface OnBookImageClickListener {
         fun onBookImageClick(bookId: Int)
+    }
+
+    interface OnUsernameClickListener {
+        fun onUsernameClick(userId: Int)
     }
 
     // Method to update the adapter data

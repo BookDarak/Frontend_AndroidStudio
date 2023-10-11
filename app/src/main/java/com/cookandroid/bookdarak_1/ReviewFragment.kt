@@ -19,7 +19,7 @@ import retrofit2.Response
 
 
 
-class ReviewFragment : Fragment(), ReviewAdapter.OnThumbsUpClickListener,ReviewAdapter.OnBookImageClickListener {
+class ReviewFragment : Fragment(), ReviewAdapter.OnThumbsUpClickListener,ReviewAdapter.OnBookImageClickListener,ReviewAdapter.OnUsernameClickListener {
     lateinit var reviewListView: ListView
     private lateinit var reviewAdapter: ReviewAdapter
     val sort = "DESC"
@@ -59,6 +59,7 @@ class ReviewFragment : Fragment(), ReviewAdapter.OnThumbsUpClickListener,ReviewA
         reviewAdapter = ReviewAdapter(mutableListOf()) // Initialize ReviewAdapter instance
         reviewAdapter.setOnThumbsUpClickListener(this)
         reviewAdapter.setOnBookImageClickListener(this)
+        reviewAdapter.setOnUsernameClickListener(this)
 
 
         reviewListView.adapter = reviewAdapter
@@ -332,6 +333,32 @@ class ReviewFragment : Fragment(), ReviewAdapter.OnThumbsUpClickListener,ReviewA
                     // Handle failure
                 }
             })
+
+
+
+    }
+
+    override fun onUsernameClick(userId: Int) {
+        Log.d("ReviewFragment", "onUsernameClick - userId: $userId")
+        // Handle thumbs-up button click here
+        // You can make an API call to update the like count on the server
+        // Then, refresh the data by calling loadReviewData() again
+        // Example:
+
+
+                        val intent = Intent(requireContext(), Userpage::class.java)
+
+
+
+                        intent.putExtra("USER_ID", userId)
+
+
+
+
+                        startActivity(intent)
+
+
+
 
 
 

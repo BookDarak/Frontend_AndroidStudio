@@ -98,6 +98,7 @@
                 android:weightSum="10">
 
                 <TextView
+                    android:id="@+id/text_user_total_review_n"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="서평"
@@ -114,6 +115,7 @@
                     android:textColor="@color/black"/>
 
                 <TextView
+                    android:id="@+id/text_user_total_bookmark_n"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="북마크"
@@ -130,6 +132,7 @@
                     android:textColor="@color/black"/>
 
                 <TextView
+                    android:id="@+id/text_user_total_following_n"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="팔로잉"
