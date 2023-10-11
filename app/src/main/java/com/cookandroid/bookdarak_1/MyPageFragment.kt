@@ -28,6 +28,7 @@ class MyPageFragment : Fragment() {
     private lateinit var imageMyLibrary1: ImageView
     private lateinit var imageMyLibrary2: ImageView
     private lateinit var imageMyLibrary3: ImageView
+    private lateinit var logoutTextView: TextView
 
     companion object {
         fun newInstance(userId: Int): MyPageFragment {
@@ -61,6 +62,10 @@ class MyPageFragment : Fragment() {
         imageMyLibrary1 = view.findViewById(R.id.image_mylibrary1)
         imageMyLibrary2 = view.findViewById(R.id.image_mylibrary2)
         imageMyLibrary3 = view.findViewById(R.id.image_mylibrary3)
+        logoutTextView = view.findViewById(R.id.logout)
+        logoutTextView.setOnClickListener {
+            showLogoutConfirmationDialog()
+        }
 
         fetchUserReviews()
 
@@ -200,6 +205,24 @@ class MyPageFragment : Fragment() {
                 Toast.makeText(context, t.localizedMessage, Toast.LENGTH_SHORT).show()
             }
         })
+    }
+    private fun showLogoutConfirmationDialog() {
+        AlertDialog.Builder(requireContext())
+            .setMessage("정말 로그아웃하시겠습니까?")
+            .setPositiveButton("확인") { dialog, _ ->
+                logoutUser() // 로그아웃 처리 함수 호출
+                dialog.dismiss()
+            }
+            .setNegativeButton("취소") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
+    }
+    private fun logoutUser() {
+        // 로그인 화면으로 이동
+        val intent = Intent(context, MainActivity::class.java) // 가정: 로그인 액티비티 이름이 LoginActivity임
+        startActivity(intent)
+        activity?.finish()  // 현재 Activity 종료
     }
 
 

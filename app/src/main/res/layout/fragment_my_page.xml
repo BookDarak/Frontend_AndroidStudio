@@ -201,6 +201,16 @@
 
             </LinearLayout>
             <TextView
+                android:id="@+id/logout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:text="로그아웃"
+                android:padding="5dp"
+                android:textSize="14dp"
+                android:textColor="@color/black"/>
+
+            <TextView
                 android:id="@+id/deleteuser"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -37,6 +37,7 @@ class MainActivity : AppCompatActivity() {
                         val intent = Intent(this@MainActivity, NaviActivity::class.java)
                         intent.putExtra("USER_ID", userId)
                         startActivity(intent)
+                        finish()
                     } else {
                         when(response.body()?.code) {
                             2014, 2015 -> dialog("이메일 오류")
