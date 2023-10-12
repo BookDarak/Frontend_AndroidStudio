@@ -112,16 +112,13 @@
             android:text="나이"
             android:layout_gravity="center"/>
 
-        <EditText
-            android:id="@+id/editText_age"
+        <Spinner
+            android:id="@+id/spinner_age"
             android:layout_width="310dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="20dp"
-            android:ems="10"
-            android:hint="나이를 입력하세요"
-            android:inputType="number"
-            android:textColor="@color/black" />
+            android:layout_marginBottom="20dp" />
+
         <TextView
             android:layout_width="310dp"
             android:layout_height="wrap_content"
