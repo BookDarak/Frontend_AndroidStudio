@@ -8,30 +8,37 @@ import com.cookandroid.bookdarak_1.databinding.ActivitySingupBinding  // <-- Vie
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import android.widget.ArrayAdapter
+
 
 class activity_singup : AppCompatActivity() {
 
-    private lateinit var binding: ActivitySingupBinding  // <-- View Binding 인스턴스 선언
+    private lateinit var binding: ActivitySingupBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivitySingupBinding.inflate(layoutInflater)  // <-- View Binding 초기화
-        setContentView(binding.root)  // 바뀐 setContentView
+        binding = ActivitySingupBinding.inflate(layoutInflater)  // <-- View Binding 초기화를 먼저 해야합니다.
+        setContentView(binding.root)
 
-        binding.btnJoin.setOnClickListener {  // <-- 'binding.'을 사용하여 뷰에 접근
-            val email = binding.editTextId.text.toString()  // <-- 'binding.'을 사용하여 뷰에 접근
-            val password = binding.editTextPassword.text.toString()  // <-- 'binding.'을 사용하여 뷰에 접근
-            val name = binding.editTextName.text.toString()  // <-- 'binding.'을 사용하여 뷰에 접근
+        // 스피너에 대한 설정을 binding 초기화 후에 합니다.
+        val ageList = (10..99).toList().map { it.toString() }
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, ageList)
+        binding.spinnerAge.adapter = adapter
+
+        binding.btnJoin.setOnClickListener {
+            val email = binding.editTextId.text.toString()
+            val password = binding.editTextPassword.text.toString()
+            val name = binding.editTextName.text.toString()
             val gender = when (binding.radioGroupGender.checkedRadioButtonId) {
                 R.id.radioButtonMale -> "M"
                 R.id.radioButtonFemale -> "F"
-                else -> "" // Default or Error Case
+                else -> ""
             }
-            val age = binding.editTextAge.text.toString().toIntOrNull() ?: 0  // <-- 'binding.'을 사용하여 뷰에 접근
-            val introduction = binding.editTextIntroduction.text.toString()  // <-- 'binding.'을 사용하여 뷰에 접근
+            val age = binding.spinnerAge.selectedItem.toString().toInt()  // <-- 이 부분을 여기로 옮겼습니다.
+            val introduction = binding.editTextIntroduction.text.toString()
 
-            val signupRequest = SignupRequest(email, password, name, gender, age, introduction) // gender 추가
+            val signupRequest = SignupRequest(email, password, name, gender, age, introduction)
 
 
             ApiClient.service.signup(signupRequest).enqueue(object: Callback<SignupResponse> {

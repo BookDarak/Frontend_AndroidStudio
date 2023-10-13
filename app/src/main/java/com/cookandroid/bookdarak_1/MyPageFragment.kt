@@ -1,6 +1,7 @@
 package com.cookandroid.bookdarak_1
 
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -218,12 +219,22 @@ class MyPageFragment : Fragment() {
             }
             .show()
     }
+    private fun clearLoginInfo() {
+        val sharedPreferences = requireActivity().getSharedPreferences("loginInfo", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.clear()
+        editor.apply()
+    }
+
     private fun logoutUser() {
+        clearLoginInfo()  // SharedPreferences에서 로그인 정보 제거
+
         // 로그인 화면으로 이동
-        val intent = Intent(context, MainActivity::class.java) // 가정: 로그인 액티비티 이름이 LoginActivity임
+        val intent = Intent(context, MainActivity::class.java)
         startActivity(intent)
         activity?.finish()  // 현재 Activity 종료
     }
+
 
 
 }

@@ -1,5 +1,6 @@
 package com.cookandroid.bookdarak_1
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -18,8 +19,20 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityMainBinding.inflate(layoutInflater)  // <-- View Binding 초기화
-        setContentView(binding.root)  // <-- 바뀐 setContentView
+        // 자동 로그인 상태 확인
+        val sharedPreferences = getSharedPreferences("loginInfo", Context.MODE_PRIVATE)
+        val isLoggedIn = sharedPreferences.getBoolean("is_logged_in", false)
+        if (isLoggedIn) {
+            val userId = sharedPreferences.getInt("user_id", -1)
+            val intent = Intent(this, NaviActivity::class.java)
+            intent.putExtra("USER_ID", userId)
+            startActivity(intent)
+            finish()
+            return
+        }
+
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         binding.buttonLogin.setOnClickListener {  // <-- 'binding.'을 사용하여 뷰에 접근
             val id = binding.editId.text.toString()  // <-- 'binding.'을 사용하여 뷰에 접근
@@ -30,10 +43,17 @@ class MainActivity : AppCompatActivity() {
             ApiClient.service.login(loginRequest).enqueue(object: Callback<LoginResponse> {
                 override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
                     if (response.isSuccessful && response.body()?.isSuccess == true) {
-                        val userId = response.body()?.result?.id ?: -1  // <-- 'userId'를 'id'로 수정
+                        val userId = response.body()?.result?.id ?: -1
                         Log.d(TAG, "Logged in user ID: $userId")
 
-                        // 로그인 성공시 NaviActivity로 이동하며 userId 전달
+                        // 로그인 성공시 정보 저장
+                        val sharedPreferences = getSharedPreferences("loginInfo", Context.MODE_PRIVATE)
+                        val editor = sharedPreferences.edit()
+                        editor.putBoolean("is_logged_in", true)
+                        editor.putInt("user_id", userId) // 저장할 때는 Int 형태로 저장
+                        editor.apply()
+
+                        // NaviActivity로 이동
                         val intent = Intent(this@MainActivity, NaviActivity::class.java)
                         intent.putExtra("USER_ID", userId)
                         startActivity(intent)
