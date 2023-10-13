@@ -12,6 +12,21 @@ import com.cookandroid.bookdarak_1.ReviewListResponse
 
 class Bookinfo_ReviewAdapter(private val reviewlists: MutableList<ReviewListResponse.ReviewItem>) : RecyclerView.Adapter<Bookinfo_ReviewAdapter.Bookinfo_ReviewViewHolder>() {
 
+    /*
+    private var onThumbsUpClickListener: OnThumbsUpClickListener? = null
+    private var onUsernameClickListener: OnUsernameClickListener? = null
+
+
+    fun setOnThumbsUpClickListener(listener: OnThumbsUpClickListener?) {
+        onThumbsUpClickListener = listener
+    }
+
+
+    fun setOnUsernameClickListener(listener: OnUsernameClickListener?) {
+        onUsernameClickListener = listener
+    }
+
+     */
 
     class Bookinfo_ReviewViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -23,6 +38,8 @@ class Bookinfo_ReviewAdapter(private val reviewlists: MutableList<ReviewListResp
         private val createdDate: TextView = itemView.findViewById(R.id.certain_review_createdDate)
         private val likeCount: TextView = itemView.findViewById(R.id.certain_likecount)
 
+
+
         fun bind(reviewlist: ReviewListResponse.ReviewItem) {
 
             content.text = reviewlist.content
@@ -33,7 +50,20 @@ class Bookinfo_ReviewAdapter(private val reviewlists: MutableList<ReviewListResp
 
             //bookAuthor.text = review.author
         }
+/*
+        thumbsUpButton.setOnClickListener {
+            onThumbsUpClickListener?.onThumbsUpClick(reviewlists.reviewId)
+        }
 
+        bookImage.setOnClickListener {
+            onBookImageClickListener?.onBookImageClick(review.bookId)
+        }
+        username.setOnClickListener {
+            onUsernameClickListener?.onUsernameClick(review.userId)
+        }
+
+
+ */
 
     }
 

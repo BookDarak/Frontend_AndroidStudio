@@ -30,6 +30,7 @@ class BookinfoActivity : AppCompatActivity() {
 
 
 
+
     private var model: FBook? = null
     private var userId: Int = -1
     private var bookId: Int = -1
@@ -105,7 +106,7 @@ class BookinfoActivity : AppCompatActivity() {
 
 
 
-
+        val moreReview = findViewById<TextView>(R.id.text_more_review)
 
 
         ApiClient.service.bookId(BookIdrequest).enqueue(object: Callback<BookIdResponse> {
@@ -133,6 +134,7 @@ class BookinfoActivity : AppCompatActivity() {
                                         intent.putExtra("REVIEW_ID", reviewId)
                                         Log.d(TAG, "BookinfoActivity_user and bookID and reviewId: $userId, $bookId ,$reviewId")
                                         startActivity(intent)
+
 
 
 
@@ -174,6 +176,15 @@ class BookinfoActivity : AppCompatActivity() {
                     })
 
 
+                    moreReview.setOnClickListener {
+                        val intent = Intent(this@BookinfoActivity, certain_bookreview::class.java)
+
+                        intent.putExtra("USER_ID", userId) // Passing userId to writingreview activity
+                        intent.putExtra("BOOK_ID", bookId)
+                        Log.d(TAG, "BookinfoActivity_user and bookID_2: $userId, $bookId")
+                        startActivity(intent)
+
+                    }
 
 
 
@@ -312,10 +323,13 @@ class BookinfoActivity : AppCompatActivity() {
         val expandButton = findViewById<Button>(R.id.expandButton)
 
 
+
         // Back button click event
         backButton.setOnClickListener {
             finish()
         }
+
+
 
         // Bookmark button click event
 

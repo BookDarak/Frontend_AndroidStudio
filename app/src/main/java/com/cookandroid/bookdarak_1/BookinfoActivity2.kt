@@ -234,6 +234,17 @@ class BookinfoActivity2 : AppCompatActivity() {
 
                                 val bookmarkButton2 = findViewById<ImageButton>(R.id.bookmarkButton2)
 
+                                val moreReview = findViewById<TextView>(R.id.text_more_review)
+                                moreReview.setOnClickListener {
+                                    val intent = Intent(this@BookinfoActivity2, certain_bookreview::class.java)
+
+                                    intent.putExtra("USER_ID", userId) // Passing userId to writingreview activity
+                                    intent.putExtra("BOOK_ID", bookId)
+                                    Log.d(TAG, "BookinfoActivity_user and bookID_2: $userId, $bookId")
+                                    startActivity(intent)
+
+                                }
+
                                 var isBookmarked = false
                                 bookmarkButton2.setOnClickListener {
                                     isBookmarked = !isBookmarked
@@ -331,6 +342,20 @@ class BookinfoActivity2 : AppCompatActivity() {
         val backButton2 = findViewById<ImageButton>(R.id.backButton2)
         val bookcontent2 = findViewById<TextView>(R.id.bookcontent2)
         val expandButton2 = findViewById<Button>(R.id.expandButton2)
+        val moreReview = findViewById<TextView>(R.id.text_more_review2)
+
+
+
+
+        moreReview.setOnClickListener {
+            val intent = Intent(this@BookinfoActivity2, certain_bookreview::class.java)
+
+            intent.putExtra("USER_ID", userId) // Passing userId to writingreview activity
+            intent.putExtra("BOOK_ID", bookId)
+            Log.d(TAG, "BookinfoActivity_user and bookID_2: $userId, $bookId")
+            startActivity(intent)
+
+        }
 
 
         // Back button click event
