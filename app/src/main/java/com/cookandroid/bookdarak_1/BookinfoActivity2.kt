@@ -234,7 +234,7 @@ class BookinfoActivity2 : AppCompatActivity() {
 
                                 val bookmarkButton2 = findViewById<ImageButton>(R.id.bookmarkButton2)
 
-                                val moreReview = findViewById<TextView>(R.id.text_more_review)
+                                val moreReview = findViewById<TextView>(R.id.text_more_review2)
                                 moreReview.setOnClickListener {
                                     val intent = Intent(this@BookinfoActivity2, certain_bookreview::class.java)
 

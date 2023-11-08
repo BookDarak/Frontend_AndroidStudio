@@ -113,7 +113,7 @@ class BookinfoActivity : AppCompatActivity() {
             override fun onResponse(call: Call<BookIdResponse>, response: Response<BookIdResponse>) {
                 if (response.isSuccessful  && response.body()?.isSuccess == true) {
                     Log.d(TAG, "rbookidrequest_3: $authorList")
-                    //val bookId = response.body()?.result?.bookId ?: -1
+
                     val bookId = response.body()?.result?.id ?: -1  // <-- 'bookId'를 'id'로 수정
                     Log.d(TAG, "wwbookID: $bookId")
 

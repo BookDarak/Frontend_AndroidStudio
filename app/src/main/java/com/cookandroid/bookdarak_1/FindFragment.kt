@@ -77,15 +77,7 @@ class FindFragment : Fragment() {
 
 
 
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment FindFragment.
-         */
-        // TODO: Rename and change types and number of parameters
+
         private const val M_TAG = "FindFragment"
 
 
@@ -93,33 +85,6 @@ class FindFragment : Fragment() {
 
 
 
-
-    //private val db: FindBookDataBase by lazy {
-    //    getAppDatabase(requireContext())
-    //}
-
-
-
-
-
-    //override fun onCreate(savedInstanceState: Bundle?) {
-    //super.onCreate(savedInstanceState)
-
-    //binding = FragmentFindBinding.inflate(layoutInflater)
-    //setContentView(binding.root)
-
-    //initBookRecyclerView()
-    //initHistoryRecyclerView()
-    //initSearchEditText()
-
-    //initBookService()
-    //bookServiceLoadBestSellers()
-
-    //arguments?.let {
-    //param1 = it.getString(ARG_PARAM1)
-    //param2 = it.getString(ARG_PARAM2)
-    //}
-    //}
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -162,7 +127,7 @@ class FindFragment : Fragment() {
 
     private fun initBookService() {
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://dapi.kakao.com/") // 인터파크 베이스 주소;
+            .baseUrl("https://dapi.kakao.com/")
             .addConverterFactory(GsonConverterFactory.create()) // Gson 변환기 사용;
             .build()
 
