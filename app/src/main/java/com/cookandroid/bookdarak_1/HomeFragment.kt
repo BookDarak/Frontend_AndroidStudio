@@ -29,6 +29,7 @@ class HomeFragment : Fragment() {
 
     private var userId: Int = -1
     private var userAgeGroup: String = ""
+    private var a : String = ""
 
 
     companion object {
@@ -201,7 +202,7 @@ class HomeFragment : Fragment() {
             .load(book.imgUrl)
             .into(imageView)
         titleView.text = book.name
-        authorView.text = book.author
+        authorView.text = book.author.removeSuffix(",")
         imageView.tag = book.isbn  // ISBN을 tag로 저장
         println("Saving ISBN as tag: ${book.isbn}")
 
