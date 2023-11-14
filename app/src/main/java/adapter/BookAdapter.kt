@@ -40,7 +40,7 @@ class BookAdapter(private val books: List<CalendarResult>) : RecyclerView.Adapte
                 .load(book.bookImgUrl)   // 주의: 여기서 'image' 대신 'bookImgUrl'을 사용하였습니다.
                 .into(bookImage)
             bookTitle.text = book.name  // 주의: 여기서 'title' 대신 'name'을 사용하였습니다.
-            bookAuthor.text = book.author
+            bookAuthor.text = book.author.removeSuffix(",")
         }
     }
 }
